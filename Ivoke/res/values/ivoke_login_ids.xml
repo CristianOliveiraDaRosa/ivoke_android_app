@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="login_btn_facebook" type="id" />
+    <item name="login_user_name" type="id" />
+    <item name="login_mensagem_facebook_login" type="id" />
+    <item name="login_button_checking" type="id" />
+    <item name="login_button_login_ivoke" type="id" />
+    <item name="login_lbl_login_ivoke" type="id" />
+    
+</resources>
