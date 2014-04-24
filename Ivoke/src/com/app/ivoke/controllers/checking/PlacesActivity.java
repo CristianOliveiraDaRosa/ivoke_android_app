@@ -25,6 +25,9 @@ public class PlacesActivity extends ActionBarActivity {
 		public void onSelectionChanged(PickerFragment<?> fragment) {
 			localSelecionado = fmFacebookPlaces.getSelection();
 			
+			if(localSelecionado == null)
+				return;
+			
 			returnIntent = new Intent();
 			returnIntent.putExtra(PE_JSON_SELECTED_PLACE, localSelecionado.getInnerJSONObject().toString());
 			

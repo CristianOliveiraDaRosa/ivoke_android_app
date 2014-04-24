@@ -5,7 +5,7 @@ import org.json.JSONObject;
 import com.app.ivoke.R;
 import com.app.ivoke.controllers.login.LoginActivity;
 import com.app.ivoke.controllers.main.MainActivity;
-import com.app.ivoke.helpers.AlertHelper;
+import com.app.ivoke.helpers.MessageHelper;
 import com.app.ivoke.helpers.ViewHelper;
 import com.app.ivoke.models.FacebookModel;
 import com.app.ivoke.objects.UsuarioIvoke;
@@ -37,8 +37,6 @@ public class CheckActivity extends ActionBarActivity {
 	
 	public static final int PE_RESULT_PLACE_ACT = 1;	
 	
-	GraphPlace localChecking;
-	
 	private static final Location CASA = new Location("") {
         {
         	//-29.165509,-51.173753
@@ -64,7 +62,7 @@ public class CheckActivity extends ActionBarActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
         	Session session = 
-        			(Session) extras.getSerializable(LoginActivity.PE_FACEBOOKSESSION);
+        			(Session) extras.getSerializable(LoginActivity.PE_FACEBOOK_SESSION);
         	
         	faceModel = new FacebookModel(this, session);
         	usuario   = (UsuarioIvoke) extras.getSerializable(LoginActivity.PE_USUARIO_IVOKE);
@@ -73,6 +71,7 @@ public class CheckActivity extends ActionBarActivity {
 	
 	@Override
 	protected void onStart() {
+		super.onStart();
 		setTextButtonSelecionaLocal();
 	};
 	
@@ -101,16 +100,6 @@ public class CheckActivity extends ActionBarActivity {
 		  startActivityForResult(i, PE_RESULT_PLACE_ACT);
 	}
 	
-	private Location getLocalUsuario()
-	{
-		if(localChecking != null)
-		{
-			return (Location) localChecking.getLocation();
-		}
-		
-		return null;
-	}
-	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -118,19 +107,23 @@ public class CheckActivity extends ActionBarActivity {
 		
 		if (resultCode == PE_RESULT_PLACE_ACT)
 		{
-			Bundle bRetornos = data.getExtras();
-			String jsonSelectPlace = bRetornos.getString(PlacesActivity.PE_JSON_SELECTED_PLACE);
-			
 			try {
-				localChecking = GraphObject.Factory.create(new JSONObject(jsonSelectPlace), GraphPlace.class);
-				setTextButtonSelecionaLocal();
-			} catch (Exception e) {
-				AlertHelper.getErrorAlert(this)
-				           .setMessage(R.string.check_msg_erro_local_selecionado)
-				           .showDialog();
-			}
+				Bundle bRetornos = data.getExtras();
+				String jsonSelectPlace = bRetornos.getString(PlacesActivity.PE_JSON_SELECTED_PLACE);
+				
+				usuario.setLocalChecking(
+							GraphObject.Factory.create(new JSONObject(jsonSelectPlace), GraphPlace.class)
+						);
 			
-			goToMainActivity();
+				setTextButtonSelecionaLocal();
+			    
+				goToMainActivity();
+				
+			} catch (Exception e) {
+				MessageHelper.getErrorAlert(this)
+				             .setMessage(R.string.check_msg_erro_local_selecionado)
+				             .showDialog();
+			}
 		}
 	}
 	
@@ -138,8 +131,11 @@ public class CheckActivity extends ActionBarActivity {
 	{
 		Button btnSelecioneLocal = (Button) findViewById(R.id.check_btn_seleciona_local);
 	   
-		if(localChecking != null)
-	    	btnSelecioneLocal.setText(localChecking.getName());
+		if (btnSelecioneLocal == null)
+			return;
+		
+		if(usuario.getLocalCheckingId() != null)
+	    	btnSelecioneLocal.setText(usuario.getLocalCheckingName());
 	    else
 	    	btnSelecioneLocal.setText(getResources().getString(R.id.check_btn_seleciona_local));
 	}
@@ -153,18 +149,19 @@ public class CheckActivity extends ActionBarActivity {
 	public void goToMainActivity()
 	{
 		Intent main = new Intent(this, MainActivity.class);
-		Location localUsuario = getLocalUsuario();
-		if(localUsuario!=null)
+		
+		if(usuario.getLocalCheckingId() !=null)
 		{
-			usuario.setLocalizacao(new LatLng(localUsuario.getLatitude(), localUsuario.getLongitude()));
+			Log.d("#DEBUG#", "Antes PUT EXTRA");
 			main.putExtra(LoginActivity.PE_USUARIO_IVOKE, usuario);
+			Log.d("#DEBUG#", "depois");
 			startActivity(main);
 		}
 		else
 		{
-			AlertHelper.getErrorAlert(this).setTitle(R.string.msg_alert_error_title)
-			           					   .setMessage(R.string.check_msg_erro_local_selecionado)
-			           					   .showDialog();
+			MessageHelper.getErrorAlert(this)
+			             .setTitle(R.string.msg_alert_error_title)
+			           	 .setMessage(R.string.check_msg_erro_local_selecionado).showDialog();
 		}
 		
 	}
@@ -176,10 +173,10 @@ public class CheckActivity extends ActionBarActivity {
 			View rootView = inflater.inflate(R.layout.check_fragment, container, false);
 			
 			ProfilePictureView profilePictureView = (ProfilePictureView) rootView.findViewById(R.id.check_img_foto_usuario_facebook);
-		                       profilePictureView.setProfileId(faceModel.getUsuarioFacebook().getId());
+		                       profilePictureView.setProfileId(faceModel.getFacebookUser().getId());
 		    
 		    TextView  txtNomeUsuario = (TextView) rootView.findViewById(R.id.check_lbl_nome_usuario);
-		    		  txtNomeUsuario.setText(faceModel.getUsuarioFacebook().getName());
+		    		  txtNomeUsuario.setText(faceModel.getFacebookUser().getName());
 		    		  
 			return rootView;
 				

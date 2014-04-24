@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="act_menu_mural" 		type="id"></item>
-    <item name="act_menu_contatos" 		type="id"></item>
-    <item name="act_menu_locais" 		type="id"></item>
-    <item name="act_menu_configuracoes" type="id"></item>
+    <item name="main_act_menu_return" 		 type="id"></item>
+    <item name="main_act_menu_mural" 		 type="id"></item>
+    <item name="main_act_menu_contatos" 	 type="id"></item>
+    <item name="main_act_menu_configuracoes" type="id"></item>
     
     <!-- List Mural -->
     <item name="main_mural_titulo"   type="id"></item>

@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.app.ivoke.MainActivity" >
+    <item
+        android:id="@id/act_menu_configuracoes"
+        android:title="@string/main_menu_title_config"
+        app:showAsAction="always"/>
+    <item
+        android:id="@id/act_menu_mural"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:title="@string/main_menu_title_mural" />
+    <item
+        android:id="@id/act_menu_contatos"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:title="@string/main_menu_title_contacts" />    
+    
+   
+</menu>

@@ -1,0 +1,7 @@
+1398129901713	Rename resource 'login_strings.xml'
+1398130041563	Rename field 'PE_FACEBOOKSESSION'
+1398130053294	Rename method 'getSessaoAtiva'
+1398130067327	Rename method 'getUsuarioFacebook'
+1398130307562	Delete element
+1398131636609	Rename type 'AlertHelper'
+1398213647499	Rename field 'URL_USUARIO_EXISTS'

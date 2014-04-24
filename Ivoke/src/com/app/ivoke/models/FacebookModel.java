@@ -65,7 +65,7 @@ public class FacebookModel {
 		return usuarioFacebook!=null;
 	}
 	
-	public GraphUser getUsuarioFacebook()
+	public GraphUser getFacebookUser()
 	{	
 		if(usuarioFacebook == null)
 		{
@@ -80,7 +80,7 @@ public class FacebookModel {
 		}
 	}
 	
-	public Session getSessaoAtiva()
+	public Session getActiveSession()
 	{
 		return activeSession;
 	}

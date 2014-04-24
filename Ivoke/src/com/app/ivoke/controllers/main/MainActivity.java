@@ -34,7 +34,7 @@ public class MainActivity extends ActionBarActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
         	Session session = 
-        			(Session) extras.getSerializable(LoginActivity.PE_FACEBOOKSESSION);
+        			(Session) extras.getSerializable(LoginActivity.PE_FACEBOOK_SESSION);
         	
         	faceModel = new FacebookModel(this, session);
         	usuario   = (UsuarioIvoke) extras.getSerializable(LoginActivity.PE_USUARIO_IVOKE);
@@ -57,27 +57,21 @@ public class MainActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.act_menu_configuracoes) {
+        if (id == R.id.main_act_menu_configuracoes) {
             return true;
         }
         
         switch (id) {
-		case R.id.act_menu_mural:
+		case R.id.main_act_menu_mural:
 			getSupportFragmentManager()
 			.beginTransaction()
 			.replace(R.id.container, new MuralFragment()).commit();
             break;
-		case R.id.act_menu_contatos:
+		case R.id.main_act_menu_contatos:
 			getSupportFragmentManager()
 			.beginTransaction()
 			.replace(R.id.container, new ContatoFragment()).commit();
-        break;
-		case R.id.act_menu_locais:
-			getSupportFragmentManager()
-			.beginTransaction()
-			.replace(R.id.container, new PlaceholderFragment()).commit();
-            break;
-		
+			break;
 		default:
 			break;
 		}
@@ -96,7 +90,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.main_fragment, container, false);
+            View rootView = inflater.inflate(R.layout.main_mural_fragment, container, false);
             return rootView;
         }
     }

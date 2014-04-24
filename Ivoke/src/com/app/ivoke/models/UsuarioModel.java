@@ -28,7 +28,7 @@ public class UsuarioModel extends WebServer {
 		
 		String retorno = null;
 		
-		retorno = web.doPostRequest(getUrl(URL_USUARIO_EXISTS), parametros);
+		retorno = web.doPostRequest(getUrl(URL_USUARIO_GET), parametros);
 		
 		 try {
 			 JSONObject json = new JSONObject(retorno);

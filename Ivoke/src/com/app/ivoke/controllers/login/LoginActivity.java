@@ -3,7 +3,7 @@ package com.app.ivoke.controllers.login;
 import com.app.ivoke.R;
 import com.app.ivoke.controllers.checking.CheckActivity;
 import com.app.ivoke.controllers.main.MainActivity;
-import com.app.ivoke.helpers.AlertHelper;
+import com.app.ivoke.helpers.MessageHelper;
 import com.app.ivoke.helpers.IvokeDebug;
 import com.app.ivoke.helpers.ViewHelper;
 import com.app.ivoke.helpers.WebHelper.NetworkException;
@@ -32,7 +32,7 @@ import com.facebook.SessionState;
 
 public class LoginActivity extends android.support.v4.app.FragmentActivity {
 	/* Declaração dos parametros (putExtra) desta Activity */
-	public static String PE_FACEBOOKSESSION = "FacebookSession";
+	public static String PE_FACEBOOK_SESSION = "FacebookSession";
 	public static String PE_USUARIO_IVOKE   = "UsuarioIvoke";
 	
 	
@@ -45,12 +45,10 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 	private Button btnAcessIvoke;
 	private TextView lblFacebook;
 	
-	private ViewHelper viewHelper = new ViewHelper(this);
-	
 	private com.facebook.widget.LoginButton btnFacebook;
 	
 	IvokeDebug debug = new IvokeDebug("LOGIN_ACTIVITY");
-	
+		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		debug.log("INICIO");
@@ -84,7 +82,7 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 	{
 		if(usuario == null)
 		{
-			viewHelper.mensagem("Sessão no Ivoke não foi iniciada.");
+			;
 			ivokeLogin();
 			return;
 		}
@@ -92,14 +90,14 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 		if (faceModel.hasSessionActive())
 		{
 			debug.log("Existe sessão");
-			checkingIntent.putExtra(PE_FACEBOOKSESSION, faceModel.getSessaoAtiva());
+			checkingIntent.putExtra(PE_FACEBOOK_SESSION, faceModel.getActiveSession());
 			checkingIntent.putExtra(PE_USUARIO_IVOKE  , usuario);
 			Log.d("LOGIN_ACTIVITY", "ANTES chamada Main activitity");
 			startActivity(checkingIntent);
 		}
 		else
 		{
-			viewHelper.mensagem("Sessão no Facebook não foi iniciada.");
+			MessageHelper.getToastMessage(this, R.string.login_msg_session_error, "facebook").show();
 			debug.log("Não existe sessão");
 		}
 		
@@ -107,20 +105,20 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 	
 	public void ivokeLogin()
 	{
-	    String facebookID = faceModel.getUsuarioFacebook().getId();
+	    String facebookID = faceModel.getFacebookUser().getId();
 		
 		try {
     		if(!usuarioModel.existe(facebookID))
-				usuario = usuarioModel.create(faceModel.getUsuarioFacebook().getName(),facebookID);
+				usuario = usuarioModel.create(faceModel.getFacebookUser().getName(),facebookID);
     		else
 		    	usuario = usuarioModel.getUsuario();
         	
-    		btnAcessIvoke.setText("Continuar.");
+    		btnAcessIvoke.setText(getString(R.string.login_btn_login_ivoke_continue));
 			
     	}
     	catch (Exception e) 
     	{
-    		AlertHelper.getErrorAlert(this).setMessage("ERRO:"+e.getMessage()).showDialog();
+    		MessageHelper.getErrorAlert(this).setMessage(e.getMessage()).showDialog();
 			
     		btnAcessIvoke.setText("Login Ivoke.");
 			
@@ -138,7 +136,7 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 			
 			if(faceModel.requestUsuarioFacebook())
 			{	
-			    String nome    = faceModel.getUsuarioFacebook().getName();
+			    String nome    = faceModel.getFacebookUser().getName();
 			
 			    lblFacebook = (TextView) findViewById(R.id.login_mensagem_facebook_login);
 			    lblFacebook.setText("Logado como: "+nome);

@@ -14,9 +14,14 @@ public class UsuarioIvoke implements Serializable {
 	private int    ivokeID;
 	private String facebookID;
 	private String nome;
-	private LatLng localizacao;
-	private GraphPlace localChecking;
-
+	private double localLatitude;
+	private double localLongitude;
+	
+	private String facebookPlaceId;
+	private String facebookPlaceName;
+	private double facebookPlaceLatitude;
+	private double facebookPlaceLongitude;
+	
 	public String getFacebookID() {
 		return facebookID;
 	}
@@ -30,10 +35,11 @@ public class UsuarioIvoke implements Serializable {
 		this.nome = nome;
 	}
 	public LatLng getLocalizacao() {
-		return localizacao;
+		return new LatLng(localLatitude, localLongitude);
 	}
 	public void setLocalizacao(LatLng localizacao) {
-		this.localizacao = localizacao;
+		localLatitude  = localizacao.latitude;
+		localLongitude = localizacao.longitude;
 	}
 	public int getIvokeID() {
 		return ivokeID;
@@ -41,11 +47,26 @@ public class UsuarioIvoke implements Serializable {
 	public void setIvokeID(int ivokeID) {
 		this.ivokeID = ivokeID;
 	}
-	public GraphPlace getLocalChecking() {
-		return localChecking;
+	public String getLocalCheckingId() {
+		return facebookPlaceId;
 	}
+	
+	public String getLocalCheckingName()
+	{
+		return facebookPlaceName;
+	}
+	
+	public LatLng getFacebookPlaceLatLng()
+	{
+		return new LatLng(facebookPlaceLatitude, facebookPlaceLongitude);
+	}
+	
 	public void setLocalChecking(GraphPlace localChecking) {
-		this.localChecking = localChecking;
+		
+		facebookPlaceName = localChecking.getName();
+		facebookPlaceId   = localChecking.getId();
+		facebookPlaceLatitude  = localChecking.getLocation().getLatitude();
+		facebookPlaceLongitude = localChecking.getLocation().getLongitude();
 	}
 	
 
