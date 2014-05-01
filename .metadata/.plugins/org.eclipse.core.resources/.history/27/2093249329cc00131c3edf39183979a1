@@ -1,0 +1,17 @@
+package com.app.ivoke.models;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.app.ivoke.objects.MuralPost;
+import com.google.android.gms.maps.model.LatLng;
+
+public class MuralModel extends WebServer {
+	
+	public List<MuralPost> getNearbyPosts(LatLng pLatLng)
+	{
+		List<MuralPost> listMuralPosts = new ArrayList<MuralPost>();
+		
+		return listMuralPosts;
+	}
+}

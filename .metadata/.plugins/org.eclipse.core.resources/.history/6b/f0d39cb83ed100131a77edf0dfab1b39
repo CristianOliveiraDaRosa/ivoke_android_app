@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="check_lbl_onde_voce_esta">Onde você está?</string>
+	<string name="check_btn_selecione">Selecione</string>
+	
+	<!-- Mensagens -->
+	<string name="check_msg_erro_local_selecionado">Não foi possível selecionar o local.</string>
+</resources>

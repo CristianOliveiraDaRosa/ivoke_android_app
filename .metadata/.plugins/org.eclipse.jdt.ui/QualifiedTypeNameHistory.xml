@@ -2,4 +2,19 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="android.location.Location"/>
 <fullyQualifiedTypeName name="com.google.android.gms.maps.model.LatLng"/>
+<fullyQualifiedTypeName name="com.app.ivoke.objects.MuralPost"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.app.ivoke.helpers.WebHelper.WebParameter"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="com.facebook.UiLifecycleHelper"/>
+<fullyQualifiedTypeName name="com.facebook.Session"/>
+<fullyQualifiedTypeName name="com.facebook.Request.GraphUserCallback"/>
+<fullyQualifiedTypeName name="com.facebook.android.Facebook"/>
+<fullyQualifiedTypeName name="com.app.ivoke.controllers.login.LoginActivity.FacebookLoginCallBack"/>
+<fullyQualifiedTypeName name="com.app.ivoke.helpers.DebugHelper"/>
+<fullyQualifiedTypeName name="com.app.ivoke.models.UserModel"/>
+<fullyQualifiedTypeName name="com.app.ivoke.objects.interfaces.IAsyncCallBack"/>
+<fullyQualifiedTypeName name="com.app.ivoke.objects.UserIvoke"/>
+<fullyQualifiedTypeName name="android.R"/>
 </qualifiedTypeNameHistroy>

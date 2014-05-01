@@ -1,0 +1,134 @@
+package com.app.ivoke.models;
+
+import android.app.Activity;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.Request.GraphUserCallback;
+import com.facebook.Session.StatusCallback;
+import com.facebook.android.Facebook;
+import com.facebook.model.GraphUser;
+
+
+public class FacebookModel {
+	String DEBUG_TAG = "#FACEBOOK MODEL#";
+	
+	public static int FACEBOOK_SSO_ACTIVITY_CODE = 64206;
+	
+	private GraphUser	 facebookUser;
+	private Session 	 activeSession;
+	private SessionState statusSession;
+ 	
+	public FacebookModel(){}
+	public FacebookModel(Activity pActivity, Session pActiveSession)
+	{
+		setSessaoAtiva(pActivity,pActiveSession);
+	}
+	
+	public Session openSessionAsync(Activity pActivity, com.facebook.Session.StatusCallback pCallBack)
+	{
+		Log.d(DEBUG_TAG, "openSessionAsync INICIO");
+		try {
+			
+			Session session = Session.openActiveSession(pActivity, true, new StatusCallback() {
+				public void call(Session session, SessionState state, Exception exception) {
+					Log.d(DEBUG_TAG, "openSessionAsync DEFAULT CAllBACK");
+					
+					if (session.isOpened())
+					{
+						Log.d(DEBUG_TAG, "openSessionAsync session is opened");
+						
+						activeSession = session;
+						statusSession = state;
+					}
+					else
+					{
+						Log.d(DEBUG_TAG, "openSessionAsync session is closed");
+					};
+				}
+			});
+			
+			
+			if(pCallBack!=null)
+			{
+				Log.d(DEBUG_TAG, "openSessionAsync session addicioned callback");
+				session.addCallback(pCallBack);
+			}
+			
+			return session;
+		} catch (Exception e) {
+			Log.d(DEBUG_TAG, "openSessionAsync Exception: "+e.getMessage());
+			
+			return null;
+		}
+	}
+	
+	public Session openActiveSession(Activity pActivity, com.facebook.Session.StatusCallback pCallBack)
+	{
+		   return Session.openActiveSession(pActivity, true, pCallBack);
+	}
+	
+	public void requestUsuarioFacebook()
+	{
+		if(activeSession !=null)
+			Log.d(DEBUG_TAG, "requestUsuarioFacebook: activeSession="+activeSession.toString());
+		else
+			Log.d(DEBUG_TAG, "requestUsuarioFacebook: activeSession=NULL");
+			
+		Request.newMeRequest(activeSession, new  GraphUserCallback() {
+			@Override
+			public void onCompleted(GraphUser user, Response response) {
+				facebookUser = user;
+			}
+		}).executeAndWait();
+	}	
+	
+	public void requestFacebookUser(GraphUserCallback pGraphUserCallback)
+	{
+		if(activeSession !=null)
+			Log.d(DEBUG_TAG, "requestUsuarioFacebook: activeSession="+activeSession.toString());
+		else
+			Log.d(DEBUG_TAG, "requestUsuarioFacebook: activeSession=NULL");
+			
+		Request.newMeRequest(getActiveSession(), pGraphUserCallback).executeAsync();
+	}
+	
+	public GraphUser getFacebookUser()
+	{	
+		return facebookUser;
+	}
+	
+	public Session getActiveSession()
+	{
+		activeSession = Session.getActiveSession();
+		return activeSession;
+	}
+	
+	public void setSessaoAtiva(Activity pActivity,Session pSession)
+	{
+		   Session.setActiveSession(pSession);
+		   activeSession = pSession;
+		   Request.newMeRequest(pSession, new GraphUserCallback() {
+				public void onCompleted(GraphUser user, Response response) {
+					facebookUser = user;
+				}
+			}).executeAsync();
+	}
+	
+	public SessionState getStatusSessao()
+	{
+		return statusSession;
+	}
+
+	public boolean hasSessionActive()
+	{
+		return activeSession!=null;
+	}
+	public void setUser(GraphUser pUser) {
+		facebookUser = pUser;
+	}
+}

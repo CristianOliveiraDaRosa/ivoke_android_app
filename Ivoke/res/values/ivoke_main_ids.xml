@@ -6,10 +6,10 @@
     <item name="main_act_menu_configuracoes" type="id"></item>
     
     <!-- List Mural -->
-    <item name="main_mural_titulo"   type="id"></item>
-    <item name="main_mural_imagem"   type="id"></item>
-    <item name="main_mural_mensagem" type="id"></item>
-    <item name="main_mural_quando"   type="id"></item>
+    <item name="main_mural_title"   type="id"></item>
+    <item name="main_mural_image"   type="id"></item>
+    <item name="main_mural_message" type="id"></item>
+    <item name="main_mural_when"    type="id"></item>
 
     <!-- List Contatos -->
     <item name="main_contato_titulo"   type="id"></item>

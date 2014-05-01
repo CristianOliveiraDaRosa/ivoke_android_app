@@ -1,6 +1,5 @@
 package com.app.ivoke.helpers;
 
-import android.R;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -9,55 +8,55 @@ import android.widget.Toast;
 
 public class MessageHelper {
 	
-	public static MessageAlert getErrorAlert(Context pContext)
+	public static MessageAlert errorAlert(Context pContext)
 	{
 		MessageAlert alert = new MessageAlert(pContext);
-		alert.getAlertDialog().setIcon(R.drawable.ic_dialog_alert);
+		alert.getAlertDialog().setIcon(android.R.drawable.ic_dialog_alert);
 		
 		return alert;
 	}
 	
 	public static MessageAlert getErrorAlert(Context pContext,String pTitulo, String pMensagem)
 	{
-		MessageAlert alert = getErrorAlert(pContext);
-		alert.getAlertDialog().setIcon(R.drawable.ic_dialog_alert);
+		MessageAlert alert = errorAlert(pContext);
+		alert.getAlertDialog().setIcon(android.R.drawable.ic_dialog_alert);
 		
 		return alert;
 	}
 	
-	public static MessageAlert getInfoAlert(Context pContext)
+	public static MessageAlert infoAlert(Context pContext)
 	{
 		MessageAlert alert = new MessageAlert(pContext);
-		alert.getAlertDialog().setIcon(R.drawable.ic_dialog_info);
+		alert.getAlertDialog().setIcon(android.R.drawable.ic_dialog_info);
 		
 		return alert;
 	}
 
-	public static MessageAlert getInfoAlert(Context pContext, String pTitulo, String pMensagem)
+	public static MessageAlert infoAlert(Context pContext, String pTitulo, String pMensagem)
 	{
-		MessageAlert alert = getInfoAlert(pContext);
+		MessageAlert alert = infoAlert(pContext);
 		alert.getAlertDialog().setTitle(pTitulo);
 		alert.getAlertDialog().setMessage(pMensagem);
 		
 		return alert;
 	}
 	
-	public static AlertDialog getWarningAlert(Context pContext)
+	public static AlertDialog warningAlert(Context pContext)
 	{
 		AlertDialog alert = new AlertDialog.Builder(pContext).create();
-		alert.setIcon(R.drawable.ic_dialog_alert);
+		alert.setIcon(android.R.drawable.ic_dialog_alert);
 		
 		return alert;
 	}
 	
 	@SuppressLint("ShowToast")
-	public static Toast getToastMessage(Context pContext, int pStringResourceID)
+	public static Toast toastMessage(Context pContext, int pStringResourceID)
 	{
 		return Toast.makeText(pContext, pContext.getResources().getString(pStringResourceID), 5000);
 	}
 	
 	@SuppressLint("ShowToast")
-	public static Toast getToastMessage(Context pContext, int pStringResourceID, Object args)
+	public static Toast toastMessage(Context pContext, int pStringResourceID, Object args)
 	{
 		String resString = pContext.getResources().getString(pStringResourceID);
 		
@@ -78,7 +77,7 @@ public class MessageHelper {
 	/* Message BUILDER */
 	public static class MessageAlert 
 	{
-		private static AlertDialog alertDialog;
+		private AlertDialog alertDialog;
 		private static Context msgAlertContext;
 		private static Resources resource;
 		private static String message;
@@ -136,8 +135,8 @@ public class MessageHelper {
 			return alertDialog;
 		}
 
-		private void setAlertDialog(AlertDialog alertDialog) {
-			this.alertDialog = alertDialog;
+		private void setAlertDialog(AlertDialog pAlertDialog) {
+			alertDialog = pAlertDialog;
 		}
 	}
 }

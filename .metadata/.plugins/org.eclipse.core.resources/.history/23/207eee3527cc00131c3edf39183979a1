@@ -1,0 +1,74 @@
+package com.app.ivoke.models;
+
+import java.util.ArrayList;
+import org.json.JSONObject;
+
+import android.util.Log;
+
+import com.app.ivoke.helpers.WebHelper;
+import com.app.ivoke.helpers.WebHelper.WebParameter;
+import com.app.ivoke.objects.UsuarioIvoke;
+
+public class UsuarioModel extends WebServer {
+	
+	private UsuarioIvoke user;
+
+	public UsuarioIvoke getUsuario() {
+		return user;
+	}
+
+	public void setUsuario(UsuarioIvoke usuario) {
+		this.user = usuario;
+	}
+	
+	public boolean existe(String pFacebookId) throws Exception
+	{
+		ArrayList<WebHelper.WebParameter> parametros = new ArrayList<WebHelper.WebParameter>();
+		parametros.add(web.makeParameter("facebook_id", pFacebookId));
+		
+		String retorno = null;
+		
+		retorno = web.doPostRequest(getUrl(URL_USUARIO_GET), parametros);
+		
+		 try {
+			 JSONObject json = new JSONObject(retorno);
+			 user = new UsuarioIvoke();
+			 user.setIvokeID(json.getInt("id"));
+			 user.setNome(json.getString("nome"));
+			 user.setFacebookID(json.getString("facebook_id"));
+		 } catch (Exception e) {
+			return false;
+		 }
+		 
+		 return true;
+		
+	}
+	
+	public UsuarioIvoke create(String pNome, String pFacebookId) throws Exception
+	{     
+		UsuarioIvoke usuario = new UsuarioIvoke();
+		try 
+			{
+				ArrayList<WebParameter>  parametros = new ArrayList<WebParameter>();
+				parametros.add(web.makeParameter("nome"       , pNome));
+				parametros.add(web.makeParameter("facebook_id", pFacebookId));
+				
+				String jsonString = web.doPostRequest(getUrl(URL_USUARIO_ADD), parametros);
+				
+				JSONObject json = new JSONObject(jsonString);
+				
+				Log.d("DEBUG", "RETORNO WEB "+jsonString);
+				
+				usuario.setIvokeID(json.getInt("id"));
+				usuario.setNome(pNome);
+				usuario.setFacebookID(pFacebookId);
+				
+				return usuario;
+			} 
+			catch (Exception e) 
+			{
+				Log.d("ERROR", "ERRO:"+e.getMessage());
+				throw e;
+			}	
+	}
+}

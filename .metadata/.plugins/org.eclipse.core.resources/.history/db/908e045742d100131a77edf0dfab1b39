@@ -1,0 +1,5 @@
+package com.app.ivoke.controllers.login;
+
+public class FaceBookLoginActivity extends android.support.v4.app.FragmentActivity {
+
+}

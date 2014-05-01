@@ -6,7 +6,7 @@
     android:padding="5dip" >
  
     <!--  ListRow Left sied Thumbnail image -->
-    <LinearLayout android:id="@id/main_mural_imagem"
+    <LinearLayout android:id="@id/main_mural_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="3dip"
@@ -24,11 +24,11 @@
  
     <!-- Title Of Song-->
     <TextView
-        android:id="@id/main_mural_titulo"
+        android:id="@id/main_mural_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/main_mural_imagem"
-        android:layout_toRightOf="@id/main_mural_imagem"
+        android:layout_alignTop="@id/main_mural_image"
+        android:layout_toRightOf="@id/main_mural_image"
         android:text="Usuario Nome"
         android:textColor="#040404"
         android:typeface="sans"
@@ -38,24 +38,24 @@
     <!-- Artist Name -->
 
     <TextView
-        android:id="@id/main_mural_mensagem"
+        android:id="@id/main_mural_message"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/main_mural_imagem"
-        android:layout_below="@id/main_mural_titulo"
+        android:layout_alignBottom="@id/main_mural_image"
+        android:layout_below="@id/main_mural_title"
         android:layout_marginTop="1dip"
-        android:layout_toRightOf="@id/main_mural_imagem"
+        android:layout_toRightOf="@id/main_mural_image"
         android:text="Uma mensagem qualquer!"
         android:textColor="#343434"
         android:textSize="10dip" />
  
     <!-- Rightend Duration -->
     <TextView
-        android:id="@id/main_mural_quando"
+        android:id="@id/main_mural_when"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/main_mural_titulo"
+        android:layout_alignTop="@id/main_mural_title"
         android:gravity="right"
         android:text="a 5 min."
         android:layout_marginRight="5dip"

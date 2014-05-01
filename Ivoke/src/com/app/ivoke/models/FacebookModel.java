@@ -4,18 +4,24 @@ import android.app.Activity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.app.ivoke.helpers.DebugHelper;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.Request.GraphUserCallback;
 import com.facebook.Session.StatusCallback;
+import com.facebook.android.Facebook;
 import com.facebook.model.GraphUser;
 
 
 public class FacebookModel {
- 
-	private GraphUser	 usuarioFacebook;
+	
+	DebugHelper debug = new DebugHelper("#FACEBOOK MODEL#");
+	
+	public static int FACEBOOK_SSO_ACTIVITY_CODE = 64206;
+	
+	private GraphUser	 facebookUser;
 	private Session 	 activeSession;
 	private SessionState statusSession;
  	
@@ -25,63 +31,84 @@ public class FacebookModel {
 		setSessaoAtiva(pActivity,pActiveSession);
 	}
 	
-	public boolean openSessionAsync(Activity pActivity, com.facebook.Session.StatusCallback pCallBack)
+	public Session openSessionAsync(Activity pActivity, com.facebook.Session.StatusCallback pCallBack)
 	{
+		debug.setPrefix("openSessionAsync");
 		try {
 			
 			Session session = Session.openActiveSession(pActivity, true, new StatusCallback() {
 				public void call(Session session, SessionState state, Exception exception) {
+					debug.log("DEFAULT CAllBACK");
+					
 					if (session.isOpened())
 					{
+						debug.log("session is opened");
+						
 						activeSession = session;
 						statusSession = state;
+					}
+					else
+					{
+						debug.log("session is closed");
 					};
 				}
 			});
 			
+			
 			if(pCallBack!=null)
 			{
+				debug.log("session addicioned callback");
 				session.addCallback(pCallBack);
 			}
 			
-			return true;
+			return session;
 		} catch (Exception e) {
-			Toast.makeText(pActivity.getApplicationContext(), 
-						   "Não foi possível logar ao Facebook.", 
-					       2000).show();
-			Log.d("FacebookModel0001","Erro ao abrir sessao:"+e.getMessage());
-			return false;
+			debug.log("Exception: "+e.getMessage());
+			
+			return null;
 		}
 	}
 	
-	public boolean requestUsuarioFacebook()
+	public Session openActiveSession(Activity pActivity, com.facebook.Session.StatusCallback pCallBack)
 	{
-		Request.newMeRequest(activeSession, new GraphUserCallback() {
+	    return Session.openActiveSession(pActivity, true, pCallBack);
+	}
+	
+	public void requestUsuarioFacebook()
+	{
+		debug.setPrefix("requestUsuarioFacebook");
+		if(activeSession !=null)
+			debug.log("activeSession="+activeSession.toString());
+		else
+			debug.log("activeSession=NULL");
+			
+		Request.newMeRequest(activeSession, new  GraphUserCallback() {
+			@Override
 			public void onCompleted(GraphUser user, Response response) {
-				usuarioFacebook = user;
+				facebookUser = user;
 			}
 		}).executeAndWait();
-		
-		return usuarioFacebook!=null;
+	}	
+	
+	public void requestFacebookUser(GraphUserCallback pGraphUserCallback)
+	{
+		debug.setPrefix("requestFacebookUser");
+		if(activeSession !=null)
+			debug.log("requestUsuarioFacebook: activeSession="+activeSession.toString());
+		else
+			debug.log("requestUsuarioFacebook: activeSession=NULL");
+			
+		Request.newMeRequest(getActiveSession(), pGraphUserCallback).executeAsync();
 	}
 	
 	public GraphUser getFacebookUser()
 	{	
-		if(usuarioFacebook == null)
-		{
-			if(requestUsuarioFacebook())
-			   return usuarioFacebook;
-			else
-			   return null;
-		}
-		else
-		{
-			return usuarioFacebook;
-		}
+		return facebookUser;
 	}
 	
 	public Session getActiveSession()
 	{
+		activeSession = Session.getActiveSession();
 		return activeSession;
 	}
 	
@@ -91,7 +118,7 @@ public class FacebookModel {
 		   activeSession = pSession;
 		   Request.newMeRequest(pSession, new GraphUserCallback() {
 				public void onCompleted(GraphUser user, Response response) {
-					usuarioFacebook = user;
+					facebookUser = user;
 				}
 			}).executeAsync();
 	}
@@ -104,5 +131,8 @@ public class FacebookModel {
 	public boolean hasSessionActive()
 	{
 		return activeSession!=null;
+	}
+	public void setUser(GraphUser pUser) {
+		facebookUser = pUser;
 	}
 }

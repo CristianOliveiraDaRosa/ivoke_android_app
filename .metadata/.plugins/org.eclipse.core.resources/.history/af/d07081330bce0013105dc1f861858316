@@ -1,0 +1,5 @@
+package com.app.ivoke.objects.interfaces;
+
+public class AsyncCallback {
+
+}

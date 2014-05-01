@@ -1,0 +1,31 @@
+package com.app.ivoke.models;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.app.ivoke.helpers.WebHelper.NetworkException;
+import com.app.ivoke.objects.MuralPost;
+import com.google.android.gms.maps.model.LatLng;
+
+public class MuralModel extends WebServer {
+	
+	public List<MuralPost> getNearbyPosts(LatLng pLatLng, int pDistance)
+	{
+		List<MuralPost> listMuralPosts = new ArrayList<MuralPost>();
+		
+		try {
+			String jsonMuralPosts = 
+					web.doRequest(site(URL_MURAL_POSTS_GET), 
+					              web.makeListParameter("latLngDistance"
+						                                , String.valueOf(pLatLng.latitude).replace(".",",") + ";" 
+						                                + String.valueOf(pLatLng.longitude).replace(".",",") + ";"
+						                                + String.valueOf(pDistance).replace(".",",")));
+		} catch (NetworkException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return listMuralPosts;
+	}
+}

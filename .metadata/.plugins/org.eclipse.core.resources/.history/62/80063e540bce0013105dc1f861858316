@@ -1,0 +1,7 @@
+package com.app.ivoke.objects.interfaces;
+
+import org.json.JSONObject;
+
+public interface AsyncCallback {
+	void AsyncCallback(JSONObject result);
+}

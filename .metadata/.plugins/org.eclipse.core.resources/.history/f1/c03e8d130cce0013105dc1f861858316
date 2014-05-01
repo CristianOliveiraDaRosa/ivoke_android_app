@@ -1,0 +1,9 @@
+package com.app.ivoke.objects.interfaces;
+
+import org.json.JSONObject;
+
+public interface IAsyncCallBack {
+	void onCompleteTask(String result);
+	void onProgress(int pPercent, Object pObject);
+}
+

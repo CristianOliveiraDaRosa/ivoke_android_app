@@ -1,0 +1,33 @@
+package com.app.ivoke.objects;
+
+public class MuralPost{
+    String usuario;
+	String mensagem;
+	String quando;
+    int muralPostId;
+    
+    public MuralPost(int pMuralPostId, String pUsuarioNome,String pMensagem, String pQuando)
+    {
+    	usuario  = pUsuarioNome;
+    	mensagem = pMensagem;
+    	quando   = pQuando;
+    	muralPostId = pMuralPostId;
+    }
+    
+    public String getNome()
+    {
+    	return usuario;
+    }
+    
+    public String getMensagem()
+    {
+    	return mensagem;
+    }
+    
+    public String getQuando()
+    {
+    	return quando;
+    }
+    
+}
+

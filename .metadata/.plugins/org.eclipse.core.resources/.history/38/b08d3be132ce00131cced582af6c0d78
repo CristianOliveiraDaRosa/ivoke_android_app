@@ -1,0 +1,21 @@
+package com.app.ivoke.helpers;
+
+import android.util.Log;
+
+public class DebugHelper {
+	
+	String tag = "IVOKE_DEBUG";
+	boolean isDebugOn = true;
+	
+	public DebugHelper(){};
+	public DebugHelper(String pTag)
+	{
+		tag = pTag;
+	}
+	
+	public void log(String pLog)
+	{
+		if(isDebugOn)
+		   Log.d(tag, pLog);
+	}
+}

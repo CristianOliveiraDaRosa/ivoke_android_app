@@ -1,0 +1,9 @@
+package com.app.ivoke.models;
+
+public class MuralModel extends WebServer {
+	
+	public List<MuralPost> getNearbyPosts(LatLng pLatLng)
+	{
+		
+	}
+}

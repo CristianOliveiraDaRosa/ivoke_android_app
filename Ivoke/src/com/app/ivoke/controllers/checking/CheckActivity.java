@@ -8,7 +8,7 @@ import com.app.ivoke.controllers.main.MainActivity;
 import com.app.ivoke.helpers.MessageHelper;
 import com.app.ivoke.helpers.ViewHelper;
 import com.app.ivoke.models.FacebookModel;
-import com.app.ivoke.objects.UsuarioIvoke;
+import com.app.ivoke.objects.UserIvoke;
 import com.facebook.Session;
 import com.facebook.model.GraphObject;
 import com.facebook.model.GraphPlace;
@@ -45,8 +45,8 @@ public class CheckActivity extends ActionBarActivity {
         }
     };
 	
-	private static FacebookModel faceModel;
-	private UsuarioIvoke  usuario;
+	public static FacebookModel faceModel;
+	public UserIvoke  user;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class CheckActivity extends ActionBarActivity {
         			(Session) extras.getSerializable(LoginActivity.PE_FACEBOOK_SESSION);
         	
         	faceModel = new FacebookModel(this, session);
-        	usuario   = (UsuarioIvoke) extras.getSerializable(LoginActivity.PE_USUARIO_IVOKE);
+        	user   = (UserIvoke) extras.getSerializable(LoginActivity.PE_USUARIO_IVOKE);
         }
     }
 	
@@ -111,7 +111,7 @@ public class CheckActivity extends ActionBarActivity {
 				Bundle bRetornos = data.getExtras();
 				String jsonSelectPlace = bRetornos.getString(PlacesActivity.PE_JSON_SELECTED_PLACE);
 				
-				usuario.setLocalChecking(
+				user.setLocalChecking(
 							GraphObject.Factory.create(new JSONObject(jsonSelectPlace), GraphPlace.class)
 						);
 			
@@ -120,7 +120,7 @@ public class CheckActivity extends ActionBarActivity {
 				goToMainActivity();
 				
 			} catch (Exception e) {
-				MessageHelper.getErrorAlert(this)
+				MessageHelper.errorAlert(this)
 				             .setMessage(R.string.check_msg_erro_local_selecionado)
 				             .showDialog();
 			}
@@ -134,35 +134,41 @@ public class CheckActivity extends ActionBarActivity {
 		if (btnSelecioneLocal == null)
 			return;
 		
-		if(usuario.getLocalCheckingId() != null)
-	    	btnSelecioneLocal.setText(usuario.getLocalCheckingName());
+		if(user.getLocalCheckingId() != null)
+	    	btnSelecioneLocal.setText(user.getLocalCheckingName());
 	    else
 	    	btnSelecioneLocal.setText(getResources().getString(R.id.check_btn_seleciona_local));
 	}
 	
 	public void onSelecLocalClick(View pView) {
-		// TODO Auto-generated method stub
-		CASA.setAccuracy(1);
 		selecionaLocal(CASA);
+	}
+	
+	public void onNextWhitoutCheckingClick(View pView) {
+		//TODO Only for debug remove this!!
+		user.setLocalization(new LatLng(CASA.getLatitude(), CASA.getLongitude()));
+		goToMainActivity();
 	}
 	
 	public void goToMainActivity()
 	{
 		Intent main = new Intent(this, MainActivity.class);
 		
-		if(usuario.getLocalCheckingId() !=null)
+		if(user.getLocalCheckingId() !=null || user.getLocalization() != null)
 		{
 			Log.d("#DEBUG#", "Antes PUT EXTRA");
-			main.putExtra(LoginActivity.PE_USUARIO_IVOKE, usuario);
+			main.putExtra(LoginActivity.PE_USUARIO_IVOKE, user);
 			Log.d("#DEBUG#", "depois");
 			startActivity(main);
 		}
 		else
 		{
-			MessageHelper.getErrorAlert(this)
+			MessageHelper.errorAlert(this)
 			             .setTitle(R.string.msg_alert_error_title)
 			           	 .setMessage(R.string.check_msg_erro_local_selecionado).showDialog();
 		}
+		
+		startActivity(main);
 		
 	}
 	
