@@ -1,0 +1,31 @@
+package com.app.ivoke.controllers.login;
+
+import com.app.ivoke.R;
+import com.app.ivoke.models.FacebookModel;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.Session.StatusCallback;
+
+import android.os.Bundle;
+
+public class FacebookLoginActivity extends android.support.v4.app.FragmentActivity {
+	
+	FacebookModel faceModel = new FacebookModel();
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.facebook_login_activity);
+		
+		faceModel.openSessionAsync(this, pCallBack)
+	}
+	
+	public class FacebookLoginCallBack implements StatusCallback
+	{
+		@Override
+		public void call(Session session, SessionState state, Exception exception) 
+		{
+			onSessionStateChange(session, state, exception);
+		}
+	}
+}

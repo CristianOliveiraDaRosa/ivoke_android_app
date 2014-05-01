@@ -17,7 +17,7 @@ import com.facebook.model.GraphUser;
 
 public class FacebookModel {
 	
-	DebugHelper debug = new DebugHelper("#FACEBOOK MODEL#");
+	DebugHelper debug = new DebugHelper("FacebookModel");
 	
 	public static int FACEBOOK_SSO_ACTIVITY_CODE = 64206;
 	
@@ -33,7 +33,7 @@ public class FacebookModel {
 	
 	public Session openSessionAsync(Activity pActivity, com.facebook.Session.StatusCallback pCallBack)
 	{
-		debug.setPrefix("openSessionAsync");
+		debug.method("openSessionAsync").par("pActivity", pActivity).par("pCallBack", pCallBack);
 		try {
 			
 			Session session = Session.openActiveSession(pActivity, true, new StatusCallback() {
@@ -74,14 +74,11 @@ public class FacebookModel {
 	    return Session.openActiveSession(pActivity, true, pCallBack);
 	}
 	
-	public void requestUsuarioFacebook()
+	public void requestFacebookUser()
 	{
-		debug.setPrefix("requestUsuarioFacebook");
-		if(activeSession !=null)
-			debug.log("activeSession="+activeSession.toString());
-		else
-			debug.log("activeSession=NULL");
-			
+		debug.method("requestUsuarioFacebook");
+		debug.var("activeSession",activeSession);
+		
 		Request.newMeRequest(activeSession, new  GraphUserCallback() {
 			@Override
 			public void onCompleted(GraphUser user, Response response) {
@@ -92,7 +89,7 @@ public class FacebookModel {
 	
 	public void requestFacebookUser(GraphUserCallback pGraphUserCallback)
 	{
-		debug.setPrefix("requestFacebookUser");
+		debug.method("requestFacebookUser");
 		if(activeSession !=null)
 			debug.log("requestUsuarioFacebook: activeSession="+activeSession.toString());
 		else

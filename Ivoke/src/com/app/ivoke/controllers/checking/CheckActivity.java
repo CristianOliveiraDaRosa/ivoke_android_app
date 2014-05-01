@@ -3,6 +3,7 @@ package com.app.ivoke.controllers.checking;
 import org.json.JSONObject;
 
 import com.app.ivoke.R;
+import com.app.ivoke.controllers.login.FacebookLoginActivity;
 import com.app.ivoke.controllers.login.LoginActivity;
 import com.app.ivoke.controllers.main.MainActivity;
 import com.app.ivoke.helpers.MessageHelper;
@@ -36,6 +37,8 @@ import android.widget.Toast;
 public class CheckActivity extends ActionBarActivity {
 	
 	public static final int PE_RESULT_PLACE_ACT = 1;	
+	public static final String PE_USER_IVOKE       = "CheckActivity.UserIvoke";
+	public static final String PE_FACEBOOK_SESSION = "CheckActivity.FacebookSession";
 	
 	private static final Location CASA = new Location("") {
         {
@@ -62,10 +65,10 @@ public class CheckActivity extends ActionBarActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
         	Session session = 
-        			(Session) extras.getSerializable(LoginActivity.PE_FACEBOOK_SESSION);
+        			(Session) extras.getSerializable(PE_FACEBOOK_SESSION);
         	
         	faceModel = new FacebookModel(this, session);
-        	user   = (UserIvoke) extras.getSerializable(LoginActivity.PE_USUARIO_IVOKE);
+        	user   = (UserIvoke) extras.getSerializable(PE_USER_IVOKE);
         }
     }
 	
@@ -157,7 +160,7 @@ public class CheckActivity extends ActionBarActivity {
 		if(user.getLocalCheckingId() !=null || user.getLocalization() != null)
 		{
 			Log.d("#DEBUG#", "Antes PUT EXTRA");
-			main.putExtra(LoginActivity.PE_USUARIO_IVOKE, user);
+			main.putExtra(PE_USER_IVOKE, user);
 			Log.d("#DEBUG#", "depois");
 			startActivity(main);
 		}

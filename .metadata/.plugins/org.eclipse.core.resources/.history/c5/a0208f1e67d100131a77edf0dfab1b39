@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Ivoke</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="null_usuario_nome">*Nome Usuário*</string>
+    
+	<!-- String for default AlertDialog -->
+    <string name="msg_alert_error_title">Exceção não tratada</string>
+
+	<!-- Server error messages -->
+    <string name="msg_error_ws_server_not_responding"></string>
+    
+</resources>

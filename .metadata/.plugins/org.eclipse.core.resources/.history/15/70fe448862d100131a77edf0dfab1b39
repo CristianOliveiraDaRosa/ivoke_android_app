@@ -1,0 +1,19 @@
+package com.app.ivoke;
+
+import com.app.ivoke.controllers.login.FacebookLoginActivity;
+
+import android.app.Activity;
+import android.content.Intent;
+
+public class Routes {
+	/*
+	 *   Esta classe é para padronizar as chamadas e envio de parametros entre as activities 
+	 * 
+	 * */
+	
+	public static void goToFacebookLogin(Activity pActivity)
+	{
+		pActivity.startActivity(new Intent(pActivity, FacebookLoginActivity.class));
+	}
+	
+}

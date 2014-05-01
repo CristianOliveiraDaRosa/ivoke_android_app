@@ -1,0 +1,60 @@
+package com.app.ivoke.controllers.login;
+
+import com.app.ivoke.R;
+import com.app.ivoke.helpers.DebugHelper;
+import com.app.ivoke.models.FacebookModel;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.Session.StatusCallback;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+
+public class FacebookLoginActivity extends android.support.v4.app.FragmentActivity {
+	
+	public static String PE_FACEBOOK_SESSION = "FacebookSession";
+		
+	FacebookModel faceModel = new FacebookModel();
+	DebugHelper   debug =  new DebugHelper("FacebookLoginActivity");
+ 	
+	FacebookLoginCallBack callBack = new FacebookLoginCallBack();
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.facebook_login_activity);
+		
+		debug.setMethod("onCreate");
+		
+		faceModel.openSessionAsync(this, callBack);
+	}
+	
+	@Override
+	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
+		super.onActivityResult(arg0, arg1, arg2);
+		
+		//if is first time facebook loggin
+		debug.setMethod("onActivityResult");
+		
+	}
+	
+	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
+	    if (state.isOpened()) {
+	        debug.setMethod("onSessionStateChange").log("Session Logged");
+			
+	    } else if (state.isClosed()) {
+	    	debug.setMethod("onSessionStateChange").log("Logged out...");
+	    }
+	}
+	
+	public class FacebookLoginCallBack implements StatusCallback
+	{
+		@Override
+		public void call(Session session, SessionState state, Exception exception) 
+		{
+			debug.setMethod("FacebookLoginCallBack.call");
+			onSessionStateChange(session, state, exception);
+		}
+	}
+}

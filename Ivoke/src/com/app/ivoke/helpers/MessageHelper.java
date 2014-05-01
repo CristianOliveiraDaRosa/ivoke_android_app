@@ -119,6 +119,13 @@ public class MessageHelper {
 			return this;
 		}
 		
+		public MessageAlert setMessage(int pStringResourceID, Object... args)
+		{
+			message = String.format(resource.getString(pStringResourceID), args);
+			getAlertDialog().setMessage(message);
+			return this;
+		}
+		
 		public MessageAlert formatMessage(Object args)
 		{
 			getAlertDialog().setMessage(String.format(message, args));

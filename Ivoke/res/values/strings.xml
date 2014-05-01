@@ -8,4 +8,10 @@
     
 	<!-- String for default AlertDialog -->
     <string name="msg_alert_error_title">Exceção não tratada</string>
+
+	<!-- Server error messages -->
+    <string name="msg_error_ws_server_not_responding">
+        Servidor está indisponível tente mais tarde.
+    </string>
+    
 </resources>

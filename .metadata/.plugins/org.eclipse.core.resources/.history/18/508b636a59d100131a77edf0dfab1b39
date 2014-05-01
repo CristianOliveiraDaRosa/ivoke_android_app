@@ -1,0 +1,90 @@
+package com.app.ivoke.controllers.login;
+
+import android.os.Bundle;
+import android.support.v4.view.*;
+import android.view.View;
+
+import com.app.ivoke.R;
+import com.app.ivoke.helpers.DebugHelper;
+import com.app.ivoke.models.FacebookModel;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.Session.StatusCallback;
+import com.facebook.UiLifecycleHelper;
+
+public class FacebookLoginActivity extends android.support.v4.app.FragmentActivity {
+	
+	public static String PE_FACEBOOK_SESSION = "FacebookSession";
+		
+	FacebookModel faceModel = new FacebookModel();
+	DebugHelper   debug     = new DebugHelper("FacebookLoginActivity");
+	
+	com.facebook.Session session;
+ 	
+	FacebookLoginCallBack callBack = new FacebookLoginCallBack();
+	
+	private UiLifecycleHelper uiHelper;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		debug.method("onCreate");
+		
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.facebook_login_activity);
+		uiHelper = new UiLifecycleHelper(this, callBack);
+		uiHelper.onCreate(savedInstanceState);
+		
+	//	session = com.facebook.Session.openActiveSession(this, true, callBack);
+	}
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, 
+	        ViewGroup container, 
+	        Bundle savedInstanceState) {
+	    View view = inflater.inflate(R.layout.main, container, false);
+
+	    return view;
+	}
+	
+	@Override
+	public View onCreateView(String name, Context context, AttributeSet attrs) {
+		return super.onCreateView(name, context, attrs);
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        debug.method("onActivityResult").par("requestCode",requestCode)
+								        .par("resultCode",resultCode)
+								        .par("data",data);
+        
+		super.onActivityResult(requestCode, resultCode, data);
+		uiHelper.onActivityResult(requestCode, resultCode, data);
+		//if is first time loggin facebook 
+		
+	}
+	
+	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
+	    debug.method("onSessionStateChange")
+	            .par("session",session)
+	            .par("state",state)
+	            .par("exception",exception);
+	    
+	    
+	     if (state.isOpened()) {
+	        debug.log("Session Logged");
+			
+	    } else if (state.isClosed()) {
+	    	debug.log("Logged out...");
+	    }
+	}
+	
+	public class FacebookLoginCallBack implements StatusCallback
+	{
+		@Override
+		public void call(Session session, SessionState state, Exception exception) 
+		{
+			debug._class(this).method("call");
+			onSessionStateChange(session, state, exception);
+		}
+	}
+}

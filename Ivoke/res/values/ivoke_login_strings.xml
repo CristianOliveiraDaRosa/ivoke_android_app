@@ -9,4 +9,5 @@
     
     <!-- Mensagens -->
     <string name="login_msg_session_error">A sessão do %s não foi iniciada</string>
+    <string name="login_msg_error_user_not_found">Não foi possível buscar o usuário</string>
 </resources>

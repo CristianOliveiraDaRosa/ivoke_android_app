@@ -1,0 +1,18 @@
+package com.app.ivoke;
+
+import android.app.Activity;
+
+public class Routes {
+	/*
+	 *   Esta classe é para padronizar as chamadas e envio de parametros entre as activities 
+	 * 
+	 * */
+	
+	Activity act;
+	
+	public static void goToFacebookLogin()
+	{
+		startAct
+	}
+	
+}

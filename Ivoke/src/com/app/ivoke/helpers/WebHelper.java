@@ -66,7 +66,7 @@ public class WebHelper {
     
 	public String doPostRequest(String url, ArrayList<WebParameter> pParametros) throws ServerException, NetworkException, Exception
 	{
-		debug.setPrefix("doPostRequest");
+		debug.method("doPostRequest");
 		ArrayList<NameValuePair> postParamtros = new ArrayList<NameValuePair>(2);
 		for (WebParameter pParametro : pParametros) {
 			debug.log("PARAMETROS: Key= "+pParametro.getKey()+" Valor="+pParametro.getValor());
