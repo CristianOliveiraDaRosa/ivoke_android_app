@@ -3,13 +3,12 @@ package com.app.ivoke.controllers.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.*;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.app.ivoke.R;
-import com.app.ivoke.Routes;
+import com.app.ivoke.Router;
 import com.app.ivoke.helpers.DebugHelper;
 import com.app.ivoke.models.FacebookModel;
 import com.facebook.Session;
@@ -76,7 +75,7 @@ public class FacebookLoginActivity extends FragmentActivity {
 	
 	private void gotoIvokeLoginActivity(Session pSession)
 	{
-		Routes.gotoIvokeLogin(this, pSession);
+		Router.gotoIvokeLogin(this, pSession);
 		finish();
 	}
 	

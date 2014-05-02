@@ -1,8 +1,9 @@
 package com.app.ivoke.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.app.ivoke.helpers.DebugHelper;
 import com.facebook.Request;
@@ -11,7 +12,6 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.Request.GraphUserCallback;
 import com.facebook.Session.StatusCallback;
-import com.facebook.android.Facebook;
 import com.facebook.model.GraphUser;
 
 
@@ -90,11 +90,8 @@ public class FacebookModel {
 	public void requestFacebookUser(GraphUserCallback pGraphUserCallback)
 	{
 		debug.method("requestFacebookUser");
-		if(activeSession !=null)
-			debug.log("requestUsuarioFacebook: activeSession="+activeSession.toString());
-		else
-			debug.log("requestUsuarioFacebook: activeSession=NULL");
-			
+		debug.var("activeSession", activeSession);
+					
 		Request.newMeRequest(getActiveSession(), pGraphUserCallback).executeAsync();
 	}
 	
@@ -129,7 +126,17 @@ public class FacebookModel {
 	{
 		return activeSession!=null;
 	}
+	
 	public void setUser(GraphUser pUser) {
 		facebookUser = pUser;
 	}
+	
+	public void setUser(String pUserJson) {
+		try {
+			facebookUser = (GraphUser) new JSONObject(pUserJson);
+		} catch (JSONException e) {
+			facebookUser = null;
+		}
+	}
+	
 }

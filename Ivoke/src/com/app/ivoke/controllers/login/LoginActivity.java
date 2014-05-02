@@ -3,7 +3,7 @@ package com.app.ivoke.controllers.login;
 import org.json.JSONException;
 
 import com.app.ivoke.R;
-import com.app.ivoke.Routes;
+import com.app.ivoke.Router;
 import com.app.ivoke.controllers.checking.CheckActivity;
 import com.app.ivoke.controllers.main.MainActivity;
 import com.app.ivoke.helpers.MessageHelper;
@@ -49,7 +49,8 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 	private FacebookModel faceModel = new FacebookModel();
 	private UserModel userModel = new UserModel();
 	
-	private Session fbSession;
+	private Session   fbSession;
+	private GraphUser fbUser;
 	private UserIvoke userIvoke;
 	
 	private IvokeServerCallback callback;
@@ -108,7 +109,7 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 			new Thread(new Runnable(){
 				public void run() {
 					faceModel.requestFacebookUser();
-					GraphUser fbUser = faceModel.getFacebookUser();
+					fbUser = faceModel.getFacebookUser();
 					debug.var("fbUser", fbUser);
 					
 					if(fbUser!=null)
@@ -116,6 +117,7 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 						try {
 							userModel.asyncGetIvokeUser(fbUser.getId(), callback);
 						} catch (Exception e) {
+							debug.exception(e);
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
@@ -133,7 +135,7 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 	
 	private void returnToFacebookLogin()
 	{
-		Routes.gotoFacebookLogin(this);
+		Router.gotoFacebookLogin(this);
 		finish();
 	}
 	
@@ -154,21 +156,28 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 			
 			@Override
 			public void onCompleteTask(Object pResult) {
-				debug._class(this).method("onCompleteTask");
+				debug._class(this).method("onCompleteTask").par("pResult", pResult);
+				
+				TextView lblProgress = (TextView) findViewById(R.id.login_lbl_processing);
+				lblProgress.setText(R.string.process_done);
+				
 				try {
 					
 					userIvoke = UserIvoke.castJson(pResult.toString());
+					userIvoke.setFacebookID(fbUser.getId());
+					userIvoke.setName(fbUser.getName());
 					
 					debug.var("userIvoke", userIvoke);
-				} catch (JSONException e) {
+				} catch (Exception e) {
 					debug.exception(e);
 					MessageHelper.errorAlert(activityCaller)
-					             .setMessage("Não foi possível buscar o usuario.").showDialog();
+					             .setMessage(R.string.login_msg_error_user_not_found).showDialog();
 				}
 				
 				if(userIvoke!= null)
 				{
-					Routes.gotoChecking(activityCaller, fbSession, userIvoke);
+					Router.gotoChecking(activityCaller, fbSession, userIvoke, fbUser);
+					activityCaller.finish();
 				}
 			}
 	}

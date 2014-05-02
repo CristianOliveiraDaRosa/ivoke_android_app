@@ -5,19 +5,24 @@
     android:orientation="vertical" >
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@id/login_ivoke_logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="50dp"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/ic_launcher"
+        android:contentDescription="@string/logo_description" />
 
-	<Button
-	    android:id="@id/login_button_login_ivoke"
-	    style="@style/AppTheme"
+	<ProgressBar
+	    android:id="@id/login_pregress_bar"
+	    style="?android:attr/progressBarStyleLargeInverse"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" />
+
+	<TextView
+	    android:id="@id/login_lbl_processing"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_marginTop="33dp"
-	    android:onClick="OnClickListener"
-	    android:text="@string/login_button_login_ivoke" />
+	    android:gravity="center_horizontal"
+	    android:text="@string/process_waiting"/>
 
 </LinearLayout>

@@ -1,0 +1,93 @@
+package com.app.ivoke;
+
+import com.app.ivoke.controllers.checking.CheckActivity;
+import com.app.ivoke.controllers.checking.PlacesActivity;
+import com.app.ivoke.controllers.login.FacebookLoginActivity;
+import com.app.ivoke.controllers.login.LoginActivity;
+import com.app.ivoke.controllers.main.MainActivity;
+import com.app.ivoke.helpers.MessageHelper;
+import com.app.ivoke.objects.UserIvoke;
+import com.facebook.Session;
+import com.facebook.widget.PlacePickerFragment;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.location.Location;
+import android.util.Log;
+
+public class Router {
+	/*
+	 *   This class is to standardize the calls and sending parameters between activities
+	 * 
+	 * */
+	
+	public static String PE_FACEBOOK_SESSION = "FacebookLoginSession";
+	
+	public static void gotoFacebookLogin(Activity pActivity)
+	{
+		pActivity.startActivity(new Intent(pActivity, FacebookLoginActivity.class));
+	}
+	
+	public static void gotoIvokeLogin(Activity pActivity, Session pSession)
+	{
+		Intent i = new Intent(pActivity, LoginActivity.class);
+		i.putExtra(LoginActivity.PE_FACEBOOK_SESSION, pSession);
+		pActivity.startActivity(i);
+	}
+	
+	public static void gotoChecking(Activity pActivity, Session pSession, UserIvoke pUser)
+	{
+		Intent i = new Intent(pActivity, CheckActivity.class);
+		i.putExtra(CheckActivity.PE_FACEBOOK_SESSION, pSession);
+		i.putExtra(CheckActivity.PE_USER_IVOKE      , pUser);
+		pActivity.startActivity(i);
+	}
+	
+	public static void gotoPlaces(Activity pActivity, Location pLocalUsuario)
+	{
+		Intent i = new Intent(pActivity, PlacesActivity.class);
+		i.putExtra(PlacePickerFragment.LOCATION_BUNDLE_KEY   , pLocalUsuario);
+		i.putExtra(PlacePickerFragment.RADIUS_IN_METERS_BUNDLE_KEY, 500);
+		pActivity.startActivityForResult(i, CheckActivity.RESULT_PLACE_ACT);
+	}
+	
+	public public void gotoMainActivity(Activity pActivity, UserIvoke pUser)
+	{
+		Intent main = new Intent(pActivity, MainActivity.class);
+		
+		if(pUser.getLocalCheckingId() !=null || pUser.getLocalization() != null)
+		{
+			main.putExtra(MainActivity.PE_USER_IVOKE, pUser);
+		}
+		else
+		{
+			MessageHelper.errorAlert(this)
+			             .setTitle(R.string.msg_alert_error_title)
+			           	 .setMessage(R.string.check_msg_erro_local_selecionado).showDialog();
+		}
+		
+		startActivity(main);
+		
+	}void goToMainActivity()
+	{
+		Intent main = new Intent(this, MainActivity.class);
+		
+		if(user.getLocalCheckingId() !=null || user.getLocalization() != null)
+		{
+			Log.d("#DEBUG#", "Antes PUT EXTRA");
+			main.putExtra(PE_USER_IVOKE, user);
+			Log.d("#DEBUG#", "depois");
+			startActivity(main);
+		}
+		else
+		{
+			MessageHelper.errorAlert(this)
+			             .setTitle(R.string.msg_alert_error_title)
+			           	 .setMessage(R.string.check_msg_erro_local_selecionado).showDialog();
+		}
+		
+		startActivity(main);
+		
+	}
+	
+}

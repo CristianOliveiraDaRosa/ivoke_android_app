@@ -4,12 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.transform.stream.StreamResult;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -104,7 +100,7 @@ public class WebHelper {
 	
 	public void doAsyncPostRequest(String url, ArrayList<WebParameter> pParameters, IAsyncCallBack pCallBack)
 	{
-		 new AsyncPostRequest(this, pParameters, pCallBack);
+		 new AsyncPostRequest(this, pParameters, pCallBack).execute(url);
 	}
 	
 	public Bitmap getImageFromUrl(String pUrlPath) throws Exception

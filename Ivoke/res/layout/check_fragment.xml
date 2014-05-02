@@ -10,15 +10,16 @@
 
     <LinearLayout
         android:layout_width="221dp"
-        android:layout_height="67dp"
+        android:layout_height="113dp"
         android:orientation="horizontal" >
 
         <com.facebook.widget.ProfilePictureView
-        android:id="@id/check_img_foto_usuario_facebook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        facebook:preset_size="small" >
+            android:id="@id/check_img_foto_usuario_facebook"
+            android:layout_width="wrap_content"
+            android:layout_height="112dp"
+            android:gravity="center_horizontal"
+            facebook:preset_size="small" >
+
 	    </com.facebook.widget.ProfilePictureView>
 	
 	    <TextView
@@ -54,10 +55,16 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:gravity="center_horizontal"
+	        android:paddingTop="10dp"
 	        android:text="@string/check_btn_selecione"
 	        android:onClick="onSelecLocalClick"
 	         />
-
-    </LinearLayout>
-    
+	    
+	    <Button
+	        android:id="@id/check_btn_go_to_next"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/check_btn_go_to_next"
+	        android:onClick="onNextWhitoutCheckingClick" />
+    </LinearLayout>    
 </LinearLayout>

@@ -1,25 +1,23 @@
 package com.app.ivoke.controllers.checking;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.app.ivoke.R;
-import com.app.ivoke.controllers.login.FacebookLoginActivity;
-import com.app.ivoke.controllers.login.LoginActivity;
-import com.app.ivoke.controllers.main.MainActivity;
+import com.app.ivoke.Router;
+import com.app.ivoke.helpers.DebugHelper;
 import com.app.ivoke.helpers.MessageHelper;
-import com.app.ivoke.helpers.ViewHelper;
 import com.app.ivoke.models.FacebookModel;
 import com.app.ivoke.objects.UserIvoke;
 import com.facebook.Session;
 import com.facebook.model.GraphObject;
 import com.facebook.model.GraphPlace;
-import com.facebook.widget.PlacePickerFragment;
+import com.facebook.model.GraphUser;
 import com.facebook.widget.ProfilePictureView;
 import com.google.android.gms.maps.model.LatLng;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -28,17 +26,22 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class CheckActivity extends ActionBarActivity {
 	
-	public static final int PE_RESULT_PLACE_ACT = 1;	
-	public static final String PE_USER_IVOKE       = "CheckActivity.UserIvoke";
-	public static final String PE_FACEBOOK_SESSION = "CheckActivity.FacebookSession";
+	public static final int RESULT_PLACE_ACT = 1;	
+	
+	public static final String PE_IVOKE_USER         = "CheckActivity.IvokeUser";
+	public static final String PE_FACEBOOK_SESSION   = "CheckActivity.FacebookSession";
+	public static final String PE_FACEBOOK_USER_JSON = "CheckActivity.FacebookUser";
+	private static FacebookModel faceModel;
+	private static UserIvoke  user;
+	private static GraphUser  fbUser;
+	
+	DebugHelper d = new DebugHelper("CheckActivity");
 	
 	private static final Location CASA = new Location("") {
         {
@@ -48,11 +51,10 @@ public class CheckActivity extends ActionBarActivity {
         }
     };
 	
-	public static FacebookModel faceModel;
-	public UserIvoke  user;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		d.method("onCreate");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.check_activity);
 
@@ -61,16 +63,40 @@ public class CheckActivity extends ActionBarActivity {
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 		
-		
-        Bundle extras = getIntent().getExtras();
+		parameters();        
+    }
+	
+	private void parameters()
+	{
+		d.method("parameters");
+		Bundle extras = getIntent().getExtras();
         if (extras != null) {
         	Session session = 
         			(Session) extras.getSerializable(PE_FACEBOOK_SESSION);
         	
         	faceModel = new FacebookModel(this, session);
-        	user   = (UserIvoke) extras.getSerializable(PE_USER_IVOKE);
+        	user   = (UserIvoke) extras.getSerializable(PE_IVOKE_USER);
+        	
+        	String jsonFbUser = extras.getString(PE_FACEBOOK_USER_JSON);
+        	
+         	d.var("jsonFbUser" , jsonFbUser);
+            try {
+            	JSONObject jsonObj = new JSONObject(jsonFbUser);
+				fbUser = GraphObject.Factory.create(jsonObj, GraphUser.class);
+			} catch (Exception e) {
+				d.exception(e);
+				MessageHelper.errorAlert(this)
+				             .setMessage(R.string.check_msg_error_get_fb_user)
+				             .showDialog();
+				
+				Router.gotoFacebookLogin(this);
+			}
+        	
+        	d.var("session", session);
+        	d.var("user"   , user);
+        	d.var("fbUser" , fbUser);
         }
-    }
+	}
 	
 	@Override
 	protected void onStart() {
@@ -93,22 +119,12 @@ public class CheckActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public void selecionaLocal(Location pLocalUsuario)
-	{
-		  Intent i = new Intent(this, PlacesActivity.class);
-		  i.putExtra(PlacePickerFragment.LOCATION_BUNDLE_KEY   , pLocalUsuario);
-		  //i.putExtra(PlacePickerFragment.SEARCH_TEXT_BUNDLE_KEY, "Teste");
-		  i.putExtra(PlacePickerFragment.RADIUS_IN_METERS_BUNDLE_KEY, 500);
-		  
-		  startActivityForResult(i, PE_RESULT_PLACE_ACT);
-	}
-	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		Log.d("#DEBUG#", "onActivityResult resultCode "+resultCode);
 		
-		if (resultCode == PE_RESULT_PLACE_ACT)
+		if (resultCode == RESULT_PLACE_ACT)
 		{
 			try {
 				Bundle bRetornos = data.getExtras();
@@ -120,7 +136,7 @@ public class CheckActivity extends ActionBarActivity {
 			
 				setTextButtonSelecionaLocal();
 			    
-				goToMainActivity();
+				Router.gotoMain(this, null);
 				
 			} catch (Exception e) {
 				MessageHelper.errorAlert(this)
@@ -144,53 +160,33 @@ public class CheckActivity extends ActionBarActivity {
 	}
 	
 	public void onSelecLocalClick(View pView) {
-		selecionaLocal(CASA);
+		Router.gotoPlaces(this, CASA);
 	}
 	
 	public void onNextWhitoutCheckingClick(View pView) {
 		//TODO Only for debug remove this!!
 		user.setLocalization(new LatLng(CASA.getLatitude(), CASA.getLongitude()));
-		goToMainActivity();
-	}
-	
-	public void goToMainActivity()
-	{
-		Intent main = new Intent(this, MainActivity.class);
-		
-		if(user.getLocalCheckingId() !=null || user.getLocalization() != null)
-		{
-			Log.d("#DEBUG#", "Antes PUT EXTRA");
-			main.putExtra(PE_USER_IVOKE, user);
-			Log.d("#DEBUG#", "depois");
-			startActivity(main);
-		}
-		else
-		{
-			MessageHelper.errorAlert(this)
-			             .setTitle(R.string.msg_alert_error_title)
-			           	 .setMessage(R.string.check_msg_erro_local_selecionado).showDialog();
-		}
-		
-		startActivity(main);
-		
+		Router.gotoMain(this, user);
 	}
 	
 	public static class PlaceholderFragment extends Fragment {
 
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.check_fragment, container, false);
-			
-			ProfilePictureView profilePictureView = (ProfilePictureView) rootView.findViewById(R.id.check_img_foto_usuario_facebook);
-		                       profilePictureView.setProfileId(faceModel.getFacebookUser().getId());
-		    
-		    TextView  txtNomeUsuario = (TextView) rootView.findViewById(R.id.check_lbl_nome_usuario);
-		    		  txtNomeUsuario.setText(faceModel.getFacebookUser().getName());
-		    		  
-			return rootView;
-				
-		}
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View rootView = inflater.inflate(R.layout.check_fragment, container, false);
 		
+		ProfilePictureView profilePictureView = 
+				(ProfilePictureView) rootView.findViewById(R.id.check_img_foto_usuario_facebook);
+	    profilePictureView.setProfileId(fbUser.getId());
+	    
+	    TextView  txtNomeUsuario = 
+	    		(TextView) rootView.findViewById(R.id.check_lbl_nome_usuario);
+	    txtNomeUsuario.setText(fbUser.getName());
+	    		  
+		return rootView;
+			
+	}
+	
 	}
 	
 

@@ -18,6 +18,7 @@ public class UserIvoke implements Serializable {
 	private double localLongitude;
 	
 	private String facebookID;
+	private String facebookName;
 	private String facebookPlaceId;
 	private String facebookPlaceName;
 	private double facebookPlaceLatitude;
@@ -29,6 +30,14 @@ public class UserIvoke implements Serializable {
 	public void setFacebookID(String facebookId) {
 		this.facebookID = facebookId;
 	}
+	
+	public String getFacebookName() {
+		return facebookName;
+	}
+	public void setFacebookName(String facebookName) {
+		this.facebookName = facebookName;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -84,6 +93,4 @@ public class UserIvoke implements Serializable {
 		 
 		 return user;
 	}
-	
-
 }

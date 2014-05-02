@@ -1,8 +1,6 @@
 package com.app.ivoke.controllers.main;
 
 import com.app.ivoke.R;
-import com.app.ivoke.controllers.login.FacebookLoginActivity;
-import com.app.ivoke.controllers.login.LoginActivity;
 import com.app.ivoke.models.FacebookModel;
 import com.app.ivoke.objects.UserIvoke;
 

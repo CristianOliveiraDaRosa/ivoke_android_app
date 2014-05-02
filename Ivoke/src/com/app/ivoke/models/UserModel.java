@@ -2,17 +2,19 @@ package com.app.ivoke.models;
 
 import java.util.ArrayList;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
 
+import com.app.ivoke.helpers.DebugHelper;
 import com.app.ivoke.helpers.WebHelper;
 import com.app.ivoke.helpers.WebHelper.WebParameter;
 import com.app.ivoke.objects.UserIvoke;
 import com.app.ivoke.objects.interfaces.IAsyncCallBack;
 
 public class UserModel extends WebServer {
+	
+	DebugHelper debug = new DebugHelper("UserModel");
 	
 	private UserIvoke user;
 
@@ -47,10 +49,13 @@ public class UserModel extends WebServer {
 	
 	public void asyncGetIvokeUser(String pFacebookId, IAsyncCallBack pCallBack) throws Exception
 	{
+		debug.method("asyncGetIvokeUser").par("pFacebookId", pFacebookId).par("pCallBack", pCallBack);
+		
 		ArrayList<WebHelper.WebParameter> parametros = new ArrayList<WebHelper.WebParameter>();
 		parametros.add(web.parameter("facebook_id", pFacebookId));
 		
 		web.doAsyncPostRequest(site(URL_USER_GET), parametros, pCallBack);
+		debug.log("FIM");
 	}
 	
 	public UserIvoke create(String pName, String pFacebookId) throws Exception

@@ -31,7 +31,7 @@ public class PlacesActivity extends ActionBarActivity {
 			returnIntent = new Intent();
 			returnIntent.putExtra(PE_JSON_SELECTED_PLACE, localSelecionado.getInnerJSONObject().toString());
 			
-			setResult( CheckActivity.PE_RESULT_PLACE_ACT, returnIntent);
+			setResult( CheckActivity.RESULT_PLACE_ACT, returnIntent);
 			finish();
 		}
 	};

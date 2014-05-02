@@ -1,7 +1,5 @@
 package com.app.ivoke.helpers;
 
-import org.json.JSONException;
-
 import android.util.Log;
 
 public class DebugHelper {
