@@ -1,0 +1,14 @@
+package com.app.ivoke.models;
+
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
+
+public class ConfiguracaoModel {
+	
+	private static SharedPreferences prefs;
+	
+	public void getMuralPostDistance()
+	{
+		
+	}
+}

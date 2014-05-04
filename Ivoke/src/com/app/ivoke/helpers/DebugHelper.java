@@ -1,5 +1,7 @@
 package com.app.ivoke.helpers;
 
+import java.util.List;
+
 import android.util.Log;
 
 public class DebugHelper {
@@ -49,6 +51,19 @@ public class DebugHelper {
 				Log.d(className+"."+methodName, "VAR: "+pName+"= NULL");
 			else
 				Log.d(className+"."+methodName, "VAR: "+pName+"="+pLog.toString());
+		}
+		
+		return this;
+	}
+	
+	public DebugHelper var(String pName,List<?> pLog)
+	{
+		if(isDebugOn)
+		{
+			if(pLog == null)
+				Log.d(className+"."+methodName, "VAR: "+pName+"= NULL");
+			else
+				Log.d(className+"."+methodName, "VAR: "+pName+"="+pLog.toString()+" size: "+pLog.size());
 		}
 		
 		return this;

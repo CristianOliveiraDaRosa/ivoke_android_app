@@ -1,0 +1,7 @@
+package com.app.ivoke;
+
+import android.app.Application;
+
+public class App extends Application {
+
+}

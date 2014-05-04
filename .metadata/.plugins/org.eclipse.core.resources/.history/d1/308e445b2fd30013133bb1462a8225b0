@@ -1,0 +1,28 @@
+package com.app.ivoke.models;
+
+import android.database.sqlite.SQLiteDatabase;
+
+public class ConfiguracaoModel extends Database {
+	
+	private static final String TABLE_NAME = "user_configuracao";
+	
+	private static final String TABLE_CREATE = 
+			 "CREATE TABLE {TABLE_NAME} " +
+			 "( " +
+			 " id             integer primary key autoincrement, " +
+			 " posts_distance integer," +
+			 " block_advert   integer " +
+			 ");";	
+	
+	@Override
+	public void onCreate(SQLiteDatabase db) {
+		db.execSQL(TABLE_CREATE);
+	}
+
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

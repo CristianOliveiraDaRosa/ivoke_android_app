@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+import com.app.ivoke.R;
 import com.app.ivoke.helpers.DebugHelper;
 import com.app.ivoke.helpers.WebHelper;
 import com.app.ivoke.helpers.WebHelper.WebParameter;
@@ -33,7 +34,7 @@ public class UserModel extends WebServer {
 		
 		String retorno = null;
 		
-		retorno = web.doPostRequest(site(URL_USER_GET), parametros);
+		retorno = web.doPostRequest(site(R.string.ws_url_user_get), parametros);
 		
 		 try {
 			 
@@ -54,7 +55,7 @@ public class UserModel extends WebServer {
 		ArrayList<WebHelper.WebParameter> parametros = new ArrayList<WebHelper.WebParameter>();
 		parametros.add(web.parameter("facebook_id", pFacebookId));
 		
-		web.doAsyncPostRequest(site(URL_USER_GET), parametros, pCallBack);
+		web.doAsyncPostRequest(site(R.string.ws_url_user_get), parametros, pCallBack);
 		debug.log("FIM");
 	}
 	
@@ -67,7 +68,7 @@ public class UserModel extends WebServer {
 				parametros.add(web.parameter("nome"       , pName));
 				parametros.add(web.parameter("facebook_id", pFacebookId));
 				
-				String jsonString = web.doPostRequest(site(URL_USUARIO_ADD), parametros);
+				String jsonString = web.doPostRequest(site(R.string.ws_url_user_add), parametros);
 				
 				JSONObject json = new JSONObject(jsonString);
 				
@@ -107,5 +108,9 @@ public class UserModel extends WebServer {
 		@Override
 		public void onProgress(int pPercent, Object pObject) {
 			
-		}} 
+		}
+
+		@Override
+		public void onPreExecure() {	}
+	} 
 }

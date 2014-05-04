@@ -27,3 +27,15 @@
 1398980700621	Encapsulate field 'facebookName'
 1398989156194	Rename field 'PE_USER_IVOKE'
 1398990253378	Rename field 'PE_FACEBOOK_USER'
+1398995278012	Rename field 'parentActivity'
+1398998675102	Copy file
+1399075937712	Rename field 'actResource'
+1399077365395	Rename field 'resource'
+1399077378421	Rename field 'resouce'
+1399078612873	Delete element
+1399078958726	Rename method 'go'
+1399080597100	Delete element
+1399080827294	Delete element
+1399082212312	Rename type 'LoadingCallback'
+1399082371311	Rename method 'setPostagens'
+1399084629232	Rename method 'onStart'

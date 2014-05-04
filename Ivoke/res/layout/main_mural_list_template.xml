@@ -6,15 +6,16 @@
     android:padding="5dip" >
  
     <!--  ListRow Left sied Thumbnail image -->
-    <LinearLayout android:id="@id/main_mural_image"
+    <LinearLayout 
+        android:id="@id/main_moldura_imagem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="3dip"
         android:layout_alignParentLeft="true"
-       android:layout_marginRight="5dip">
+        android:layout_marginRight="5dip">
  
         <ImageView
-            android:id="@+id/list_image"
+            android:id="@id/main_mural_image"
             android:layout_width="50dip"
             android:layout_height="50dip"
             android:src="@drawable/user"
@@ -27,8 +28,8 @@
         android:id="@id/main_mural_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/main_mural_image"
-        android:layout_toRightOf="@id/main_mural_image"
+        android:layout_alignTop="@id/main_moldura_imagem"
+        android:layout_toRightOf="@id/main_moldura_imagem"
         android:text="Usuario Nome"
         android:textColor="#040404"
         android:typeface="sans"
@@ -41,10 +42,10 @@
         android:id="@id/main_mural_message"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/main_mural_image"
+        android:layout_alignBottom="@id/main_moldura_imagem"
         android:layout_below="@id/main_mural_title"
         android:layout_marginTop="1dip"
-        android:layout_toRightOf="@id/main_mural_image"
+        android:layout_toRightOf="@id/main_moldura_imagem"
         android:text="Uma mensagem qualquer!"
         android:textColor="#343434"
         android:textSize="10dip" />

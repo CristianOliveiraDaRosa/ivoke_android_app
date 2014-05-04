@@ -1,0 +1,32 @@
+package com.app.ivoke.models;
+
+import android.database.sqlite.SQLiteDatabase;
+
+public class ConfiguracaoModel extends Database {
+	
+	private static final String TABLE_NAME = "user_configuracao";
+	
+	private static final String ID = "id";
+	private static final String POST_DISTANCE = "post_distance";
+	private static final String BLOCK_ADVERT  = "block_advert";
+	
+	private static final String TB_CREATE = 
+			 "CREATE TABLE "+TABLE_NAME+
+			 "( " +
+			 " "+ID+"             integer primary key autoincrement, " +
+			 " "+POST_DISTANCE+"  integer," +
+			 " "+BLOCK_ADVERT+"   integer " +
+			 ");";	
+	
+	@Override
+	public void onCreate(SQLiteDatabase db) {
+		db.execSQL(TB_CREATE);
+	}
+
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+	    onCreate(db);
+	}
+
+}

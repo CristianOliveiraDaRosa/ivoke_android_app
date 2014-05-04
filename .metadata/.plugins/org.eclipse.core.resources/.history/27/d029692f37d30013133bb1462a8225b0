@@ -1,0 +1,26 @@
+package com.app.ivoke.models;
+
+import com.app.ivoke.Router;
+
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
+
+public class ConfiguracaoModel {
+	
+	private static SharedPreferences prefs;
+	
+	private static appPackage = "com.app.ivoke";
+	
+	
+	public ConfiguracaoModel()
+	{
+		prefs = 
+		  Router.currentContext.getSharedPreferences(, 
+				                                     Router.currentContext.MODE_PRIVATE);
+	}
+	
+	public void getMuralPostDistance()
+	{
+		
+	}
+}

@@ -1,0 +1,34 @@
+package com.app.ivoke.models;
+
+import com.app.ivoke.Router;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+
+public class ConfiguracaoModel {
+	
+	private static SharedPreferences prefs;
+	
+	private static String APP_PACKAGE = "com.app.ivoke";
+	private static String MURAL_POST_DISTANCE = APP_PACKAGE+".mural_post_distance";
+	
+	public ConfiguracaoModel()
+	{
+		prefs = 
+		  Router.currentContext.getSharedPreferences( APP_PACKAGE
+				  									, Context.MODE_PRIVATE);
+	}
+	
+	public void setMuralPostDistance(float pDistance)
+	{
+		prefs.edit().putFloat(MURAL_POST_DISTANCE, pDistance).commit();
+	}
+	public float getMuralPostDistance()
+	{
+		return prefs.getFloat(MURAL_POST_DISTANCE, 100);
+	}
+	
+	
+	
+	public 
+}

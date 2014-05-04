@@ -1,8 +1,17 @@
 package com.app.ivoke.controllers.login;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,12 +38,34 @@ public class FacebookLoginActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		debug.method("onCreate");
 		
+		// Add code to print out the key hash
+	    try {
+	        PackageInfo info = getPackageManager().getPackageInfo(
+	                "com.app.ivoke", 
+	                PackageManager.GET_SIGNATURES);
+	        for (Signature signature : info.signatures) {
+	            MessageDigest md = MessageDigest.getInstance("SHA");
+	            md.update(signature.toByteArray());
+	            Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+	            }
+	    } catch (NameNotFoundException e) {
+	    	debug.exception(e);
+			
+	    } catch (NoSuchAlgorithmException e) {
+	    	debug.exception(e);
+	    }
+	    debug.method("onCreate");
+		
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.facebook_login_activity);
 		uiHelper = new UiLifecycleHelper(this, callBack);
 		uiHelper.onCreate(savedInstanceState);
 		
 		facebookModel.openSessionAsync(this, callBack);
+		
+		 
+
 	}
 	
 	public View onCreateView(LayoutInflater inflater, 

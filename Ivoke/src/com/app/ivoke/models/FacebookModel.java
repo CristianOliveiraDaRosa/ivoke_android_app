@@ -6,12 +6,14 @@ import org.json.JSONObject;
 import android.app.Activity;
 
 import com.app.ivoke.helpers.DebugHelper;
+import com.facebook.LoggingBehavior;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.Request.GraphUserCallback;
 import com.facebook.Session.StatusCallback;
+import com.facebook.android.Facebook;
 import com.facebook.model.GraphUser;
 
 
@@ -24,22 +26,22 @@ public class FacebookModel {
 	private GraphUser	 facebookUser;
 	private Session 	 activeSession;
 	private SessionState statusSession;
- 	
-	public FacebookModel(){}
+	
+	public FacebookModel(){
+	}
 	public FacebookModel(Activity pActivity, Session pActiveSession)
 	{
 		setSessaoAtiva(pActivity,pActiveSession);
 	}
-	
+		
 	public Session openSessionAsync(Activity pActivity, com.facebook.Session.StatusCallback pCallBack)
 	{
+		
 		debug.method("openSessionAsync").par("pActivity", pActivity).par("pCallBack", pCallBack);
 		try {
-			
 			Session session = Session.openActiveSession(pActivity, true, new StatusCallback() {
 				public void call(Session session, SessionState state, Exception exception) {
 					debug.log("DEFAULT CAllBACK");
-					
 					if (session.isOpened())
 					{
 						debug.log("session is opened");
@@ -60,7 +62,6 @@ public class FacebookModel {
 				debug.log("session addicioned callback");
 				session.addCallback(pCallBack);
 			}
-			
 			return session;
 		} catch (Exception e) {
 			debug.log("Exception: "+e.getMessage());

@@ -32,7 +32,7 @@ public class WebHelper {
 
 	String requestCache;
 	
-	DebugHelper debug = new DebugHelper("#WEBHELPER#");
+	DebugHelper debug = new DebugHelper("WebHelper");
 	
 	public String doRequest(String url, ArrayList<WebParameter> pParametros) throws NetworkException, ClientProtocolException, IOException
 	{
@@ -95,18 +95,19 @@ public class WebHelper {
 	
 	public void doAsyncRequest(String url, ArrayList<WebParameter> pParametros, IAsyncCallBack pCallBack) throws NetworkException
 	{
-	     new AsyncRequest(this, pParametros, pCallBack).execute(url);
+		debug.method("doAsyncPostRequest").par("url", url);
+		 new AsyncRequest(this, pParametros, pCallBack).execute(url);
 	}
 	
 	public void doAsyncPostRequest(String url, ArrayList<WebParameter> pParameters, IAsyncCallBack pCallBack)
 	{
+		 debug.method("doAsyncPostRequest").par("url", url);
 		 new AsyncPostRequest(this, pParameters, pCallBack).execute(url);
 	}
 	
 	public Bitmap getImageFromUrl(String pUrlPath) throws Exception
 	{
-		Log.d("#DEBUG#","WebHelper.getImageFromUrl pUrlPath:"+pUrlPath);
-	    URL img_value = new URL(pUrlPath);
+		URL img_value = new URL(pUrlPath);
 	    Bitmap image = null;
 	    InputStream stream = img_value.openConnection().getInputStream();
 	    image = BitmapFactory.decodeStream(stream);
@@ -284,6 +285,11 @@ public class WebHelper {
 			parameters = pParameters;
 			callBack = pCallBack;
 		}
+		
+		@Override
+		protected void onPreExecute() {
+			callBack.onPreExecure();
+		};
 		
 		@Override
 		protected String doInBackground(String... pUrl) {

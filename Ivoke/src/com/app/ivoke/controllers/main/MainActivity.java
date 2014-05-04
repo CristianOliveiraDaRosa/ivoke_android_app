@@ -1,9 +1,17 @@
 package com.app.ivoke.controllers.main;
 
-import com.app.ivoke.R;
-import com.app.ivoke.models.FacebookModel;
-import com.app.ivoke.objects.UserIvoke;
+import java.util.List;
 
+import com.app.ivoke.R;
+import com.app.ivoke.Router;
+import com.app.ivoke.helpers.DebugHelper;
+import com.app.ivoke.models.FacebookModel;
+import com.app.ivoke.models.MuralModel;
+import com.app.ivoke.objects.MuralPost;
+import com.app.ivoke.objects.UserIvoke;
+import com.app.ivoke.objects.interfaces.IAsyncCallBack;
+
+import android.renderscript.ProgramFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -19,27 +27,38 @@ public class MainActivity extends ActionBarActivity {
 	public static final String PE_USER_IVOKE       = "MainActivity.UserIvoke";
 	public static final String PE_FACEBOOK_SESSION = "MainActivity.FacebookSession";
 	
-	FacebookModel faceModel;
+	DebugHelper dbg = new DebugHelper("MainActivity");
+	
+	/* Declare Models */
+	MuralModel muralModel = new MuralModel();
+	  
+	/* Declare Fragments */
+	MuralFragment muralFragment = new MuralFragment(); 
+	ProcessingFragment processingFragment = new ProcessingFragment();
+	
+	/*  Declare other vars */
 	UserIvoke user;
+	
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+    	dbg.method("onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-        }
-        
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
         	Session session = 
         			(Session) extras.getSerializable(PE_FACEBOOK_SESSION);
         	
-        	faceModel = new FacebookModel(this, session);
         	user   = (UserIvoke) extras.getSerializable(PE_USER_IVOKE);
+        	
+        	dbg.var("session", session)
+        	   .var("user", user);
+        }
+        
+        if (savedInstanceState == null) {
+        	showMuralFragment();
         }
         
     }
@@ -59,20 +78,20 @@ public class MainActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.main_act_menu_configuracoes) {
-            return true;
-        }
         
         switch (id) {
 		case R.id.main_act_menu_mural:
-			getSupportFragmentManager()
-			.beginTransaction()
-			.replace(R.id.container, new MuralFragment()).commit();
+			
+			showMuralFragment();
+		    
             break;
-		case R.id.main_act_menu_contatos:
-			getSupportFragmentManager()
-			.beginTransaction()
-			.replace(R.id.container, new ContatoFragment()).commit();
+		case R.id.main_act_menu_contacts:
+		
+			break;
+		case R.id.main_act_menu_settings:
+			
+			Router.gotoSettings(this);
+			
 			break;
 		default:
 			break;
@@ -80,21 +99,42 @@ public class MainActivity extends ActionBarActivity {
         
         return super.onOptionsItemSelected(item);
     }
+    
+    private void showMuralFragment() {
+    	muralModel.asyncGetNearbyPosts(user.getLocalization() ,100, new MuralCallback());
+	}
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.main_mural_fragment, container, false);
-            return rootView;
-        }
+	private void showProcessingFragment()
+    {
+    	getSupportFragmentManager()
+		.beginTransaction()
+		.replace(R.id.container, processingFragment).commit();
     }
+    
+    private void showFragment(Fragment pFragment)
+    {
+    	getSupportFragmentManager()
+		.beginTransaction().replace(R.id.container, pFragment).commit();
+    }
+    
+    private class MuralCallback implements IAsyncCallBack
+    {	
+    	@Override
+		public void onCompleteTask(Object pResult) {
+    		dbg._class(this).method("onCompleteTask").par("pResult", pResult);
+    		
+    		List<MuralPost> posts = muralModel.getListPostsFromJSon(pResult.toString());
+    		muralFragment.setPosts(posts);
+    		showFragment(muralFragment);
+		}
 
+		@Override
+		public void onPreExecure() {
+			showProcessingFragment();
+		}
+
+		@Override
+		public void onProgress(int pPercent, Object pObject) {}
+
+    }
 }

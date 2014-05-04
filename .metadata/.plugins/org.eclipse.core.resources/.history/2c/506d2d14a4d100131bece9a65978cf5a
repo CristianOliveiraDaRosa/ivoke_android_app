@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Menu titles -->
+    <string name="main_menu_title_mural"   >Mural</string>
+    <string name="main_menu_title_contacts">Contatos</string>
+    <string name="main_menu_title_config"  >:</string>
+
+    <string name="main_waiting_lbl"  >Buscando</string>
+    
+</resources>

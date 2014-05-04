@@ -1,44 +1,24 @@
 package com.app.ivoke.controllers.login;
 
-import org.json.JSONException;
-
 import com.app.ivoke.R;
 import com.app.ivoke.Router;
-import com.app.ivoke.controllers.checking.CheckActivity;
-import com.app.ivoke.controllers.main.MainActivity;
 import com.app.ivoke.helpers.MessageHelper;
 import com.app.ivoke.helpers.DebugHelper;
-import com.app.ivoke.helpers.ViewHelper;
-import com.app.ivoke.helpers.WebHelper.NetworkException;
-import com.app.ivoke.helpers.WebHelper.ServerException;
 import com.app.ivoke.models.FacebookModel;
 import com.app.ivoke.models.UserModel;
 import com.app.ivoke.objects.UserIvoke;
 import com.app.ivoke.objects.interfaces.IAsyncCallBack;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.app.Activity;
-import android.app.DownloadManager.Request;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.facebook.Request.GraphUserCallback;
-import com.facebook.Response;
 import com.facebook.Session;
-import com.facebook.Session.StatusCallback;
-import com.facebook.UiLifecycleHelper;
-import com.facebook.android.Facebook;
 import com.facebook.model.GraphUser;
-import com.facebook.SessionState;
 
 public class LoginActivity extends android.support.v4.app.FragmentActivity {
 	
@@ -104,7 +84,8 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 		if(fbSession.isOpened())
 		{			
 			faceModel.setSessaoAtiva(this, fbSession);
-			
+			this.getString(R.string.ws_url_facebook_profile_img);
+			this.getString(R.string.ws_url);
 			/*  Evita o NetworkOnMainThreadException fix it!!! */
 			new Thread(new Runnable(){
 				public void run() {
@@ -137,6 +118,7 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 	{
 		Router.gotoFacebookLogin(this);
 		finish();
+		
 	}
 	
 	private class IvokeServerCallback implements IAsyncCallBack
@@ -172,6 +154,9 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 					debug.exception(e);
 					MessageHelper.errorAlert(activityCaller)
 					             .setMessage(R.string.login_msg_error_user_not_found).showDialog();
+					
+					activityCaller.finish();
+					
 				}
 				
 				if(userIvoke!= null)
@@ -179,6 +164,12 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 					Router.gotoChecking(activityCaller, fbSession, userIvoke, fbUser);
 					activityCaller.finish();
 				}
+			}
+
+			@Override
+			public void onPreExecure() {
+				// TODO Auto-generated method stub
+				
 			}
 	}
 }

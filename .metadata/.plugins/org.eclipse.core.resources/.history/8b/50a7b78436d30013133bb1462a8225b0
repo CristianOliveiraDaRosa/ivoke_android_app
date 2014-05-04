@@ -1,0 +1,11 @@
+package com.app.ivoke.models;
+
+import android.database.sqlite.SQLiteDatabase;
+
+public class ConfiguracaoModel {
+	
+	public void getMuralPostDistance()
+	{
+		
+	}
+}

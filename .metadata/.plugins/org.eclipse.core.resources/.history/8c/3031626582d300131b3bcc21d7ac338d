@@ -1,0 +1,7 @@
+package com.app.ivoke.controllers.main;
+
+import android.support.v4.app.Fragment;
+
+public class ConfiguracaoFragment extends Fragment {
+
+}

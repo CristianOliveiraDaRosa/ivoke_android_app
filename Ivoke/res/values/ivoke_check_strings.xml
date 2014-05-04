@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_activity_check">CheckActivity</string>
+    <string name="title_activity_check">Checking</string>
     <string name="title_activity_places">Locais Próximos</string>
 	    
     <string name="check_lbl_onde_voce_esta">Onde você está?</string>

@@ -1,7 +1,8 @@
 package com.app.ivoke.objects.interfaces;
 
 public interface IAsyncCallBack {
+	void onPreExecure();
 	void onCompleteTask(Object pResult);
-	abstract void onProgress(int pPercent, Object pObject);
+	void onProgress(int pPercent, Object pObject);
 }
 
