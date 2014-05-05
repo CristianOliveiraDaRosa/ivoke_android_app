@@ -7,9 +7,9 @@
     <string name="action_settings">Settings</string>
     
     <!-- Default Values -->
-    <string name="null_usuario_nome">*Nome Usuário*</string>
-    <string name="process_waiting">Processando...</string>
-    <string name="process_done">Processo finalizado.</string>
+    <string name="def_null_usuario_nome">*Nome Usuário*</string>
+    <string name="def_process_waiting">Processando...</string>
+    <string name="def_process_done">Processo finalizado.</string>
     
     
 	<!-- String for default AlertDialog -->
@@ -18,7 +18,9 @@
        
 	<!-- Server error messages -->
     <string name="msg_error_ws_server_not_responding">
-        Servidor está indisponível tente mais tarde.
+        Pô Almir! Nosso servidor está indisponível.
     </string>
-    
+    <string name="error_msg_unexpected_exception">
+        Situação inesperada, por favor "saia e entre no fusca novamente".
+    </string>
 </resources>

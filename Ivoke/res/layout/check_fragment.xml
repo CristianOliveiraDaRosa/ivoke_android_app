@@ -29,7 +29,7 @@
 	        android:layout_gravity="center"
 	        android:layout_marginLeft="10dp"
 	        android:layout_weight="0.49"
-	        android:text="@string/null_usuario_nome"
+	        android:text="@string/def_null_usuario_nome"
 	        android:textColor="#333"
 	        android:textSize="18sp" />
 

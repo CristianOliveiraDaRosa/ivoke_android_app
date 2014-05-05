@@ -15,14 +15,15 @@
 	<ProgressBar
 	    android:id="@id/login_pregress_bar"
 	    style="?android:attr/progressBarStyleLargeInverse"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content" />
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center_horizontal" />
 
 	<TextView
 	    android:id="@id/login_lbl_processing"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:gravity="center_horizontal"
-	    android:text="@string/process_waiting"/>
+	    android:text="@string/def_process_waiting"/>
 
 </LinearLayout>

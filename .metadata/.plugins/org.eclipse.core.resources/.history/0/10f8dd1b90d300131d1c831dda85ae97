@@ -1,0 +1,9 @@
+package com.app.ivoke.helpers;
+
+public class SettingsHelper {
+	
+	public static boolean getMuralPostDistance(Activity pAct)
+	{
+		
+	}
+}

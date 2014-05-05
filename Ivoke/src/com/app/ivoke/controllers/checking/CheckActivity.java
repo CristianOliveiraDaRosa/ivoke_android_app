@@ -7,6 +7,7 @@ import com.app.ivoke.R;
 import com.app.ivoke.Router;
 import com.app.ivoke.helpers.DebugHelper;
 import com.app.ivoke.helpers.MessageHelper;
+import com.app.ivoke.helpers.SettingsHelper;
 import com.app.ivoke.models.FacebookModel;
 import com.app.ivoke.objects.UserIvoke;
 import com.facebook.Session;
@@ -55,6 +56,7 @@ public class CheckActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		d.method("onCreate");
+		   
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.check_activity);
 
@@ -63,8 +65,9 @@ public class CheckActivity extends ActionBarActivity {
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 		
-		parameters();        
-    }
+		parameters();
+		verifySettings();
+	}
 	
 	private void parameters()
 	{
@@ -167,6 +170,15 @@ public class CheckActivity extends ActionBarActivity {
 		//TODO Only for debug remove this!!
 		user.setLocalization(new LatLng(CASA.getLatitude(), CASA.getLongitude()));
 		Router.gotoMain(this, user);
+	}
+
+	private void verifySettings()
+	{
+		if(!SettingsHelper.askForChecking(this))
+		{
+			onNextWhitoutCheckingClick(null);
+			this.finish();
+		}
 	}
 	
 	public static class PlaceholderFragment extends Fragment {

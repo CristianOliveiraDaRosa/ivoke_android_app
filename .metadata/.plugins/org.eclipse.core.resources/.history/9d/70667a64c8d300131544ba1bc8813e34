@@ -1,0 +1,54 @@
+package com.app.ivoke.objects;
+
+import android.graphics.Bitmap;
+
+public class MuralPost{
+	
+	int muralPostId;
+	int userId;
+    Bitmap profileImg;
+    String userName;
+	String message;
+	String when;
+    
+    public MuralPost( int pMuralPostId
+    		        , int pUserId
+    		        , String pUserName
+    		        , String pMessage
+    		        , String pWhen
+    		        , Bitmap pProfileImage)
+    {
+    	muralPostId = pMuralPostId;
+        userName  = pUserName;
+    	message   = pMessage;
+    	when      = pWhen;
+    	profileImg  = pProfileImage;
+    }
+    
+    public int getId()
+    {
+    	return muralPostId;
+    }
+    
+    public String getNome()
+    {
+    	return userName;
+    }
+    
+    public String getMensagem()
+    {
+    	return message;
+    }
+    
+    public String getQuando()
+    {
+    	return when;
+    }
+    
+    public Bitmap getProfileImage()
+    {
+    	return profileImg;
+    }
+    
+}
+

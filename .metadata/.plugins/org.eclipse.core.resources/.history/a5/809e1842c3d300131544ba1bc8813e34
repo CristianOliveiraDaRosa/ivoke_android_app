@@ -1,0 +1,5 @@
+package com.app.ivoke.objects;
+
+public class WebParameter {
+
+}

@@ -12,12 +12,13 @@ public class UserIvoke implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private int    ivokeID;
+	private int    id;
 	private String name;
+	private String facebook_id;
+	
 	private double localLatitude;
 	private double localLongitude;
 	
-	private String facebookID;
 	private String facebookName;
 	private String facebookPlaceId;
 	private String facebookPlaceName;
@@ -25,10 +26,10 @@ public class UserIvoke implements Serializable {
 	private double facebookPlaceLongitude;
 	
 	public String getFacebookID() {
-		return facebookID;
+		return facebook_id;
 	}
 	public void setFacebookID(String facebookId) {
-		this.facebookID = facebookId;
+		this.facebook_id = facebookId;
 	}
 	
 	public String getFacebookName() {
@@ -55,10 +56,10 @@ public class UserIvoke implements Serializable {
 		localLongitude = pLatLng.longitude;
 	}
 	public int getIvokeID() {
-		return ivokeID;
+		return id;
 	}
 	public void setIvokeID(int ivokeID) {
-		this.ivokeID = ivokeID;
+		this.id = ivokeID;
 	}
 	public String getLocalCheckingId() {
 		return facebookPlaceId;
@@ -88,7 +89,7 @@ public class UserIvoke implements Serializable {
 		 JSONObject json = new JSONObject(pJsonString);
 		 user = new UserIvoke();
 		 user.setIvokeID(json.getInt("id"));
-		 user.setName(json.getString("nome"));
+		 user.setName(json.getString("name"));
 		 user.setFacebookID(json.getString("facebook_id"));
 		 
 		 return user;

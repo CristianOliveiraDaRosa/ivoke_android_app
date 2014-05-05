@@ -37,35 +37,12 @@ public class FacebookLoginActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		debug.method("onCreate");
-		
-		// Add code to print out the key hash
-	    try {
-	        PackageInfo info = getPackageManager().getPackageInfo(
-	                "com.app.ivoke", 
-	                PackageManager.GET_SIGNATURES);
-	        for (Signature signature : info.signatures) {
-	            MessageDigest md = MessageDigest.getInstance("SHA");
-	            md.update(signature.toByteArray());
-	            Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-	            }
-	    } catch (NameNotFoundException e) {
-	    	debug.exception(e);
-			
-	    } catch (NoSuchAlgorithmException e) {
-	    	debug.exception(e);
-	    }
-	    debug.method("onCreate");
-		
-		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.facebook_login_activity);
 		uiHelper = new UiLifecycleHelper(this, callBack);
 		uiHelper.onCreate(savedInstanceState);
 		
 		facebookModel.openSessionAsync(this, callBack);
-		
-		 
-
 	}
 	
 	public View onCreateView(LayoutInflater inflater, 

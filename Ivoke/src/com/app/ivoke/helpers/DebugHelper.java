@@ -87,9 +87,14 @@ public class DebugHelper {
 		return this;
 	}
 	
-	public DebugHelper _class(Object pClassName) {
+	public DebugHelper setClass(Object pClassName) {
 		className = pClassName.getClass().getSimpleName();
 		return this;
+	}
+	
+	public DebugHelper _class(Object pClassName) {
+		String className = pClassName.getClass().getSimpleName();
+		return new DebugHelper(className);
 	}
 	
 	public DebugHelper _class(String pClassName) {
@@ -98,6 +103,7 @@ public class DebugHelper {
 	}
 	
 	public void exception(Exception e) {
-		this.log("EXCEPTION: "+e.getMessage());		
+		this.log("EXCEPTION: "+e.getMessage());	
+		e.printStackTrace();
 	}
 }

@@ -21,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.app.ivoke.objects.WebParameter;
 import com.app.ivoke.objects.interfaces.IAsyncCallBack;
 
 import android.graphics.Bitmap;
@@ -38,7 +39,7 @@ public class WebHelper {
 	{
 		String urlConcat = "";
 		for (WebParameter parameter : pParametros) {
-			urlConcat += "/"+parameter.valor;
+			urlConcat += "/"+parameter.getValor();
 		}		
 		
 	    HttpClient httpclient = new DefaultHttpClient();
@@ -107,6 +108,8 @@ public class WebHelper {
 	
 	public Bitmap getImageFromUrl(String pUrlPath) throws Exception
 	{
+		debug.method("getImageFromUrl").par("pUrlPath", pUrlPath);
+		
 		URL img_value = new URL(pUrlPath);
 	    Bitmap image = null;
 	    InputStream stream = img_value.openConnection().getInputStream();
@@ -163,34 +166,6 @@ public class WebHelper {
 		return new WebParameter(pKey, pValor);
 	}
 	
-	public class WebParameter
-	{
-		private String key;
-		private String valor;
-		
-		public WebParameter(String pKey, String pValor)
-		{
-			setKey(pKey);
-			setValor(pValor);
-		}
-
-		public String getKey() {
-			return key;
-		}
-
-		public void setKey(String key) {
-			this.key = key;
-		}
-
-		public String getValor() {
-			return valor;
-		}
-
-		public void setValor(String valor) {
-			this.valor = valor;
-		}
-	}
-	
 	public class NetworkException extends Exception
 	{
 		private Exception InnerException;
@@ -244,7 +219,9 @@ public class WebHelper {
 					
 			for (int i = 0; i < pUrl.length; i++) {
 				try {
+					
 					requestResult = web.doRequest(pUrl[i], parameters);
+					debug._class(this).method("doInBackground").var("requestResult", requestResult);
 				} catch (NetworkException e) {
 					requestResult = null;
 				} catch (ClientProtocolException e) {
@@ -256,7 +233,15 @@ public class WebHelper {
 				}
 			}
 			
+			callBack.onPreComplete(requestResult);
+			
 			return requestResult;
+		}
+		
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			callBack.onPreExecute();
 		}
 		
 		@Override
@@ -288,7 +273,7 @@ public class WebHelper {
 		
 		@Override
 		protected void onPreExecute() {
-			callBack.onPreExecure();
+			callBack.onPreExecute();
 		};
 		
 		@Override
@@ -298,11 +283,12 @@ public class WebHelper {
 			for (int i = 0; i < pUrl.length; i++) {
 				try {
 					requestResult = web.doPostRequest(pUrl[i], parameters);
+					
 				} catch (Exception e) {
 					requestResult = null;
 		        }
 			}
-			
+			callBack.onPreComplete(requestResult);
 			return requestResult;
 		}
 		

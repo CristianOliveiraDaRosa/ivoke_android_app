@@ -4,6 +4,7 @@ import com.app.ivoke.Router;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 public class ConfiguracaoModel {
 	
@@ -15,9 +16,7 @@ public class ConfiguracaoModel {
 	
 	public ConfiguracaoModel()
 	{
-		prefs = 
-		  Router.currentContext.getSharedPreferences( APP_PACKAGE
-				  									, Context.MODE_PRIVATE);
+		prefs = PreferenceManager.getDefaultSharedPreferences(Router.currentContext);
 	}
 	
 	public ConfiguracaoModel(Context pContext)
@@ -26,23 +25,9 @@ public class ConfiguracaoModel {
 				  						     , Context.MODE_PRIVATE);
 	}
 	
-	public void setMuralPostDistance(float pDistance)
+	public int getMuralPostDistance()
 	{
-		prefs.edit().putFloat(MURAL_POST_DISTANCE, pDistance).commit();
+		return prefs.getInt(MURAL_POST_DISTANCE, 100);
 	}
 	
-	public float getMuralPostDistance()
-	{
-		return prefs.getFloat(MURAL_POST_DISTANCE, 100);
-	}
-		
-	public void setBlockAdvertments(boolean pBolean)
-	{
-		prefs.edit().putBoolean(BLOCK_ADVERTMENT, pBolean).commit();
-	}
-	
-	public boolean getBlockAdvertments()
-	{
-		return prefs.getBoolean(BLOCK_ADVERTMENT, false);
-	}
 }

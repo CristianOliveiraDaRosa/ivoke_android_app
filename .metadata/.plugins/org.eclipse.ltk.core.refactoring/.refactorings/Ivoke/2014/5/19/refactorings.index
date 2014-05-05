@@ -9,3 +9,16 @@
 1399201239623	Rename resource 'ic_actactbar_settings.png'
 1399204568900	Move compilation unit
 1399204722489	Delete element
+1399205798100	Rename resource 'strings_activity_settings.xml'
+1399206676616	Rename package 'com.app.ivoke.extended_android_obj'
+1399218346397	Rename method 'onPreExecure'
+1399219305107	Rename type 'RefreshCallback'
+1399219316764	Rename field 'callback'
+1399219344260	Rename field 'postRefreshTimer'
+1399220664191	Rename type 'RefreshMuralTask'
+1399223528470	Rename method 'frequencyRfreshMural'
+1399232897030	Rename field 'ivokeID'
+1399232982436	Rename field 'facebookID'
+1399234338409	Rename method 'getMensagem'
+1399236846655	Rename field 'when'
+1399236856542	Rename local variable 'pWhen'

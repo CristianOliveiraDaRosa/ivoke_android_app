@@ -7,6 +7,8 @@
     <string name="login_button_login_ivoke">Acessar Ivoke</string>
     <string name="login_btn_login_ivoke_continue">Continuar.</string>
     
+    <string name="login_lbl_process_done">Abrindo...</string>
+    
     <!-- Mensagens -->
     <string name="login_msg_session_error">A sessão do %s não foi iniciada</string>
     <string name="login_msg_error_user_not_found">Não foi possível buscar o usuário. Tente novamente mais tarde.</string>

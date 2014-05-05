@@ -1,0 +1,11 @@
+package com.app.ivoke.helpers;
+
+public class MetricHelper {
+	
+	private static float oneMileToKm = (float) 0.621371192;
+	
+	public static int converKmToMile(int pKm)
+	{
+		return (int) (pKm*oneMileToKm);
+	}
+}

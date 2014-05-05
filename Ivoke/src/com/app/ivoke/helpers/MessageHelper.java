@@ -1,6 +1,9 @@
 package com.app.ivoke.helpers;
 
+import com.app.ivoke.R;
+
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.Resources;
@@ -145,5 +148,10 @@ public class MessageHelper {
 		private void setAlertDialog(AlertDialog pAlertDialog) {
 			alertDialog = pAlertDialog;
 		}
+	}
+
+	public static void unexpectedException(Activity pActivity, Exception e) {
+		  errorAlert(pActivity).setMessage(R.string.error_msg_unexpected_exception).showDialog();
+		  e.printStackTrace();
 	}
 }

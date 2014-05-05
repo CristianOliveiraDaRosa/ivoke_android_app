@@ -1,0 +1,12 @@
+package com.app.ivoke.helpers;
+
+import android.app.Activity;
+import android.preference.PreferenceManager;
+
+public class SettingsHelper {
+	
+	public static boolean getMuralPostDistance(Activity pAct)
+	{
+		PreferenceManager.getDefaultSharedPreferences(pAct);
+	}
+}

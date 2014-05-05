@@ -9,8 +9,8 @@ import android.util.Log;
 import com.app.ivoke.R;
 import com.app.ivoke.helpers.DebugHelper;
 import com.app.ivoke.helpers.WebHelper;
-import com.app.ivoke.helpers.WebHelper.WebParameter;
 import com.app.ivoke.objects.UserIvoke;
+import com.app.ivoke.objects.WebParameter;
 import com.app.ivoke.objects.interfaces.IAsyncCallBack;
 
 public class UserModel extends WebServer {
@@ -29,7 +29,7 @@ public class UserModel extends WebServer {
 	
 	public boolean existe(String pFacebookId) throws Exception
 	{
-		ArrayList<WebHelper.WebParameter> parametros = new ArrayList<WebHelper.WebParameter>();
+		ArrayList<WebParameter> parametros = new ArrayList<WebParameter>();
 		parametros.add(web.parameter("facebook_id", pFacebookId));
 		
 		String retorno = null;
@@ -52,7 +52,7 @@ public class UserModel extends WebServer {
 	{
 		debug.method("asyncGetIvokeUser").par("pFacebookId", pFacebookId).par("pCallBack", pCallBack);
 		
-		ArrayList<WebHelper.WebParameter> parametros = new ArrayList<WebHelper.WebParameter>();
+		ArrayList<WebParameter> parametros = new ArrayList<WebParameter>();
 		parametros.add(web.parameter("facebook_id", pFacebookId));
 		
 		web.doAsyncPostRequest(site(R.string.ws_url_user_get), parametros, pCallBack);
@@ -65,7 +65,7 @@ public class UserModel extends WebServer {
 		try 
 			{
 				ArrayList<WebParameter>  parametros = new ArrayList<WebParameter>();
-				parametros.add(web.parameter("nome"       , pName));
+				parametros.add(web.parameter("name"       , pName));
 				parametros.add(web.parameter("facebook_id", pFacebookId));
 				
 				String jsonString = web.doPostRequest(site(R.string.ws_url_user_add), parametros);
@@ -97,7 +97,7 @@ public class UserModel extends WebServer {
 				 JSONObject json = new JSONObject((String) pResult);
 				 user = new UserIvoke();
 				 user.setIvokeID(json.getInt("id"));
-				 user.setName(json.getString("nome"));
+				 user.setName(json.getString("name"));
 				 user.setFacebookID(json.getString("facebook_id"));
 			 } catch (Exception e) {
 				 user = null;
@@ -106,11 +106,12 @@ public class UserModel extends WebServer {
 		}
 
 		@Override
-		public void onProgress(int pPercent, Object pObject) {
-			
-		}
+		public void onProgress(int pPercent, Object pObject) {}
 
 		@Override
-		public void onPreExecure() {	}
+		public void onPreExecute() {}
+
+		@Override
+		public void onPreComplete(Object pResult) {}
 	} 
 }

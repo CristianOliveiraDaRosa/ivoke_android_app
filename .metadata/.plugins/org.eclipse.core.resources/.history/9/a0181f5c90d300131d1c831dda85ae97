@@ -1,0 +1,16 @@
+package com.app.ivoke.helpers;
+
+import com.app.ivoke.R;
+
+import android.app.Activity;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
+public class SettingsHelper {
+	
+	public static boolean getMuralPostDistance(Activity pAct)
+	{
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(pAct);
+		return pref.getBoolean(pAct.getString(R.string.pkey_mural_post_distance), false);
+	}
+}

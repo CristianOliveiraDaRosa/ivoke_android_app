@@ -37,13 +37,12 @@ public class MuralAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
-		return itens.size();
+		return itens!=null? itens.size() : 0;
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return itens.get(position);
+		return itens!=null? itens.get(position) : null;
 	}
 
 	@Override
@@ -69,11 +68,16 @@ public class MuralAdapter extends BaseAdapter {
 		   imgProfile.setImageBitmap(profileImg);
 		
 		txtNome.setText(itens.get(position).getNome());
-		txtMensagem.setText(itens.get(position).getMensagem());
+		txtMensagem.setText(itens.get(position).getMessage());
 		txtQuando.setText(itens.get(position).getQuando());
 		
 		return listTemplateView;
 		
+	}
+	
+	public void setItens(List<MuralPost> pItens)
+	{
+		itens = pItens;
 	}
 	
 	class auxItemList{

@@ -1,0 +1,11 @@
+package com.app.ivoke.objects.interfaces;
+
+public interface IAsyncCallBack {
+	
+	String error;
+	
+	void onPreExecure();
+	void onCompleteTask(Object pResult);
+	void onProgress(int pPercent, Object pObject);
+}
+
