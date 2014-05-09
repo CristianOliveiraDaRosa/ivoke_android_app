@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Ivoke</string>
+    <string name="logo_description">Ivoke</string>
+    
+    <string name="action_settings">Settings</string>
+    
+    <!-- Default Values -->
+    <string name="def_null_usuario_nome">*Nome Usuário*</string>
+    <string name="def_process_waiting">Processando...</string>
+    <string name="def_process_done">Processo finalizado.</string>
+    
+    
+    <!-- Default Label Buttons -->
+    <string name="def_btn_ok">OK</string>
+    <string name="def_btn_yes">Sim</string>
+    <string name="def_btn_no">Não</string>
+    <string name="def_btn_cancel">Cancelar</string>
+    
+	<!-- Default Alert Titles -->
+    
+	<!-- String for default AlertDialog -->
+    <string name="msg_alert_error_title">Exceção não tratada</string>
+	<string name="def_msg_ask_open_gps_setting">Deseja abrir configurações de GPS?</string>
+    <string name="def_msg_ask_try_agai">Gostaria de tentar novamente?</string>
+    
+       
+	<!-- Server error messages -->
+    <string name="msg_error_ws_server_not_responding">
+        Pô Almir! Nosso servidor está indisponível.
+    </string>
+    <string name="error_msg_unexpected_exception">
+        Situação inesperada, por favor "saia e entre no fusca novamente".
+    </string>
+</resources>

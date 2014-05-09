@@ -154,10 +154,10 @@ public class WebHelper {
 	    return sb.toString();
 	}
 	
-	public ArrayList<WebParameter> makeListParameter(String pKey, String pValor)
+	public ArrayList<WebParameter> makeListParameter(String pKey, Object pValor)
 	{
 		ArrayList<WebParameter> list = new ArrayList<WebParameter>();
-		list.add(new WebParameter(pKey, pValor));
+		list.add(new WebParameter(pKey, pValor.toString()));
 		return list;
 	}
 	

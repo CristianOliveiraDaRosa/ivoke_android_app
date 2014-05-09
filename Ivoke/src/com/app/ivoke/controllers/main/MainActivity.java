@@ -1,10 +1,13 @@
 package com.app.ivoke.controllers.main;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.app.ivoke.R;
 import com.app.ivoke.Router;
 import com.app.ivoke.helpers.DebugHelper;
+import com.app.ivoke.helpers.LocationHelper;
 import com.app.ivoke.helpers.MessageHelper;
 import com.app.ivoke.helpers.SettingsHelper;
 import com.app.ivoke.models.FacebookModel;
@@ -17,6 +20,8 @@ import android.renderscript.ProgramFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.location.Location;
+import android.location.LocationProvider;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,6 +29,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import com.facebook.Session;
+import com.google.android.gms.maps.model.LatLng;
 
 public class MainActivity extends ActionBarActivity {
     
@@ -40,9 +46,9 @@ public class MainActivity extends ActionBarActivity {
 	ProcessingFragment processingFragment = new ProcessingFragment();
 	
 	/*  Declare other vars */
-	UserIvoke user;
-	
-	
+	UserIvoke                user;
+	LocationHelper.Listener  locationProvider;
+	Location                 localAtual;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
     	dbg.method("onCreate");
@@ -64,22 +70,21 @@ public class MainActivity extends ActionBarActivity {
         	showMuralFragment();
         }
         
+        
+        locationProvider = LocationHelper.getLocationListener(this);
+        locationProvider.listenerForUser(user);
+        
+        
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         
         switch (id) {
@@ -90,7 +95,7 @@ public class MainActivity extends ActionBarActivity {
             break;
 		case R.id.main_act_menu_contacts:
 			
-			showProcessingFragment();
+			showFragment(new ConversationFragment());
 			
 			break;
 		case R.id.main_act_menu_settings:
@@ -137,6 +142,13 @@ public class MainActivity extends ActionBarActivity {
     		
     		try {
     			
+    			Collections.sort(posts, new Comparator<MuralPost>() {
+
+    		        public int compare(MuralPost o1, MuralPost o2) {
+    		            return o2.getId()>o1.getId()? o2.getId() : o1.getId();
+    		        }
+    		    });
+    			
 				muralFragment.setPosts(posts);
 				showFragment(muralFragment);
 				
@@ -169,5 +181,12 @@ public class MainActivity extends ActionBarActivity {
 	public void postMuralPost(String pMessage, IAsyncCallBack pCallback) {
 		muralModel.postMuralPost(user, pMessage, pCallback);
 	}
+	
+	public void deleteMuralPost(MuralPost pMuralPost)
+	{
+		dbg.method("deleteMuralPost").par("pMuralPost", pMuralPost);
+		muralModel.deleteMuralPost(pMuralPost);
+	}
+
     
 }

@@ -1,9 +1,12 @@
 package com.app.ivoke.objects.adapters;
 
+import java.util.Date;
 import java.util.List;
 
 import com.app.ivoke.R;
+import com.app.ivoke.helpers.DateTimeHelper;
 import com.app.ivoke.objects.MuralPost;
+import com.facebook.widget.ProfilePictureView;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -18,11 +21,13 @@ public class MuralAdapter extends BaseAdapter {
 
 	LayoutInflater lInflater;
 	List<MuralPost> itens;
+	Context context;
 	int itemAtual;
 	
     public MuralAdapter(Context pContext, List<MuralPost> pItens) {
     	lInflater = LayoutInflater.from(pContext);
     	itens     = pItens;
+    	context   = pContext; 
 	}
 
     @Override
@@ -50,11 +55,12 @@ public class MuralAdapter extends BaseAdapter {
 		View listTemplateView;
 
 		if((listTemplateView = convertView) == null)
-			listTemplateView = lInflater.inflate(R.layout.main_mural_list_template
-					                            , null);
+			listTemplateView = lInflater.inflate(R.layout.main_mural_list_template, null);
 	    
-		ImageView imgProfile = 
-				(ImageView) listTemplateView.findViewById(R.id.main_mural_image);
+		ProfilePictureView profilePictureView = 
+				(ProfilePictureView) listTemplateView.findViewById(R.id.main_mural_image);
+	    profilePictureView.setProfileId(itens.get(position).getFacebookId());
+	    
 		TextView txtNome     = 
 				(TextView) listTemplateView.findViewById(R.id.main_mural_title);
 		TextView txtMensagem = 
@@ -62,14 +68,20 @@ public class MuralAdapter extends BaseAdapter {
 		TextView txtQuando = 
 				(TextView) listTemplateView.findViewById(R.id.main_mural_when);
 		
-		Bitmap profileImg = itens.get(position).getProfileImage();
-		
-		if(profileImg!=null)
-		   imgProfile.setImageBitmap(profileImg);
 		
 		txtNome.setText(itens.get(position).getNome());
 		txtMensagem.setText(itens.get(position).getMessage());
-		txtQuando.setText(itens.get(position).getQuando());
+		Date dt = itens.get(position).getDatePost();
+		Date now = new Date();
+		
+		long minutes = DateTimeHelper.getMinutesBetween(now, dt);
+		
+		if(DateTimeHelper.getDaysFromMinutes(minutes)>1)
+			txtQuando.setText(String.format(context.getString(R.string.def_description_days), DateTimeHelper.getDaysFromMinutes(minutes)));
+		else if(DateTimeHelper.getHoursFromMinutes(minutes)>1)
+			txtQuando.setText(String.format(context.getString(R.string.def_description_hours), DateTimeHelper.getHoursFromMinutes(minutes)));
+		else
+			txtQuando.setText(String.format(context.getString(R.string.def_description_minutes), minutes));
 		
 		return listTemplateView;
 		
@@ -78,6 +90,11 @@ public class MuralAdapter extends BaseAdapter {
 	public void setItens(List<MuralPost> pItens)
 	{
 		itens = pItens;
+	}
+	
+	public void remove(int pItemPosition)
+	{
+		itens.remove(pItemPosition);
 	}
 	
 	class auxItemList{

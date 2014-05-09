@@ -1,16 +1,25 @@
 package com.app.ivoke.helpers;
 
 import com.app.ivoke.R;
+import com.app.ivoke.objects.interfaces.IAsyncCallBack;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.widget.Toast;
 
 public class MessageHelper {
 	
+	public static int DIALOG_RESULT_YES    = DialogInterface.BUTTON_POSITIVE;
+	public static int DIALOG_RESULT_NO     = DialogInterface.BUTTON_NEGATIVE;
+	public static int DIALOG_RESULT_CANCEL = DialogInterface.BUTTON_NEUTRAL;
+						
 	public static MessageAlert errorAlert(Context pContext)
 	{
 		MessageAlert alert = new MessageAlert(pContext);
@@ -52,6 +61,62 @@ public class MessageHelper {
 		return alert;
 	}
 	
+	public static void showAlertWhitOkButton(Context pContext, int resId, DialogInterface.OnClickListener pListener)
+	{	
+		MessageAlert alert = infoAlert(pContext);
+		alert.setMessage(resId);
+		alert.getAlertDialog()
+		     .setButton( pContext.getString(R.string.def_btn_ok)
+				       , pListener);
+		
+		alert.showDialog();
+		
+	}
+	
+	public static void askYesNoAlert(Context pContext, int resId, DialogInterface.OnClickListener pListener)
+	{	
+		MessageAlert alert = infoAlert(pContext);
+		alert.setMessage(resId);
+		alert.getAlertDialog()
+		     .setButton( pContext.getString(R.string.def_btn_yes)
+				       , pListener);
+		
+		alert.getAlertDialog()
+	         .setButton2( pContext.getString(R.string.def_btn_no)
+			            , pListener);
+		
+		alert.showDialog();
+		
+	}
+	
+	public static void askYesNoCancelAlert(Context pContext, int resID, DialogInterface.OnClickListener pListener)
+	{	
+		MessageAlert alert = infoAlert(pContext);
+		alert.setMessage(resID);
+		alert.getAlertDialog()
+		  .setButton( pContext.getString(R.string.def_btn_yes)
+				    , pListener);
+		
+		alert.getAlertDialog()
+	     .setButton2( pContext.getString(R.string.def_btn_no)
+			        , pListener);
+		
+		alert.getAlertDialog()
+	     .setButton3( pContext.getString(R.string.def_btn_cancel)
+			        , pListener);
+		
+		alert.showDialog();
+	}
+	
+	public static ProgressDialog ProgressAlert(Context pContext, int resId)
+	{
+		ProgressDialog dialog = ProgressDialog.show( pContext
+				                                   , pContext.getString(R.string.def_title_progress_dialog)
+				                                   , pContext.getString(resId)
+				                                   , true);
+		return dialog;
+	}
+	
 	@SuppressLint("ShowToast")
 	public static Toast toastMessage(Context pContext, int pStringResourceID)
 	{
@@ -84,7 +149,9 @@ public class MessageHelper {
 		private static Context msgAlertContext;
 		private static Resources resource;
 		private static String message;
-	
+		
+		private int result;
+		
    	    protected MessageAlert(Context context) {
 			setAlertDialog(new AlertDialog.Builder(context).create());
 			msgAlertContext = context;
@@ -148,8 +215,18 @@ public class MessageHelper {
 		private void setAlertDialog(AlertDialog pAlertDialog) {
 			alertDialog = pAlertDialog;
 		}
+		
+		public void setResult(int pResult)
+		{
+			result = pResult;
+		}
+		
+		public int getResult()
+		{
+			return result;
+		}
 	}
-
+	
 	public static void unexpectedException(Activity pActivity, Exception e) {
 		  errorAlert(pActivity).setMessage(R.string.error_msg_unexpected_exception).showDialog();
 		  e.printStackTrace();

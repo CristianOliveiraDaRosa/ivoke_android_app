@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_activity_check">Checking</string>
+    <string name="title_activity_places">Locais Próximos</string>
+	    
+    <string name="check_lbl_onde_voce_esta">Onde você está?</string>
+	<string name="check_btn_selecione">Selecione</string>
+	<string name="check_btn_go_to_next">Pular Checking</string>
+	
+	<!-- Mensagens -->
+	<string name="check_msg_erro_local_selecionado">Não foi possível selecionar o local.</string>
+	<string name="check_msg_error_get_fb_user">Usuário do Facebook não identificado.</string>
+</resources>

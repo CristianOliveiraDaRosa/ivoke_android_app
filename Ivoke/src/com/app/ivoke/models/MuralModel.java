@@ -1,23 +1,13 @@
 package com.app.ivoke.models;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.client.ClientProtocolException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
-import android.util.Log;
-
 import com.app.ivoke.R;
-import com.app.ivoke.Router;
 import com.app.ivoke.helpers.DebugHelper;
-import com.app.ivoke.helpers.JsonHelper;
-import com.app.ivoke.helpers.MessageHelper;
-import com.app.ivoke.helpers.WebHelper;
 import com.app.ivoke.helpers.WebHelper.NetworkException;
 import com.app.ivoke.objects.WebParameter;
 import com.app.ivoke.objects.MuralPost;
@@ -49,27 +39,15 @@ public class MuralModel extends WebServer {
 					 JSONObject muralPostJson = jsonMuralPosts.getJSONObject(i);
 					 
 					 JSONObject userJson =  muralPostJson.getJSONObject("user");
-					 
-					 Bitmap profileImage = null;
 					
-					try {
-						
-						String url_face_img = Router.currentContext.getString(R.string.ws_url_facebook_profile_img);
-						
-						profileImage = 
-								 web.getImageFromUrl(String.format(url_face_img, userJson.getString("facebook_id")));
-					} catch (Exception e) {
-						dbg.exception(e);
-					}
-					
-					listMuralPosts.add(
+					 listMuralPosts.add(
 							 new MuralPost( muralPostJson.getInt("id")
 									      , userJson.getInt("id")
 									      , userJson.getString("name")
 									      , muralPostJson.getString("message")
 									      , muralPostJson.getString("created_at")
 									      , muralPostJson.getDouble("distance")
-									      , profileImage)); 
+									      , userJson.getString("facebook_id"))); 
 					 
 				 }
 				 dbg.log("cast sucess!");
@@ -114,20 +92,7 @@ public class MuralModel extends WebServer {
 				 JSONObject muralPostJson = jsonMuralPosts.getJSONObject(i);
 				 
 				 JSONObject userJson =  muralPostJson.getJSONObject("user");
-				 
-				 Bitmap profileImage = null; 
-				 
-				try {
-					
-					String url_face_img = Router.currentContext.getString(R.string.ws_url_facebook_profile_img);
-					
-					profileImage = 
-							 web.getImageFromUrl(String.format(url_face_img, userJson.getString("facebook_id")));
-					
-				} catch (Exception e) {
-					dbg.exception(e);
-				}
-			     
+ 
 				 listMuralPosts.add(
 						 new MuralPost( muralPostJson.getInt("id")
 								      , userJson.getInt("id")
@@ -135,7 +100,7 @@ public class MuralModel extends WebServer {
 								      , muralPostJson.getString("message")
 								      , muralPostJson.getString("created_at")
 								      , muralPostJson.getDouble("distance")
-								      , profileImage)); 
+								      , userJson.getString("facebook_id"))); 
 				 
 			 }
 		
@@ -147,6 +112,7 @@ public class MuralModel extends WebServer {
 	public boolean postMuralPost(UserIvoke pUser, String pMessage, IAsyncCallBack pCallback)
 	{
 		//:usuario_id, :from, :latitude, :longitude, :message, :posted_at
+		if(!pMessage.isEmpty())
 		try {
 			ArrayList<WebParameter> parameters = new ArrayList<WebParameter>();
 			
@@ -163,5 +129,35 @@ public class MuralModel extends WebServer {
 		}
 		
 		return true;
+	}
+
+	public boolean deleteMuralPost(MuralPost pMuralPost) {
+		
+		try {
+			ArrayList<WebParameter> parameters = new ArrayList<WebParameter>();
+			parameters.add(new WebParameter("id"    , pMuralPost.getId()));
+			    
+			web.doAsyncPostRequest(site(R.string.ws_url_mural_posts_delete), parameters, new IAsyncCallBack() {
+				
+				@Override
+				public void onProgress(int pPercent, Object pObject) {}
+				
+				@Override
+				public void onPreExecute() {}
+				
+				@Override
+				public void onPreComplete(Object pResult) {}
+				
+				@Override
+				public void onCompleteTask(Object pResult) {}
+			});
+			
+			return true;
+		
+		} catch (Exception e) {
+			dbg.exception(e);
+			return false;
+		}
+		
 	}
 }

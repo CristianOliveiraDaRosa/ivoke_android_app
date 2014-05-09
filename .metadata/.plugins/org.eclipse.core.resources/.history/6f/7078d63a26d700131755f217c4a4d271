@@ -1,0 +1,11 @@
+package com.app.ivoke.objects;
+
+public class Conversation {
+	
+	int id;
+	int user_one_id;
+	int user_two_id;
+	int time;
+	int status;
+
+}

@@ -1381,19 +1381,19 @@ containing a value of this type.
         public static final int user=0x7f020098;
     }
     public static final class id {
-        public static final int action_bar=0x7f06003d;
+        public static final int action_bar=0x7f06003e;
         public static final int action_bar_activity_content=0x7f060015;
-        public static final int action_bar_container=0x7f06003c;
-        public static final int action_bar_overlay_layout=0x7f060040;
-        public static final int action_bar_root=0x7f06003b;
-        public static final int action_bar_subtitle=0x7f060044;
-        public static final int action_bar_title=0x7f060043;
-        public static final int action_context_bar=0x7f06003e;
+        public static final int action_bar_container=0x7f06003d;
+        public static final int action_bar_overlay_layout=0x7f060041;
+        public static final int action_bar_root=0x7f06003c;
+        public static final int action_bar_subtitle=0x7f060045;
+        public static final int action_bar_title=0x7f060044;
+        public static final int action_context_bar=0x7f06003f;
         public static final int action_menu_divider=0x7f060016;
         public static final int action_menu_presenter=0x7f060017;
-        public static final int action_mode_close_button=0x7f060045;
-        public static final int action_settings=0x7f060079;
-        public static final int activity_chooser_view_content=0x7f060046;
+        public static final int action_mode_close_button=0x7f060046;
+        public static final int action_settings=0x7f06007a;
+        public static final int activity_chooser_view_content=0x7f060047;
         public static final int always=0x7f06000b;
         public static final int beginning=0x7f060011;
         public static final int check_btn_go_to_next=0x7f060023;
@@ -1404,48 +1404,48 @@ containing a value of this type.
         /**  PlacesActivity 
          */
         public static final int check_pickplaces_lista_locais=0x7f060024;
-        public static final int checkbox=0x7f06004e;
+        public static final int checkbox=0x7f06004f;
         public static final int collapseActionView=0x7f06000d;
-        public static final int com_facebook_login_activity_progress_bar=0x7f060060;
-        public static final int com_facebook_picker_activity_circle=0x7f06005f;
-        public static final int com_facebook_picker_checkbox=0x7f060062;
-        public static final int com_facebook_picker_checkbox_stub=0x7f060066;
-        public static final int com_facebook_picker_divider=0x7f06006a;
-        public static final int com_facebook_picker_done_button=0x7f060069;
-        public static final int com_facebook_picker_image=0x7f060063;
-        public static final int com_facebook_picker_list_section_header=0x7f060067;
-        public static final int com_facebook_picker_list_view=0x7f06005e;
-        public static final int com_facebook_picker_profile_pic_stub=0x7f060064;
-        public static final int com_facebook_picker_row_activity_circle=0x7f060061;
-        public static final int com_facebook_picker_search_text=0x7f06006f;
-        public static final int com_facebook_picker_title=0x7f060065;
-        public static final int com_facebook_picker_title_bar=0x7f06006c;
-        public static final int com_facebook_picker_title_bar_stub=0x7f06006b;
-        public static final int com_facebook_picker_top_bar=0x7f060068;
-        public static final int com_facebook_search_bar_view=0x7f06006e;
-        public static final int com_facebook_usersettingsfragment_login_button=0x7f060072;
-        public static final int com_facebook_usersettingsfragment_logo_image=0x7f060070;
-        public static final int com_facebook_usersettingsfragment_profile_name=0x7f060071;
-        public static final int container=0x7f06005d;
-        public static final int default_activity_button=0x7f060049;
+        public static final int com_facebook_login_activity_progress_bar=0x7f060061;
+        public static final int com_facebook_picker_activity_circle=0x7f060060;
+        public static final int com_facebook_picker_checkbox=0x7f060063;
+        public static final int com_facebook_picker_checkbox_stub=0x7f060067;
+        public static final int com_facebook_picker_divider=0x7f06006b;
+        public static final int com_facebook_picker_done_button=0x7f06006a;
+        public static final int com_facebook_picker_image=0x7f060064;
+        public static final int com_facebook_picker_list_section_header=0x7f060068;
+        public static final int com_facebook_picker_list_view=0x7f06005f;
+        public static final int com_facebook_picker_profile_pic_stub=0x7f060065;
+        public static final int com_facebook_picker_row_activity_circle=0x7f060062;
+        public static final int com_facebook_picker_search_text=0x7f060070;
+        public static final int com_facebook_picker_title=0x7f060066;
+        public static final int com_facebook_picker_title_bar=0x7f06006d;
+        public static final int com_facebook_picker_title_bar_stub=0x7f06006c;
+        public static final int com_facebook_picker_top_bar=0x7f060069;
+        public static final int com_facebook_search_bar_view=0x7f06006f;
+        public static final int com_facebook_usersettingsfragment_login_button=0x7f060073;
+        public static final int com_facebook_usersettingsfragment_logo_image=0x7f060071;
+        public static final int com_facebook_usersettingsfragment_profile_name=0x7f060072;
+        public static final int container=0x7f06005e;
+        public static final int default_activity_button=0x7f06004a;
         public static final int dialog=0x7f06000e;
         public static final int disableHome=0x7f060008;
         public static final int dropdown=0x7f06000f;
-        public static final int edit_query=0x7f060051;
+        public static final int edit_query=0x7f060052;
         public static final int end=0x7f060013;
-        public static final int expand_activities_button=0x7f060047;
-        public static final int expanded_menu=0x7f06004d;
+        public static final int expand_activities_button=0x7f060048;
+        public static final int expanded_menu=0x7f06004e;
         public static final int facebook_login_btn_facebook=0x7f060025;
-        public static final int gpsButton=0x7f060075;
+        public static final int gpsButton=0x7f060076;
         public static final int home=0x7f060014;
         public static final int homeAsUp=0x7f060005;
         public static final int hybrid=0x7f06001c;
-        public static final int icon=0x7f06004b;
+        public static final int icon=0x7f06004c;
         public static final int ifRoom=0x7f06000a;
-        public static final int image=0x7f060048;
+        public static final int image=0x7f060049;
         public static final int large=0x7f06001e;
         public static final int listMode=0x7f060001;
-        public static final int list_item=0x7f06004a;
+        public static final int list_item=0x7f06004b;
         public static final int login_ivoke_logo=0x7f060026;
         public static final int login_lbl_processing=0x7f060028;
         public static final int login_pregress_bar=0x7f060027;
@@ -1453,18 +1453,21 @@ containing a value of this type.
         public static final int main_act_menu_mural=0x7f06002a;
         public static final int main_act_menu_return=0x7f060029;
         public static final int main_act_menu_settings=0x7f06002c;
-        public static final int main_contato_imagem=0x7f060036;
-        public static final int main_contato_quando=0x7f060038;
+        public static final int main_contato_imagem=0x7f060037;
+        public static final int main_contato_quando=0x7f060039;
         /**  List Contatos 
          */
-        public static final int main_contato_titulo=0x7f060035;
-        public static final int main_contato_ultima_mensagem=0x7f060037;
-        public static final int main_moldura_imagem=0x7f060078;
+        public static final int main_contato_titulo=0x7f060036;
+        public static final int main_contato_ultima_mensagem=0x7f060038;
+        public static final int main_moldura_imagem=0x7f060079;
         /**  Create Post Mural  
          */
         public static final int main_mural_create_post_border=0x7f060032;
         public static final int main_mural_create_post_button=0x7f060034;
         public static final int main_mural_create_post_text=0x7f060033;
+        /**  Main Mural ContextMenu 
+         */
+        public static final int main_mural_ctxmenu_delete=0x7f060035;
         public static final int main_mural_image=0x7f06002f;
         public static final int main_mural_message=0x7f060030;
         /**  List Mural 
@@ -1472,43 +1475,43 @@ containing a value of this type.
         public static final int main_mural_posts_list=0x7f06002d;
         public static final int main_mural_title=0x7f06002e;
         public static final int main_mural_when=0x7f060031;
-        public static final int main_processing_progress_bar=0x7f060039;
-        public static final int main_processing_progress_lbl=0x7f06003a;
+        public static final int main_processing_progress_bar=0x7f06003a;
+        public static final int main_processing_progress_lbl=0x7f06003b;
         public static final int middle=0x7f060012;
-        public static final int muralListView=0x7f060077;
+        public static final int muralListView=0x7f060078;
         public static final int never=0x7f060009;
         public static final int none=0x7f060010;
         public static final int normal=0x7f060000;
-        public static final int picker_subtitle=0x7f06006d;
+        public static final int picker_subtitle=0x7f06006e;
         public static final int progress_circular=0x7f060018;
         public static final int progress_horizontal=0x7f060019;
-        public static final int radio=0x7f060050;
-        public static final int resultsTextView=0x7f060076;
-        public static final int sanFranciscoButton=0x7f060074;
+        public static final int radio=0x7f060051;
+        public static final int resultsTextView=0x7f060077;
+        public static final int sanFranciscoButton=0x7f060075;
         public static final int satellite=0x7f06001a;
-        public static final int search_badge=0x7f060053;
-        public static final int search_bar=0x7f060052;
-        public static final int search_button=0x7f060054;
-        public static final int search_close_btn=0x7f060059;
-        public static final int search_edit_frame=0x7f060055;
-        public static final int search_go_btn=0x7f06005b;
-        public static final int search_mag_icon=0x7f060056;
-        public static final int search_plate=0x7f060057;
-        public static final int search_src_text=0x7f060058;
-        public static final int search_voice_btn=0x7f06005c;
-        public static final int seattleButton=0x7f060073;
-        public static final int shortcut=0x7f06004f;
+        public static final int search_badge=0x7f060054;
+        public static final int search_bar=0x7f060053;
+        public static final int search_button=0x7f060055;
+        public static final int search_close_btn=0x7f06005a;
+        public static final int search_edit_frame=0x7f060056;
+        public static final int search_go_btn=0x7f06005c;
+        public static final int search_mag_icon=0x7f060057;
+        public static final int search_plate=0x7f060058;
+        public static final int search_src_text=0x7f060059;
+        public static final int search_voice_btn=0x7f06005d;
+        public static final int seattleButton=0x7f060074;
+        public static final int shortcut=0x7f060050;
         public static final int showCustom=0x7f060007;
         public static final int showHome=0x7f060004;
         public static final int showTitle=0x7f060006;
         public static final int small=0x7f06001d;
-        public static final int split_action_bar=0x7f06003f;
-        public static final int submit_area=0x7f06005a;
+        public static final int split_action_bar=0x7f060040;
+        public static final int submit_area=0x7f06005b;
         public static final int tabMode=0x7f060002;
         public static final int terrain=0x7f06001b;
-        public static final int title=0x7f06004c;
-        public static final int top_action_bar=0x7f060041;
-        public static final int up=0x7f060042;
+        public static final int title=0x7f06004d;
+        public static final int top_action_bar=0x7f060042;
+        public static final int up=0x7f060043;
         public static final int useLogo=0x7f060003;
         public static final int withText=0x7f06000c;
     }
@@ -1597,7 +1600,8 @@ containing a value of this type.
         public static final int check=0x7f0e0000;
         public static final int login=0x7f0e0001;
         public static final int main=0x7f0e0002;
-        public static final int places=0x7f0e0003;
+        public static final int main_mural_context_menu=0x7f0e0003;
+        public static final int places=0x7f0e0004;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1640,8 +1644,8 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f0b000b;
-        public static final int action_settings=0x7f0b006e;
-        public static final int app_name=0x7f0b006c;
+        public static final int action_settings=0x7f0b0072;
+        public static final int app_name=0x7f0b0070;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
          */
@@ -1672,6 +1676,8 @@ containing a value of this type.
          */
         public static final int check_msg_erro_local_selecionado=0x7f0b0046;
         public static final int check_msg_error_get_fb_user=0x7f0b0047;
+        public static final int check_msg_info_find_location=0x7f0b0049;
+        public static final int check_msg_info_on_get_user_local=0x7f0b0048;
         public static final int com_facebook_choose_friends=0x7f0b0036;
         public static final int com_facebook_dialogloginactivity_ok_button=0x7f0b0027;
         public static final int com_facebook_internet_permission_error_message=0x7f0b003a;
@@ -1770,91 +1776,118 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f0b0020;
+        public static final int def_btn_cancel=0x7f0b007f;
+        public static final int def_btn_no=0x7f0b007e;
+        /**  Default Label Buttons 
+         */
+        public static final int def_btn_ok=0x7f0b007c;
+        public static final int def_btn_yes=0x7f0b007d;
+        /**  Default Times Values 
+         */
+        public static final int def_description_day=0x7f0b0076;
+        public static final int def_description_days=0x7f0b0077;
+        public static final int def_description_hour=0x7f0b0078;
+        public static final int def_description_hours=0x7f0b0079;
+        public static final int def_description_minute=0x7f0b007a;
+        public static final int def_description_minutes=0x7f0b007b;
+        public static final int def_msg_ask_open_gps_setting=0x7f0b0082;
+        public static final int def_msg_ask_try_agai=0x7f0b0083;
         /**  Default Values 
          */
-        public static final int def_null_usuario_nome=0x7f0b006f;
-        public static final int def_process_done=0x7f0b0071;
-        public static final int def_process_waiting=0x7f0b0070;
-        public static final int error_msg_unexpected_exception=0x7f0b0074;
+        public static final int def_null_usuario_nome=0x7f0b0073;
+        public static final int def_process_done=0x7f0b0075;
+        public static final int def_process_waiting=0x7f0b0074;
+        /**  Default Alert Titles 
+         */
+        public static final int def_title_progress_dialog=0x7f0b0080;
+        public static final int error_msg_unexpected_exception=0x7f0b0085;
         public static final int facebook_app_id=0x7f0b0040;
-        public static final int login_acesse_com_facebook=0x7f0b0049;
-        public static final int login_btn_login_ivoke_continue=0x7f0b004c;
-        public static final int login_button_checking=0x7f0b004a;
-        public static final int login_button_login_ivoke=0x7f0b004b;
-        public static final int login_lbl_process_done=0x7f0b004d;
-        public static final int login_msg_error_user_not_found=0x7f0b004f;
+        public static final int ivoke=0x7f0b004a;
+        public static final int login_acesse_com_facebook=0x7f0b004c;
+        public static final int login_btn_login_ivoke_continue=0x7f0b004f;
+        public static final int login_button_checking=0x7f0b004d;
+        public static final int login_button_login_ivoke=0x7f0b004e;
+        public static final int login_lbl_process_done=0x7f0b0050;
+        public static final int login_msg_error_user_not_found=0x7f0b0052;
         /**  Mensagens 
          */
-        public static final int login_msg_session_error=0x7f0b004e;
-        public static final int login_title_activity_login=0x7f0b0048;
-        public static final int logo_description=0x7f0b006d;
-        public static final int main_menu_title_config=0x7f0b0053;
-        public static final int main_menu_title_contacts=0x7f0b0052;
+        public static final int login_msg_session_error=0x7f0b0051;
+        public static final int login_title_activity_login=0x7f0b004b;
+        public static final int logo_description=0x7f0b0071;
+        /**  Main Mural Context Menu 
+         */
+        public static final int main_menu_ctxmenu_delete=0x7f0b0057;
+        public static final int main_menu_title_config=0x7f0b0056;
+        public static final int main_menu_title_contacts=0x7f0b0055;
         /**  Menu titles 
          */
-        public static final int main_menu_title_mural=0x7f0b0051;
+        public static final int main_menu_title_mural=0x7f0b0054;
         /**  Messages 
          */
-        public static final int main_mural_btn_create_is_busy=0x7f0b0058;
-        public static final int main_mural_btn_create_post=0x7f0b0056;
-        public static final int main_mural_btn_create_posting=0x7f0b0057;
+        public static final int main_mural_btn_create_is_busy=0x7f0b005c;
+        public static final int main_mural_btn_create_post=0x7f0b005a;
+        public static final int main_mural_btn_create_posting=0x7f0b005b;
         /**  Mural labels 
          */
-        public static final int main_mural_txt_create_post_hint=0x7f0b0054;
-        public static final int main_mural_txt_create_post_text=0x7f0b0055;
-        public static final int main_title=0x7f0b0050;
+        public static final int main_mural_txt_create_post_hint=0x7f0b0058;
+        public static final int main_mural_txt_create_post_text=0x7f0b0059;
+        public static final int main_title=0x7f0b0053;
         /**  labels 
          */
-        public static final int main_waiting_lbl=0x7f0b0059;
+        public static final int main_waiting_lbl=0x7f0b005d;
         /**  String for default AlertDialog 
          */
-        public static final int msg_alert_error_title=0x7f0b0072;
+        public static final int msg_alert_error_title=0x7f0b0081;
         /**  Server error messages 
          */
-        public static final int msg_error_ws_server_not_responding=0x7f0b0073;
-        public static final int pkey_ask_for_checking=0x7f0b005f;
-        public static final int pkey_frequency_refresh_mural=0x7f0b0063;
-        public static final int pkey_mural_post_distance=0x7f0b005c;
-        public static final int pref_gen_sumar_ask_for_cheking=0x7f0b0061;
-        public static final int pref_gen_sumar_mural_post_distance=0x7f0b005e;
-        public static final int pref_gen_title_ask_for_cheking=0x7f0b0060;
-        public static final int pref_gen_title_mural_post_distance=0x7f0b005d;
+        public static final int msg_error_ws_server_not_responding=0x7f0b0084;
+        public static final int pkey_ask_for_checking=0x7f0b0063;
+        public static final int pkey_frequency_refresh_mural=0x7f0b0067;
+        public static final int pkey_mural_post_distance=0x7f0b0060;
+        public static final int pref_gen_sumar_ask_for_cheking=0x7f0b0065;
+        public static final int pref_gen_sumar_mural_post_distance=0x7f0b0062;
+        public static final int pref_gen_title_ask_for_cheking=0x7f0b0064;
+        public static final int pref_gen_title_mural_post_distance=0x7f0b0061;
         /**  Settings for Data & Sync 
          */
-        public static final int pref_header_data_sync=0x7f0b0062;
+        public static final int pref_header_data_sync=0x7f0b0066;
         /**  Settings General 
          */
-        public static final int pref_header_general=0x7f0b005b;
-        public static final int pref_header_notifications=0x7f0b0067;
-        public static final int pref_ringtone_silent=0x7f0b006a;
-        public static final int pref_sync_sumar_frequency_refresh_mural=0x7f0b0065;
-        public static final int pref_sync_title_frequency_refresh_mural=0x7f0b0064;
-        public static final int pref_title_new_message_notifications=0x7f0b0068;
-        public static final int pref_title_ringtone=0x7f0b0069;
+        public static final int pref_header_general=0x7f0b005f;
+        public static final int pref_header_notifications=0x7f0b006b;
+        public static final int pref_ringtone_silent=0x7f0b006e;
+        public static final int pref_sync_sumar_frequency_refresh_mural=0x7f0b0069;
+        public static final int pref_sync_title_frequency_refresh_mural=0x7f0b0068;
+        public static final int pref_title_new_message_notifications=0x7f0b006c;
+        public static final int pref_title_ringtone=0x7f0b006d;
         /**  NOT USED Example settings for Notifications 
          */
-        public static final int pref_title_system_sync_settings=0x7f0b0066;
-        public static final int pref_title_vibrate=0x7f0b006b;
+        public static final int pref_title_system_sync_settings=0x7f0b006a;
+        public static final int pref_title_vibrate=0x7f0b006f;
         public static final int title_activity_check=0x7f0b0041;
         public static final int title_activity_places=0x7f0b0042;
-        public static final int title_activity_settings=0x7f0b005a;
+        public static final int title_activity_settings=0x7f0b005e;
         /**  com.app.ivoke.2014 
          */
-        public static final int ws_hash=0x7f0b0075;
-        /**      <string name="ws_url">http://10.0.2.2:3000</string> 
+        public static final int ws_hash=0x7f0b0086;
+        public static final int ws_url=0x7f0b0087;
+        public static final int ws_url_convesation_messages_get=0x7f0b008e;
+        /**  Conversations urls 
          */
-        public static final int ws_url=0x7f0b0076;
+        public static final int ws_url_convesations_get=0x7f0b008d;
         /**  Facebook URL_FACEBOOK_PROFILE_IMAGE = "https://graph.facebook.com/%s/picture" 
          */
-        public static final int ws_url_facebook_profile_img=0x7f0b007b;
-        public static final int ws_url_mural_posts_create=0x7f0b007a;
+        public static final int ws_url_facebook_profile_img=0x7f0b008f;
+        public static final int ws_url_mural_posts_create=0x7f0b008b;
+        public static final int ws_url_mural_posts_delete=0x7f0b008c;
         /**  Mural urls 
          */
-        public static final int ws_url_mural_posts_get_nearby=0x7f0b0079;
-        /**  User urls 
+        public static final int ws_url_mural_posts_get_nearby=0x7f0b008a;
+        /**      <string name="ws_url">http://162.243.30.153</string> 
+ User urls 
          */
-        public static final int ws_url_user_add=0x7f0b0077;
-        public static final int ws_url_user_get=0x7f0b0078;
+        public static final int ws_url_user_add=0x7f0b0088;
+        public static final int ws_url_user_get=0x7f0b0089;
     }
     public static final class style {
         /** 

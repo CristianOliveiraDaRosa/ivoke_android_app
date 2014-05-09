@@ -1,16 +1,22 @@
 package com.app.ivoke.objects;
 
-import android.graphics.Bitmap;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import android.annotation.SuppressLint;
+import com.app.ivoke.helpers.DebugHelper;
 
 public class MuralPost{
 	
 	int muralPostId;
 	int userId;
-    Bitmap profileImg;
+
     String userName;
 	String message;
 	String createdAt;
 	float  distance;
+	
+	String facebookId;
     
     public MuralPost( int    pMuralPostId
     		        , int    pUserId
@@ -18,14 +24,14 @@ public class MuralPost{
     		        , String pMessage
     		        , String pCreatedAt
     		        , double pDistance
-    		        , Bitmap pProfileImage)
+    		        , String pFacebookId)
     {
     	muralPostId    = pMuralPostId;
         userName       = pUserName;
     	message        = pMessage;
     	createdAt      = pCreatedAt;
     	distance       = (float) pDistance;
-    	profileImg     = pProfileImage;
+    	facebookId     = pFacebookId;
     }
     
     public int getId()
@@ -43,14 +49,22 @@ public class MuralPost{
     	return message;
     }
     
-    public String getQuando()
-    {
-    	return createdAt;
+    @SuppressLint("SimpleDateFormat")
+	public Date getDatePost()
+    {	 
+        try {
+        	SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        	return ft.parse(createdAt);
+		} catch (Exception e) {
+			new DebugHelper("MuralPost").method("getQuando").var("createdAt", createdAt).exception(e);
+			return null;
+		}
+    	 
     }
     
-    public Bitmap getProfileImage()
+    public String getFacebookId()
     {
-    	return profileImg;
+    	return facebookId;
     }
     
 }

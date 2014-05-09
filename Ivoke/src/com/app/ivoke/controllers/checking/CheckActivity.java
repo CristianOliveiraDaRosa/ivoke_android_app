@@ -1,14 +1,13 @@
 package com.app.ivoke.controllers.checking;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.app.ivoke.R;
 import com.app.ivoke.Router;
 import com.app.ivoke.helpers.DebugHelper;
+import com.app.ivoke.helpers.LocationHelper;
 import com.app.ivoke.helpers.MessageHelper;
 import com.app.ivoke.helpers.SettingsHelper;
-import com.app.ivoke.models.FacebookModel;
 import com.app.ivoke.objects.UserIvoke;
 import com.facebook.Session;
 import com.facebook.model.GraphObject;
@@ -19,10 +18,11 @@ import com.google.android.gms.maps.model.LatLng;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,29 +33,25 @@ import android.widget.TextView;
 
 public class CheckActivity extends ActionBarActivity {
 	
-	public static final int RESULT_PLACE_ACT = 1;	
+	public static final int RESULT_PLACE_ACT   = 1;	
+	public static final int RESULT_GPS_SETTING = 2;
 	
 	public static final String PE_IVOKE_USER         = "CheckActivity.IvokeUser";
 	public static final String PE_FACEBOOK_SESSION   = "CheckActivity.FacebookSession";
 	public static final String PE_FACEBOOK_USER_JSON = "CheckActivity.FacebookUser";
-	private static FacebookModel faceModel;
-	private static UserIvoke  user;
-	private static GraphUser  fbUser;
 	
-	DebugHelper d = new DebugHelper("CheckActivity");
+	private static UserIvoke     user;
+	private static GraphUser     fbUser;
+	LocationHelper.Listener      locationProvider = new LocationHelper.Listener();
 	
-	private static final Location CASA = new Location("") {
-        {
-        	//-29.165509,-51.173753
-            setLatitude(-29.165509);
-            setLongitude(-51.173753);
-        }
-    };
+	DebugHelper dbg = new DebugHelper("CheckActivity");
+	
+    private Location userLocation;
 	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		d.method("onCreate");
+		dbg.method("onCreate");
 		   
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.check_activity);
@@ -66,28 +62,39 @@ public class CheckActivity extends ActionBarActivity {
 		}
 		
 		parameters();
+		findUserLocation();
 		verifySettings();
 	}
 	
+	private void findUserLocation() {
+
+		ProgressDialog dialog = MessageHelper.ProgressAlert(this, R.string.check_msg_info_find_location);
+		dialog.show();
+		locationProvider = LocationHelper.getLocationListener(this);
+		locationProvider.listenerForUser(user);
+		userLocation = locationProvider.getCurrentLocation();
+		
+		dialog.dismiss();
+	}
+
 	private void parameters()
 	{
-		d.method("parameters");
+		dbg.method("parameters");
 		Bundle extras = getIntent().getExtras();
         if (extras != null) {
         	Session session = 
         			(Session) extras.getSerializable(PE_FACEBOOK_SESSION);
         	
-        	faceModel = new FacebookModel(this, session);
         	user   = (UserIvoke) extras.getSerializable(PE_IVOKE_USER);
         	
         	String jsonFbUser = extras.getString(PE_FACEBOOK_USER_JSON);
         	
-         	d.var("jsonFbUser" , jsonFbUser);
+         	dbg.var("jsonFbUser" , jsonFbUser);
             try {
             	JSONObject jsonObj = new JSONObject(jsonFbUser);
 				fbUser = GraphObject.Factory.create(jsonObj, GraphUser.class);
 			} catch (Exception e) {
-				d.exception(e);
+				dbg.exception(e);
 				MessageHelper.errorAlert(this)
 				             .setMessage(R.string.check_msg_error_get_fb_user)
 				             .showDialog();
@@ -95,9 +102,9 @@ public class CheckActivity extends ActionBarActivity {
 				Router.gotoFacebookLogin(this);
 			}
         	
-        	d.var("session", session);
-        	d.var("user"   , user);
-        	d.var("fbUser" , fbUser);
+        	dbg.var("session", session);
+        	dbg.var("user"   , user);
+        	dbg.var("fbUser" , fbUser);
         }
 	}
 	
@@ -125,9 +132,9 @@ public class CheckActivity extends ActionBarActivity {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		Log.d("#DEBUG#", "onActivityResult resultCode "+resultCode);
+		dbg.method("onActivityResult").par("requestCode", requestCode).par("resultCode", resultCode).par("data",data);
 		
-		if (resultCode == RESULT_PLACE_ACT)
+		if (requestCode == RESULT_PLACE_ACT)
 		{
 			try {
 				Bundle bRetornos = data.getExtras();
@@ -139,13 +146,19 @@ public class CheckActivity extends ActionBarActivity {
 			
 				setTextButtonSelecionaLocal();
 			    
-				Router.gotoMain(this, null);
+				Router.gotoMain(this, user);
 				
 			} catch (Exception e) {
 				MessageHelper.errorAlert(this)
 				             .setMessage(R.string.check_msg_erro_local_selecionado)
 				             .showDialog();
 			}
+		}
+		
+		if(requestCode == RESULT_GPS_SETTING)
+		{
+			findUserLocation();
+			onNextWhitoutCheckingClick(null);
 		}
 	}
 	
@@ -163,13 +176,23 @@ public class CheckActivity extends ActionBarActivity {
 	}
 	
 	public void onSelecLocalClick(View pView) {
-		Router.gotoPlaces(this, CASA);
+		Router.gotoPlaces(this, locationProvider.getCurrentLocation());
 	}
 	
 	public void onNextWhitoutCheckingClick(View pView) {
-		//TODO Only for debug remove this!!
-		user.setLocalization(new LatLng(CASA.getLatitude(), CASA.getLongitude()));
-		Router.gotoMain(this, user);
+		if(userLocation!=null){
+		    user.setLocalization(new LatLng(userLocation.getLatitude(), userLocation.getLongitude()));
+		    Router.gotoMain(this, user);
+		    this.finish();
+		}
+		else
+		{
+			
+			MessageHelper.askYesNoAlert( this
+					                    , R.string.check_msg_info_on_get_user_local
+					                    , new AskOpenGpsSettingsListener());
+		    
+		}
 	}
 
 	private void verifySettings()
@@ -177,7 +200,6 @@ public class CheckActivity extends ActionBarActivity {
 		if(!SettingsHelper.askForChecking(this))
 		{
 			onNextWhitoutCheckingClick(null);
-			this.finish();
 		}
 	}
 	
@@ -201,8 +223,22 @@ public class CheckActivity extends ActionBarActivity {
 	
 	}
 	
-
-	
-	
-
+	private class AskOpenGpsSettingsListener implements DialogInterface.OnClickListener
+	{
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			
+			if(which == MessageHelper.DIALOG_RESULT_YES)
+			{
+				Intent i = LocationHelper.getIntentGpsSettings();
+				startActivityForResult(i, RESULT_GPS_SETTING);
+			}
+			else
+			{
+				finish();
+			}
+			
+		}
+		
+	}
 }

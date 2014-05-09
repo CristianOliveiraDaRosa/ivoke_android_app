@@ -5,25 +5,35 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.app.ivoke.R;
+import com.app.ivoke.Router;
 
+import android.app.Activity;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import com.app.ivoke.controllers.main.MainActivity.MuralCallback;
 import com.app.ivoke.helpers.DebugHelper;
+import com.app.ivoke.helpers.LocationHelper;
 import com.app.ivoke.helpers.MessageHelper;
 import com.app.ivoke.helpers.SettingsHelper;
 import com.app.ivoke.models.MuralModel;
 import com.app.ivoke.objects.*;
 import com.app.ivoke.objects.adapters.MuralAdapter;
 import com.app.ivoke.objects.interfaces.IAsyncCallBack;
+import com.google.android.gms.maps.model.LatLng;
 
 public class MuralFragment extends Fragment {
 	  DebugHelper dbg = new DebugHelper("MuralFragment");
@@ -52,14 +62,51 @@ public class MuralFragment extends Fragment {
 	    listView = (ListView) fragmentView.findViewById(R.id.main_mural_posts_list);
 	    adapter  = new MuralAdapter(fragmentView.getContext(), postagens);
 	    listView.setAdapter(adapter);
-	    
+	    registerForContextMenu(listView);
+		    
 	    btnPostar = (Button) fragmentView.findViewById(R.id.main_mural_create_post_button);
 	    txtPost   = (EditText) fragmentView.findViewById(R.id.main_mural_create_post_text);
 		 
 	    setBtnPostarListener();
 	    
+	    
 	    return fragmentView;
 	  }
+	  
+	  @Override
+	  public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		  dbg.method("onCreateContextMenu");
+		  super.onCreateContextMenu(menu, v, menuInfo);
+		  
+		  MuralPost mp = (MuralPost) listView.getSelectedItem();
+		  dbg.var("mp",mp);
+          
+		  MenuInflater m = mainAct.getMenuInflater();  
+	      m.inflate(R.menu.main_mural_context_menu, menu);
+	  }
+	  
+	  @Override  
+	   public boolean onContextItemSelected(MenuItem item) {
+		    
+		    dbg.var("item", item);
+		  
+	        switch(item.getItemId()){  
+	             case R.id.main_mural_ctxmenu_delete:  
+	            	  dbg.method("onContextItemSelected").log("Item selecionado");
+	            	  AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+	            	  
+	                  MuralPost mp = (MuralPost) listView.getItemAtPosition(info.position);
+	                  dbg.var("mp",mp);
+	                  if(mp!=null)
+	                  {
+	                	  mainAct.deleteMuralPost(mp);
+	                	  adapter.remove(info.position);
+	                	  adapter.notifyDataSetChanged();
+	                  }
+	             return true;
+	        }  
+	        return super.onContextItemSelected(item);  
+	   }  
 	  
 	  @Override
 	  public void onStart() {
@@ -122,9 +169,10 @@ public class MuralFragment extends Fragment {
 		@Override
 		public void run() {
 			dbg.method("MuralRefreshTask.Run");
+			
 			try {
 				mainAct
-				.muralModel.asyncGetNearbyPosts( mainAct.user.getLocalization() 
+				.muralModel.asyncGetNearbyPosts( mainAct.locationProvider.getCurrentLatLng() 
 	    	 			                       , SettingsHelper.getMuralPostDistance(mainAct)
 	    	 			                       , refreshCallback);
 	    	} catch (Exception e) {
@@ -137,7 +185,7 @@ public class MuralFragment extends Fragment {
 	  public class RefreshMuralCallback implements IAsyncCallBack
 	  {
 		    List<MuralPost> posts;   
-	    	
+	    	 
 		    @Override
 			public void onCompleteTask(Object pResult) {
 	    		dbg._class(this).method("onCompleteTask").par("pResult", pResult);

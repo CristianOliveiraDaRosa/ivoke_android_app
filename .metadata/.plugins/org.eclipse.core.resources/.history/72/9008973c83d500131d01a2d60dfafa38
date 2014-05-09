@@ -1,0 +1,13 @@
+package com.app.ivoke.helpers;
+
+import android.content.Context;
+
+import com.google.android.gms.maps.model.LatLng;
+
+public class LocationHelper {
+	
+	public static Location getLocation(Context pContext)
+	{
+		Location local = new Location();
+	}
+}

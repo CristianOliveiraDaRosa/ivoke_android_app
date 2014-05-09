@@ -11,10 +11,28 @@
     <string name="def_process_waiting">Processando...</string>
     <string name="def_process_done">Processo finalizado.</string>
     
+    <!-- Default Times Values -->
+    <string name="def_description_day">%t dia</string>
+    <string name="def_description_days">%t dias</string>
+    <string name="def_description_hour">%t hora</string>
+    <string name="def_description_hours">%t horas</string>
+    <string name="def_description_minute">%t minuto</string>
+    <string name="def_description_minutes">%t minutos</string>
+    
+    <!-- Default Label Buttons -->
+    <string name="def_btn_ok">OK</string>
+    <string name="def_btn_yes">Sim</string>
+    <string name="def_btn_no">Não</string>
+    <string name="def_btn_cancel">Cancelar</string>
+    
+	<!-- Default Alert Titles -->
+    <string name="def_title_progress_dialog">Aguarde.</string>
     
 	<!-- String for default AlertDialog -->
     <string name="msg_alert_error_title">Exceção não tratada</string>
-	
+	<string name="def_msg_ask_open_gps_setting">Deseja abrir configurações de GPS?</string>
+    <string name="def_msg_ask_try_agai">Gostaria de tentar novamente?</string>
+    
        
 	<!-- Server error messages -->
     <string name="msg_error_ws_server_not_responding">

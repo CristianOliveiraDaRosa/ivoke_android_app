@@ -1,0 +1,16 @@
+package com.app.ivoke.models;
+
+import java.util.List;
+
+import com.app.ivoke.objects.Conversation;
+import com.app.ivoke.objects.UserIvoke;
+import com.app.ivoke.objects.interfaces.IAsyncCallBack;
+
+public class ConversationModel extends WebServer {
+	
+	public List<Conversation> getConvesations(UserIvoke pUser, IAsyncCallBack pCallBack)
+	{
+		List<Conversation> list = new List<Conversation>();
+	}
+	
+}

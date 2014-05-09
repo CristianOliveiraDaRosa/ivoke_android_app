@@ -1,0 +1,42 @@
+package com.app.ivoke.objects;
+
+public class Conversation {
+	
+	private int id;
+	private int user_one_id;
+	private int user_two_id;
+	private int time;
+	private int status;
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public int getUserOneId() {
+		return user_one_id;
+	}
+	public void setUserOneId(int user_one_id) {
+		this.user_one_id = user_one_id;
+	}
+	public int getUserTwoId() {
+		return user_two_id;
+	}
+	public void setUserTwoId(int user_two_id) {
+		this.user_two_id = user_two_id;
+	}
+	public int getTime() {
+		return time;
+	}
+	public void setTime(int time) {
+		this.time = time;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+}

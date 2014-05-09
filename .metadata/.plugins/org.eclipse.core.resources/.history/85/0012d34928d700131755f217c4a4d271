@@ -1,0 +1,5 @@
+package com.app.ivoke.models;
+
+public class ConversationModel extends WebServer {
+
+}

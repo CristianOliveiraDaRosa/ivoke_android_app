@@ -7,6 +7,9 @@
     <string name="main_menu_title_contacts">Contatos</string>
     <string name="main_menu_title_config"  >:</string>
 	
+    <!-- Main Mural Context Menu -->
+    <string name="main_menu_ctxmenu_delete"  >Excluir publicação.</string>
+    
     <!-- Mural labels -->
     <string name="main_mural_txt_create_post_hint">Poste algo.</string>
     <string name="main_mural_txt_create_post_text">Poste algo.</string>

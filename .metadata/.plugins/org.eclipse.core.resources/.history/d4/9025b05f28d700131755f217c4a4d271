@@ -1,0 +1,15 @@
+package com.app.ivoke.models;
+
+import java.util.List;
+
+import com.app.ivoke.objects.Conversation;
+import com.app.ivoke.objects.UserIvoke;
+
+public class ConversationModel extends WebServer {
+	
+	public List<Conversation> getConvesations(UserIvoke pUser)
+	{
+		List<Conversation> list = new List<Conversation>();
+	}
+	
+}

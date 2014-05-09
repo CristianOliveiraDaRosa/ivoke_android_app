@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:facebook="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -12,14 +13,16 @@
         android:padding="3dip"
         android:layout_alignParentLeft="true"
        android:layout_marginRight="5dip">
- 
-        <ImageView
+ 		
+        <com.facebook.widget.ProfilePictureView
             android:id="@id/main_contato_imagem"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:contentDescription="Imagem usuário"
-            android:src="@drawable/conversa_usuario" />
- 
+            facebook:preset_size="small"
+            android:src="@drawable/conversa_usuario" >
+
+	    </com.facebook.widget.ProfilePictureView>
+         
     </LinearLayout>
  
     <!-- Title Of Song-->

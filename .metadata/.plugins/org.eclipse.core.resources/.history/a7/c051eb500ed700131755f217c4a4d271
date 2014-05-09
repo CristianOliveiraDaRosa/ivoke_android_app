@@ -1,0 +1,20 @@
+package com.app.ivoke.helpers;
+
+import java.sql.Date;
+
+public class DateTimeHelper {
+	
+	public static long getDaysBetween(Date pDateNew, Date pDateOlder)
+	{
+		long dif = pDateNew.getTime() - pDateOlder.getMinutes();
+		
+		return Math.round(dif / 86400000);
+	}
+	
+	public static long getHoursBetween(Date pDateNew, Date pDateOlder)
+	{
+		long dif = pDateNew.getTime() - pDateOlder.getMinutes();
+		
+		return Math.round((dif % 86400000) / 3600000);
+	}
+} 
