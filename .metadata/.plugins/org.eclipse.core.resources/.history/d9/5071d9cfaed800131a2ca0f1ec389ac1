@@ -1,0 +1,22 @@
+package com.app.ivoke.helpers;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+
+public class GoogleServicesHelper {
+		
+	public static boolean checkPlayServices(Context pContext) {
+	    int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+	    if (resultCode != ConnectionResult.SUCCESS) {
+	        if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+	            GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+	                    PLAY_SERVICES_RESOLUTION_REQUEST).show();
+	        } else {
+	            Log.i(TAG, "This device is not supported.");
+	            finish();
+	        }
+	        return false;
+	    }
+	    return true;
+	}
+}

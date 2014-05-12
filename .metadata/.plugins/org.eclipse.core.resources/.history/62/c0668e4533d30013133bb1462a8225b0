@@ -1,8 +1,0 @@
-package com.app.ivoke.helpers;
-
-public class MetricHelper {
-	public static converKmToMiles(int pKm)
-	{
-		
-	}
-}

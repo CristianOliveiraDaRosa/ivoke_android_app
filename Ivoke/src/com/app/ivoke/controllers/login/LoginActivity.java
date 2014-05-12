@@ -1,16 +1,23 @@
 package com.app.ivoke.controllers.login;
 
+import com.app.ivoke.Common;
 import com.app.ivoke.R;
 import com.app.ivoke.Router;
 import com.app.ivoke.helpers.MessageHelper;
 import com.app.ivoke.helpers.DebugHelper;
+import com.app.ivoke.helpers.SettingsHelper;
+import com.app.ivoke.libraries.GCMManager;
 import com.app.ivoke.models.FacebookModel;
 import com.app.ivoke.models.UserModel;
+import com.app.ivoke.objects.DefaultWebCallback;
 import com.app.ivoke.objects.UserIvoke;
 import com.app.ivoke.objects.interfaces.IAsyncCallBack;
 
 import android.support.v4.app.Fragment;
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -114,8 +121,16 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 		}
 		else
 		{
-			MessageHelper.infoAlert(this).setMessage(R.string.login_msg_session_error, "facebook").showDialog();
-			returnToFacebookLogin();
+			MessageHelper
+			.errorAlert(this)
+			.setMessage(R.string.login_msg_session_error)
+			.setButtonOk(new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					returnToFacebookLogin();
+				}
+			});
+			
 		}
 	}
 	
@@ -127,7 +142,7 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 		
 	}
 	
-	private class IvokeServerCallback implements IAsyncCallBack
+	private class IvokeServerCallback extends DefaultWebCallback
 	{
 		    LoginActivity activityCaller;
 			Boolean inError;
@@ -136,9 +151,6 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 			{
 				activityCaller = pActivity;
 			}
-		
-			@Override
-			public void onProgress(int pPercent, Object pObject) {}
 			
 			@Override
 			public void onCompleteTask(Object pResult) {
@@ -149,17 +161,22 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 				
 				if(inError)
 				{
-					activityCaller.finish();
-		
+					MessageHelper.errorAlert(activityCaller)
+					             .setMessage(R.string.def_error_msg_ws_server_not_responding)
+					             .setButtonOk(new OnClickListener() {
+														@Override
+														public void onClick(DialogInterface dialog, int which) {
+															activityCaller.finish();
+														}
+													});
+				    
 				}else if(userIvoke!= null)
 				{
+					
 					Router.gotoChecking(activityCaller, fbSession, userIvoke, fbUser);
 					activityCaller.finish();
 				}
 			}
-
-			@Override
-			public void onPreExecute() {}
 
 			@Override
 			public void onPreComplete(Object pResult) {
@@ -177,11 +194,21 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 						userIvoke.setName(fbUser.getName());
 					}
 					
+					debug.log("TEST COMMON REG ID "+Common.getDeviceRegistrationId());
+					
+					SharedPreferences pref = SettingsHelper.getSharedPreference(activityCaller);
+					userModel.asyncRegisterDevice(userIvoke, pref.getString(GCMManager.PREF_REGISTRATION_ID, null));
+					
+					
 					debug.var("userIvoke", userIvoke);
 					inError = false;
 				} catch (Exception e) {
 					inError = true;
 					debug.exception(e);
+					
+					super.onError("IvokeServerCallback", e);
+					
+					showError();
 				}
 			}
 	}

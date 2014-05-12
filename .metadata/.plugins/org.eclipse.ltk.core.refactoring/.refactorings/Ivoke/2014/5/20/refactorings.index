@@ -1,0 +1,11 @@
+1399773186534	Rename local variable 'pContext'
+1399773467278	Delete element
+1399773479526	Delete element
+1399773501099	Delete element
+1399773641688	Delete element
+1399846352502	Encapsulate field 'errorMsg'
+1399847099036	Encapsulate field 'exception'
+1399847706234	Rename field 'errorMsg'
+1399850260422	Rename method 'asyncRegistrerDevice'
+1399850275187	Rename method 'asyncRegistreDevice'
+1399852527765	Rename resource 'welcome_strings.xml'

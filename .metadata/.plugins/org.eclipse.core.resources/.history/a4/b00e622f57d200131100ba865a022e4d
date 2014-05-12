@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources >
-    <!-- <string name="ws_url">http://10.0.2.2:3000</string> -->
-    <string  name="ws_url">http://162.243.30.153</string>
-    <string name="ws_url_add_usuario">/usuarios.json</string>
-    <string name="ws_url_usuario_existe">/usuarios/existe.json</string>
-</resources>

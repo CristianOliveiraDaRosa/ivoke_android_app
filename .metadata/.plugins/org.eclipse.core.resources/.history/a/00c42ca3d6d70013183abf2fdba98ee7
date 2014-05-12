@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="main_act_menu_return" 		 type="id"></item>
+    <item name="main_act_menu_mural" 		 type="id"></item>
+    <item name="main_act_menu_contacts" 	 type="id"></item>
+    <item name="main_act_menu_settings"      type="id"></item>
+    
+    <!-- Mural Fragment -->
+    <item name="main_mural_posts_list" type="id"></item>
+    <item name="main_mural_title"      type="id"></item>
+    <item name="main_mural_boder_image"type="id"></item>
+    <item name="main_mural_image"      type="id"></item>
+    <item name="main_mural_message"    type="id"></item>
+    <item name="main_mural_when"       type="id"></item>
+    <item name="main_mural_create_post_border" type="id"></item>
+    <item name="main_mural_create_post_text"   type="id"></item>
+    <item name="main_mural_create_post_button" type="id"></item>
+    <item name="main_mural_ctxmenu_delete"     type="id"></item>
+    
+    <!-- Conversation Fragment -->
+    <item name="main_conversation_user_name"    type="id"></item>
+    <item name="main_conversation_user_image"   type="id"></item>
+    <item name="main_conversation_last_message" type="id"></item>
+    <item name="main_conversation_when"         type="id"></item>
+	
+    <!-- Processing Fragment -->
+    <item name="main_processing_progress_bar"  type="id"></item>
+	<item name="main_processing_progress_lbl"  type="id"></item>
+	
+</resources>

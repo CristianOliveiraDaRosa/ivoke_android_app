@@ -1,7 +1,0 @@
-package com.app.ivoke.objects.extended_android;
-
-import android.preference.EditTextPreference;
-
-public class IntEditTextPreference extends EditTextPreference {
-
-}

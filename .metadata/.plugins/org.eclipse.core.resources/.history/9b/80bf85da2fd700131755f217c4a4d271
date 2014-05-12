@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="main_act_menu_return" 		 type="id"></item>
+    <item name="main_act_menu_mural" 		 type="id"></item>
+    <item name="main_act_menu_contacts" 	 type="id"></item>
+    <item name="main_act_menu_settings"      type="id"></item>
+    
+    <!-- List Mural -->
+    <item name="main_mural_posts_list" type="id"></item>
+    <item name="main_mural_title"      type="id"></item>
+    <item name="main_mural_image"      type="id"></item>
+    <item name="main_mural_message"    type="id"></item>
+    <item name="main_mural_when"       type="id"></item>
+    
+    <!-- Create Post Mural  -->
+    <item name="main_mural_create_post_border" type="id"></item>
+    <item name="main_mural_create_post_text"   type="id"></item>
+    <item name="main_mural_create_post_button" type="id"></item>
+    
+    <!-- Main Mural ContextMenu -->
+    <item name="main_mural_ctxmenu_delete" type="id"></item>
+    
+    <!-- List Contatos -->
+    <item name="main_contato_titulo"   type="id"></item>
+    <item name="main_contato_imagem"   type="id"></item>
+    <item name="main_contato_ultima_mensagem" type="id"></item>
+    <item name="main_contato_quando"   type="id"></item>
+	
+    <item name="main_processing_progress_bar"  type="id"></item>
+	<item name="main_processing_progress_lbl"  type="id"></item>
+	
+</resources>

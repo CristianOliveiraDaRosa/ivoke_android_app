@@ -1,0 +1,32 @@
+package com.app.ivoke.controllers.welcome;
+
+import com.app.ivoke.R;
+import com.app.ivoke.helpers.GoogleServicesHelper;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+public class WelcomeActivity extends Activity {
+	
+	 GoogleCloudMessaging gcm;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.welcome_activity);
+		
+		
+		if (GoogleServicesHelper.checkGooglePlayServices(this)) {
+            gcm = GoogleCloudMessaging.getInstance(this);
+            regid = getRegistrationId(context);
+
+            if (regid.isEmpty()) {
+                registerInBackground();
+            }
+        } else {
+            Log.i(TAG, "No valid Google Play Services APK found.");
+        }
+	}
+
+}

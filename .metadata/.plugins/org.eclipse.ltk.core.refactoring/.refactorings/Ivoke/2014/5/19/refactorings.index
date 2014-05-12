@@ -51,3 +51,7 @@
 1399607863903	Encapsulate field 'user_one_nome'
 1399607893020	Encapsulate field 'user_two_nome'
 1399608050011	Encapsulate field 'last_message'
+1399608216604	Rename resource 'main_contato_fragment.xml'
+1399608302058	Rename resource 'main_contato_list_template.xml'
+1399683726715	Rename field 'msgAlertContext'
+1399727197021	Encapsulate field 'createAt'

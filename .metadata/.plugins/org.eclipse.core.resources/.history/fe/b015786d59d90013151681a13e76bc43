@@ -1,0 +1,31 @@
+package com.app.ivoke.objects;
+
+import com.app.ivoke.objects.interfaces.IAsyncCallBack;
+
+public class DefaultWebCallback implements IAsyncCallBack {
+
+	@Override
+	public void onPreExecute() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onPreComplete(Object pResult) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onCompleteTask(Object pResult) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onProgress(int pPercent, Object pObject) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

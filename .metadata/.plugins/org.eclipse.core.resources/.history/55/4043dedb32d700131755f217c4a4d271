@@ -1,0 +1,56 @@
+package com.app.ivoke.models;
+
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.app.ivoke.R;
+import com.app.ivoke.helpers.DebugHelper;
+import com.app.ivoke.objects.Conversation;
+import com.app.ivoke.objects.MuralPost;
+import com.app.ivoke.objects.UserIvoke;
+import com.app.ivoke.objects.interfaces.IAsyncCallBack;
+
+public class ConversationModel extends WebServer {
+	DebugHelper dbg = new DebugHelper("ConversationModel");
+	
+	public boolean getAsyncConvesations(UserIvoke pUser, IAsyncCallBack pCallBack)
+	{
+		dbg.method("getAsyncConvesations").par("pUser",pUser).par("pCallBack", pCallBack);
+		try {
+			
+			web.doAsyncPostRequest( site(R.string.ws_url_convesations_get)
+					              , web.makeListParameter("user_id", pUser.getIvokeID())
+					              , pCallBack);
+			return true;
+		} catch (Exception e) {
+			dbg.exception(e);
+			return false;
+		}
+	}
+
+	public List<Conversation> getListFromJson(String pJsonString) {
+		
+		JSONArray jsonMuralPosts = new JSONArray(pJsonString);
+		
+		 for (int i = 0; i < jsonMuralPosts.length() ; i++) {
+			 JSONObject muralPostJson = jsonMuralPosts.getJSONObject(i);
+			 
+			 JSONObject userJson =  muralPostJson.getJSONObject("user");
+
+			 listMuralPosts.add(
+					 new MuralPost( muralPostJson.getInt("id")
+							      , userJson.getInt("id")
+							      , userJson.getString("name")
+							      , muralPostJson.getString("message")
+							      , muralPostJson.getString("created_at")
+							      , muralPostJson.getDouble("distance")
+							      , userJson.getString("facebook_id"))); 
+			 
+		 }
+		
+		return null;
+	}
+	
+}

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:facebook="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dip" >
+ 
+    <!--  ListRow Left sied Thumbnail image -->
+    <LinearLayout android:id="@id/conversation_border_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="3dip"
+        android:layout_alignParentLeft="true"
+       android:layout_marginRight="5dip">
+ 		
+        <com.facebook.widget.ProfilePictureView
+            android:id="@id/main_contato_imagem"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            facebook:preset_size="small"
+            android:src="@drawable/conversa_usuario" >
+
+	    </com.facebook.widget.ProfilePictureView>
+         
+    </LinearLayout>
+ 
+    <!-- Title Of Song-->
+    <TextView
+        android:id="@id/main_contato_titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/conversation_border_image"
+        android:layout_toRightOf="@id/conversation_border_image"
+        android:text="Usuario Nome"
+        android:textColor="#040404"
+        android:typeface="sans"
+        android:textSize="15dip"
+        android:textStyle="bold"/>
+ 
+    <!-- Artist Name -->
+
+    <TextView
+        android:id="@id/main_contato_ultima_mensagem"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/conversation_border_image"
+        android:layout_below="@id/main_contato_titulo"
+        android:layout_marginTop="1dip"
+        android:layout_toRightOf="@id/conversation_border_image"
+        android:text="Uma mensagem qualquer!"
+        android:textColor="#343434"
+        android:textSize="10dip" />
+ 
+    <!-- Rightend Duration -->
+    <TextView
+        android:id="@id/main_contato_quando"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/main_contato_titulo"
+        android:gravity="right"
+        android:text="a 5 min."
+        android:layout_marginRight="5dip"
+        android:textSize="10dip"
+        android:textColor="#10bcc9"
+        android:textStyle="bold"/>
+ 
+ 
+</RelativeLayout>

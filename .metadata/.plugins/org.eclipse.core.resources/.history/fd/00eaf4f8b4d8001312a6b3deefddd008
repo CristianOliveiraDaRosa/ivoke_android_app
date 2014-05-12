@@ -1,0 +1,22 @@
+package com.app.ivoke.controllers.welcome;
+
+import com.app.ivoke.R;
+import com.app.ivoke.controllers.login.LoginActivity.PlaceholderFragment;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+public class WelcomeActivity extends android.support.v4.app.FragmentActivity {
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.login_activity);
+		
+		if (savedInstanceState == null) {
+			getSupportFragmentManager().beginTransaction()
+					.add(R.id.container, new PlaceholderFragment()).commit();
+		}
+	}
+
+}
