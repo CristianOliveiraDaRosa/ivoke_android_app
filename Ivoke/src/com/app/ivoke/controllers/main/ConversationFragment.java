@@ -18,6 +18,7 @@ import com.app.ivoke.helpers.MessageHelper;
 import com.app.ivoke.models.ConversationModel;
 import com.app.ivoke.objects.*;
 import com.app.ivoke.objects.adapters.ConversationAdapter;
+import com.app.ivoke.objects.defaults.DefaultWebCallback;
 import com.app.ivoke.objects.interfaces.IAsyncCallBack;
 
 public class ConversationFragment extends Fragment {

@@ -21,8 +21,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.app.ivoke.objects.DefaultWebCallback;
 import com.app.ivoke.objects.WebParameter;
+import com.app.ivoke.objects.defaults.DefaultWebCallback;
 import com.app.ivoke.objects.interfaces.IAsyncCallBack;
 
 import android.graphics.Bitmap;

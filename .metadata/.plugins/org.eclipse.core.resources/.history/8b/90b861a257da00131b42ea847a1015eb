@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Ivoke</string>
+    <string name="logo_description">Ivoke</string>
+    <string name="action_settings">Settings</string>
+    
+    <!-- Google -->
+	<string name="google_project_ivoke_id">374791042010</string>
+	
+    <!-- Default Null Values -->
+    <string name="def_null_usuario_nome">*Nome Usuário*</string>
+    <string name="def_null_message">*Message*</string>
+    <string name="def_null_valor">*Conteudo*</string>
+
+    <!-- Default Label Values -->
+    <string name="def_process_waiting">Acessando serviços #8230</string>
+    <string name="def_process_done">Processo finalizado.</string>
+
+    <!-- Default Times Values -->
+    <string name="def_description_day">%d dia</string>
+    <string name="def_description_days">%d dias</string>
+    <string name="def_description_hour">%d hora</string>
+    <string name="def_description_hours">%d horas</string>
+    <string name="def_description_minute">%d minuto</string>
+    <string name="def_description_minutes">%d minutos</string>
+    <string name="def_description_now">Agora pouco.</string>
+
+    <!-- Default Label Buttons -->
+    <string name="def_btn_ok">OK</string>
+    <string name="def_btn_yes">Sim</string>
+    <string name="def_btn_no">Não</string>
+    <string name="def_btn_cancel">Cancelar</string>
+
+    <!-- Default Alert Titles -->
+    <string name="def_title_progress_dialog">Aguarde.</string>
+
+    <!-- String for default AlertDialog -->
+    <string name="msg_alert_error_title">Exceção não tratada</string>
+    <string name="def_msg_ask_open_gps_setting">Deseja abrir configurações de GPS?</string>
+    <string name="def_msg_ask_try_agai">Gostaria de tentar novamente?</string>
+	
+    <!-- Default errors msgs -->
+    <string name="def_error_msg_device_not_registred">Não foi possível verificar sua conta no Google Play. Tente novamente mais tarde.</string>
+	<string name="def_error_msg_ws_server_not_responding">Pô Almir! Nosso servidor está indisponível.</string>
+    <string name="def_error_msg_unexpected_exception">Situação inesperada, por favor "saia e entre no fusca novamente".</string>
+
+</resources>

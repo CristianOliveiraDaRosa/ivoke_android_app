@@ -9,6 +9,8 @@ import com.app.ivoke.helpers.LocationHelper;
 import com.app.ivoke.helpers.MessageHelper;
 import com.app.ivoke.helpers.SettingsHelper;
 import com.app.ivoke.objects.UserIvoke;
+import com.app.ivoke.objects.defaults.DefaultBackgroudWorker;
+import com.app.ivoke.objects.defaults.DefaultProcessingFragment;
 import com.facebook.Session;
 import com.facebook.model.GraphObject;
 import com.facebook.model.GraphPlace;
@@ -18,6 +20,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -48,7 +51,11 @@ public class CheckActivity extends ActionBarActivity {
 	
     private Location userLocation;
 	
+    FindlocationBackground findInBackGround = new FindlocationBackground(this);
 	
+    PlaceholderFragment           defaultFragment = new PlaceholderFragment();
+    DefaultProcessingFragment  processingFragment = new DefaultProcessingFragment();
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		dbg.method("onCreate");
@@ -57,8 +64,7 @@ public class CheckActivity extends ActionBarActivity {
 		setContentView(R.layout.check_activity);
 
 		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+			showFragment(defaultFragment);
 		}
 		
 		parameters();
@@ -66,10 +72,18 @@ public class CheckActivity extends ActionBarActivity {
 		verifySettings();
 	}
 	
-	private void findUserLocation(int pTimesToTry) {
+	
+	private void showFragment(Fragment pFragment)
+    {
+    	getSupportFragmentManager()
+		.beginTransaction().replace(R.id.container, pFragment).commit();
+    }
+	
+	private Location findUserLocation(int pTimesToTry) {
 
 		ProgressDialog dialog = MessageHelper.ProgressAlert(this, R.string.check_msg_info_find_location);
 		dialog.show();
+		
 		for (int i = 0; i < pTimesToTry; i++) {
 			locationProvider = LocationHelper.getLocationListener(this);
 			locationProvider.listenerForUser(user);
@@ -77,6 +91,7 @@ public class CheckActivity extends ActionBarActivity {
 		}
 		
 		dialog.dismiss();
+		return userLocation;
 	}
 
 	private void parameters()
@@ -189,11 +204,9 @@ public class CheckActivity extends ActionBarActivity {
 		}
 		else
 		{
+			showFragment(processingFragment);
 			
-			MessageHelper.askYesNoAlert( this
-					                    , R.string.check_msg_info_on_get_user_local
-					                    , new AskOpenGpsSettingsListener());
-		    
+			findInBackGround.execute();
 		}
 	}
 
@@ -241,6 +254,50 @@ public class CheckActivity extends ActionBarActivity {
 			}
 			
 		}
+	}
+	
+	private class FindlocationBackground extends DefaultBackgroudWorker
+	{
+		public FindlocationBackground(Activity pActivity) {
+			super(pActivity);
+		}
 		
+		@Override
+		protected Object doInBackground(Object... params) {
+			dbg.method("doInBackground");
+			try {
+				for (int i = 0; i < 50; i++) {
+					locationProvider = LocationHelper.getLocationListener(getActivityCaller());
+					locationProvider.listenerForUser(user);
+					userLocation = locationProvider.getCurrentLocation();
+					
+					if(userLocation!=null)
+						return userLocation;
+				}
+			} catch (Exception e) {
+				dbg.exception(e);
+				setException(e);
+			}
+			return userLocation;
+		}
+		
+		@Override
+		protected void onPostExecute(Object result) {
+			super.onPostExecute(result);
+			
+			if(userLocation!=null){
+			    user.setLocalization(new LatLng(userLocation.getLatitude(), userLocation.getLongitude()));
+			    Router.gotoMain(getActivityCaller(), user);
+			    getActivityCaller().finish();
+			}
+			else
+			{
+				showFragment(defaultFragment);
+				MessageHelper.askYesNoAlert( getActivityCaller()
+						                    , R.string.check_msg_info_on_get_user_local
+						                    , new AskOpenGpsSettingsListener());
+			}
+			
+		}
 	}
 }

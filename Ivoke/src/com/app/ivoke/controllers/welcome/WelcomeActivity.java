@@ -7,7 +7,7 @@ import com.app.ivoke.helpers.DebugHelper;
 import com.app.ivoke.helpers.GoogleServicesHelper;
 import com.app.ivoke.helpers.MessageHelper;
 import com.app.ivoke.libraries.GCMManager;
-import com.app.ivoke.objects.DefaultWebCallback;
+import com.app.ivoke.objects.defaults.DefaultWebCallback;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import android.app.Activity;
@@ -40,6 +40,10 @@ public class WelcomeActivity extends Activity {
             	Router.gotoFacebookLogin(this);
             	this.finish();
             }
+        }
+		else
+        {
+        	this.finish();
         }
 	}
 	

@@ -9,3 +9,5 @@
 1399850260422	Rename method 'asyncRegistrerDevice'
 1399850275187	Rename method 'asyncRegistreDevice'
 1399852527765	Rename resource 'welcome_strings.xml'
+1399946518958	Move compilation unit
+1399952762437	Rename method 'create'

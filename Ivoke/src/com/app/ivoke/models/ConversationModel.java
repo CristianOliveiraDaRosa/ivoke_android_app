@@ -11,9 +11,9 @@ import com.app.ivoke.R;
 import com.app.ivoke.helpers.DebugHelper;
 import com.app.ivoke.objects.Conversation;
 import com.app.ivoke.objects.ConvesationMessage;
-import com.app.ivoke.objects.DefaultWebCallback;
 import com.app.ivoke.objects.MuralPost;
 import com.app.ivoke.objects.UserIvoke;
+import com.app.ivoke.objects.defaults.DefaultWebCallback;
 import com.app.ivoke.objects.interfaces.IAsyncCallBack;
 
 public class ConversationModel extends WebServer {

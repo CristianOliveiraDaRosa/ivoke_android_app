@@ -9,10 +9,10 @@ import org.json.JSONObject;
 import com.app.ivoke.R;
 import com.app.ivoke.helpers.DebugHelper;
 import com.app.ivoke.helpers.WebHelper.NetworkException;
-import com.app.ivoke.objects.DefaultWebCallback;
 import com.app.ivoke.objects.WebParameter;
 import com.app.ivoke.objects.MuralPost;
 import com.app.ivoke.objects.UserIvoke;
+import com.app.ivoke.objects.defaults.DefaultWebCallback;
 import com.app.ivoke.objects.interfaces.IAsyncCallBack;
 import com.google.android.gms.maps.model.LatLng;
 

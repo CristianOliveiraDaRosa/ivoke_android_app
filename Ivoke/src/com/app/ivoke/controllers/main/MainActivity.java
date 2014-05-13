@@ -12,9 +12,9 @@ import com.app.ivoke.helpers.MessageHelper;
 import com.app.ivoke.helpers.SettingsHelper;
 import com.app.ivoke.models.FacebookModel;
 import com.app.ivoke.models.MuralModel;
-import com.app.ivoke.objects.DefaultWebCallback;
 import com.app.ivoke.objects.MuralPost;
 import com.app.ivoke.objects.UserIvoke;
+import com.app.ivoke.objects.defaults.DefaultWebCallback;
 import com.app.ivoke.objects.interfaces.IAsyncCallBack;
 
 import android.renderscript.ProgramFragment;

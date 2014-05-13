@@ -9,9 +9,9 @@ import android.util.Log;
 import com.app.ivoke.R;
 import com.app.ivoke.Router;
 import com.app.ivoke.helpers.DebugHelper;
-import com.app.ivoke.objects.DefaultWebCallback;
 import com.app.ivoke.objects.UserIvoke;
 import com.app.ivoke.objects.WebParameter;
+import com.app.ivoke.objects.defaults.DefaultWebCallback;
 import com.app.ivoke.objects.interfaces.IAsyncCallBack;
 
 public class UserModel extends WebServer {
@@ -60,6 +60,29 @@ public class UserModel extends WebServer {
 		debug.log("FIM");
 	}
 	
+	public UserIvoke requestIvokeUser(String pFacebookId) throws Exception
+	{
+		debug.method("asyncGetIvokeUser").par("pFacebookId", pFacebookId);
+		
+		ArrayList<WebParameter> parametros = new ArrayList<WebParameter>();
+		parametros.add(web.parameter("facebook_id", pFacebookId));
+		
+		String userJson = web.doPostRequest(site(R.string.ws_url_user_get), parametros);
+		
+		debug.log("FIM");
+		
+		if(userJson != "null")
+		{
+		 JSONObject json = new JSONObject(userJson);
+		 user = new UserIvoke();
+		 user.setIvokeID(json.getInt("id"));
+		 user.setName(json.getString("name"));
+		 user.setFacebookID(json.getString("facebook_id"));
+		}
+		
+		return user;
+	}
+	
 	public DefaultWebCallback asyncRegisterDevice(UserIvoke pUser, String pRegistrationId)
 	{
 		DefaultWebCallback callback = new DefaultWebCallback();
@@ -102,7 +125,7 @@ public class UserModel extends WebServer {
 		return callback;
 	}
 	
-	public UserIvoke create(String pName, String pFacebookId) throws Exception
+	public UserIvoke createOnServer(String pName, String pFacebookId) throws Exception
 	{   
 		debug.method("create").par("pName", pName).par("pFacebookId", pFacebookId);
 		UserIvoke user = new UserIvoke();

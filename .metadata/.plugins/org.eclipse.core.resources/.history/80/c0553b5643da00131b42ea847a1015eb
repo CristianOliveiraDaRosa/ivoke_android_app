@@ -1,0 +1,26 @@
+package com.app.ivoke.objects.defaults;
+
+import android.app.Activity;
+import android.os.AsyncTask;
+
+public class DefaultBackgroudWorker extends AsyncTask<Object, Object, Object> {
+	
+	Activity context;
+	
+	public DefaultBackgroudWorker(Activity pActivity)
+	{
+		context = pActivity;
+	}
+	
+	@Override
+	protected Object doInBackground(Object... params) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	private Activity getActivityCaller()
+	{
+		return context;
+	}
+
+}

@@ -32,6 +32,7 @@ import com.app.ivoke.helpers.SettingsHelper;
 import com.app.ivoke.models.MuralModel;
 import com.app.ivoke.objects.*;
 import com.app.ivoke.objects.adapters.MuralAdapter;
+import com.app.ivoke.objects.defaults.DefaultWebCallback;
 import com.app.ivoke.objects.interfaces.IAsyncCallBack;
 import com.google.android.gms.maps.model.LatLng;
 

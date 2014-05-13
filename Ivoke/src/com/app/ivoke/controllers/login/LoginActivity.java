@@ -5,24 +5,19 @@ import com.app.ivoke.R;
 import com.app.ivoke.Router;
 import com.app.ivoke.helpers.MessageHelper;
 import com.app.ivoke.helpers.DebugHelper;
-import com.app.ivoke.helpers.SettingsHelper;
-import com.app.ivoke.libraries.GCMManager;
 import com.app.ivoke.models.FacebookModel;
 import com.app.ivoke.models.UserModel;
-import com.app.ivoke.objects.DefaultWebCallback;
 import com.app.ivoke.objects.UserIvoke;
-import com.app.ivoke.objects.interfaces.IAsyncCallBack;
+import com.app.ivoke.objects.defaults.DefaultBackgroudWorker;
 
 import android.support.v4.app.Fragment;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.facebook.Session;
 import com.facebook.model.GraphUser;
@@ -40,7 +35,7 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 	private GraphUser fbUser;
 	private UserIvoke userIvoke;
 	
-	private IvokeServerCallback callback;
+	private LoginBackground loginBackground;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +48,6 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
-		
-		debug.log("before new IvokeServerCallback");
-		callback = new IvokeServerCallback(this);
 		
 		getExtras();
 		
@@ -96,27 +88,13 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 		if(fbSession.isOpened())
 		{			
 			faceModel.setSessaoAtiva(this, fbSession);
-			this.getString(R.string.ws_url_facebook_profile_img);
-			this.getString(R.string.ws_url);
-			/*  Evita o NetworkOnMainThreadException fix it!!! */
-			new Thread(new Runnable(){
-				public void run() {
-					faceModel.requestFacebookUser();
-					fbUser = faceModel.getFacebookUser();
-					debug.var("fbUser", fbUser);
-					
-					if(fbUser!=null)
-					{
-						try {
-							userModel.asyncGetIvokeUser(fbUser.getId(), callback);
-						} catch (Exception e) {
-							debug.exception(e);
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-				}
-			 }).start();
+			
+			try {
+				loginBackground = new LoginBackground(this);
+				loginBackground.execute();
+			} catch (Throwable t){
+				showError();
+			}
 			
 		}
 		else
@@ -142,74 +120,82 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 		
 	}
 	
-	private class IvokeServerCallback extends DefaultWebCallback
+	private void goToChecking() {
+		
+		Router.gotoChecking(this, fbSession, userIvoke, fbUser);
+		this.finish();
+		
+	}
+	
+	
+	private class LoginBackground extends DefaultBackgroudWorker
 	{
-		    LoginActivity activityCaller;
-			Boolean inError;
-			
-			public IvokeServerCallback(LoginActivity pActivity)
-			{
-				activityCaller = pActivity;
-			}
-			
-			@Override
-			public void onCompleteTask(Object pResult) {
-				debug._class(this).method("onCompleteTask").par("pResult", pResult);
-				
-				TextView lblProgress = (TextView) findViewById(R.id.login_lbl_processing);
-				lblProgress.setText(R.string.login_lbl_process_done);
-				
-				if(inError)
-				{
-					MessageHelper.errorAlert(activityCaller)
-					             .setMessage(R.string.def_error_msg_ws_server_not_responding)
-					             .setButtonOk(new OnClickListener() {
-														@Override
-														public void onClick(DialogInterface dialog, int which) {
-															activityCaller.finish();
-														}
-													});
-				    
-				}else if(userIvoke!= null)
-				{
-					
-					Router.gotoChecking(activityCaller, fbSession, userIvoke, fbUser);
-					activityCaller.finish();
-				}
-			}
+		LoginActivity loginActivity;
+		Exception  exception;
+		
+		public LoginBackground(Activity pActivity) {
+			super(pActivity);
+			loginActivity = (LoginActivity) pActivity;
+		}
 
-			@Override
-			public void onPreComplete(Object pResult) {
-				debug.method("onPreComplete").par("pResult", pResult);
-				try {
-					
-					if(pResult.toString() == "null")
-					{
-						userIvoke = userModel.create(fbUser.getName(), fbUser.getId());
+		@Override
+		protected Object doInBackground(Object... params) {
+			debug.method("doInBackground");
+			try {
+				
+				faceModel.requestFacebookUser();
+				fbUser = faceModel.getFacebookUser();
+				debug.var("fbUser", fbUser);
+				
+				if(fbUser!=null)
+				{
+					debug.log("BUSCA USER");
+					try {
+						userIvoke = userModel.requestIvokeUser(fbUser.getId());
+						
+						if(userIvoke == null)
+						{
+							userIvoke = userModel.createOnServer(fbUser.getName(), fbUser.getId());
+						}
+						
+						userModel.asyncRegisterDevice(userIvoke, Common.getDeviceRegistrationId());
+						
+					} catch (Exception e) {
+						debug.exception(e);
+						exception = e;
 					}
-					else
-					{
-						userIvoke = UserIvoke.castJson(pResult.toString());
-						userIvoke.setFacebookID(fbUser.getId());
-						userIvoke.setName(fbUser.getName());
-					}
-					
-					debug.log("TEST COMMON REG ID "+Common.getDeviceRegistrationId());
-					
-					SharedPreferences pref = SettingsHelper.getSharedPreference(activityCaller);
-					userModel.asyncRegisterDevice(userIvoke, pref.getString(GCMManager.PREF_REGISTRATION_ID, null));
-					
-					
-					debug.var("userIvoke", userIvoke);
-					inError = false;
-				} catch (Exception e) {
-					inError = true;
-					debug.exception(e);
-					
-					super.onError("IvokeServerCallback", e);
-					
-					showError();
 				}
+				
+		    } catch (Exception e) {
+		    	exception = e;
+		    	return false;
+		    }
+			return true;
+		}
+		
+		@Override
+		protected void onPostExecute(Object result) {
+			super.onPostExecute(result);
+			
+			if(inError())
+			{
+				MessageHelper.errorAlert(loginActivity)
+	             .setMessage(R.string.def_error_msg_ws_server_not_responding)
+	             .setButtonOk(new OnClickListener() {
+										@Override
+										public void onClick(DialogInterface dialog, int which) {
+											loginActivity.finish();
+										}
+									});
 			}
+			else if(userIvoke!=null)
+			{
+				loginActivity.goToChecking();
+			}
+			else
+			{
+				MessageHelper.errorAlert(loginActivity).setMessage(R.string.def_msg_ask_try_agai).showDialog();
+			}
+		}
 	}
 }
