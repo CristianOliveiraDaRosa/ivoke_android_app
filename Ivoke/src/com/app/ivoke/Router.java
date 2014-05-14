@@ -44,11 +44,11 @@ public class Router {
 		pActivity.finish();
 	}
 	
-	public static void gotoIvokeLogin(Activity pActivity, Session pSession)
+	public static void gotoIvokeLogin(Activity pActivity, Session pSession, GraphUser pFbUser)
 	{
 		Intent i = new Intent(pActivity, LoginActivity.class);
-		i.putExtra(LoginActivity.PE_FACEBOOK_SESSION, pSession);
-		
+		i.putExtra(LoginActivity.PE_FACEBOOK_SESSION   , pSession);
+		i.putExtra(LoginActivity.PE_FACEBOOK_USER_JSON , pFbUser.getInnerJSONObject().toString());
 		start(pActivity, i);
 		pActivity.finish();
 	}
@@ -56,8 +56,8 @@ public class Router {
 	public static void gotoChecking(Activity pActivity, Session pSession, UserIvoke pUser, GraphUser pFacebookUser)
 	{
 		Intent i = new Intent(pActivity, CheckActivity.class);
-		i.putExtra(CheckActivity.PE_FACEBOOK_SESSION, pSession);
-		i.putExtra(CheckActivity.PE_IVOKE_USER      , pUser);
+		i.putExtra(CheckActivity.PE_FACEBOOK_SESSION     , pSession);
+		i.putExtra(CheckActivity.PE_IVOKE_USER           , pUser);
 		i.putExtra(CheckActivity.PE_FACEBOOK_USER_JSON   , pFacebookUser.getInnerJSONObject().toString());
 		
 		start(pActivity,i);

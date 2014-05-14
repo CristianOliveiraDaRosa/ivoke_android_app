@@ -21,6 +21,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.app.ivoke.Common;
+import com.app.ivoke.R;
 import com.app.ivoke.objects.WebParameter;
 import com.app.ivoke.objects.defaults.DefaultWebCallback;
 import com.app.ivoke.objects.interfaces.IAsyncCallBack;
@@ -38,59 +40,70 @@ public class WebHelper {
 	
 	public String doRequest(String url, ArrayList<WebParameter> pParametros) throws NetworkException, ClientProtocolException, IOException
 	{
-		String urlConcat = "";
-		for (WebParameter parameter : pParametros) {
-			urlConcat += "/"+parameter.getValor();
-		}		
+		if(DeviceHelper.hasInternetConnection())
+		{	
+			String urlConcat = "";
+			for (WebParameter parameter : pParametros) {
+				urlConcat += "/"+parameter.getValor();
+			}		
+			
+		    HttpClient httpclient = new DefaultHttpClient();
+		    HttpGet httpget = new HttpGet(url+urlConcat); 
+		    HttpResponse response;
+		    
+	    	response = httpclient.execute(httpget);
+		    HttpEntity entity = response.getEntity();
+		    
+		    if (entity != null) {
+		        InputStream instream = entity.getContent();
+		        requestCache = convertStreamToString(instream);
+		        instream.close();
+		    }
+		}else
+		{
+			throw new NetworkException(Common.appContext.getString(R.string.def_error_msg_whitout_internet_connection));
+		}
 		
-	    HttpClient httpclient = new DefaultHttpClient();
-	    HttpGet httpget = new HttpGet(url+urlConcat); 
-	    HttpResponse response;
-	    
-    	response = httpclient.execute(httpget);
-	    HttpEntity entity = response.getEntity();
-	    
-	    if (entity != null) {
-	        InputStream instream = entity.getContent();
-	        requestCache = convertStreamToString(instream);
-	        instream.close();
-	    }
-		
-	    
-
-	     return requestCache;
+	    return requestCache;
 		   
 	}
     
 	public String doPostRequest(String url, ArrayList<WebParameter> pParametros) throws ServerException, NetworkException, Exception
 	{
-		debug.method("doPostRequest");
-		ArrayList<NameValuePair> postParamtros = new ArrayList<NameValuePair>(2);
-		for (WebParameter pParametro : pParametros) {
-			debug.log("PARAMETROS: Key= "+pParametro.getKey()+" Valor="+pParametro.getValor());
-			postParamtros.add(new BasicNameValuePair(pParametro.getKey(), pParametro.getValor()));
+		if(DeviceHelper.hasInternetConnection())
+		{
+			debug.method("doPostRequest");
+			ArrayList<NameValuePair> postParamtros = new ArrayList<NameValuePair>(2);
+			for (WebParameter pParametro : pParametros) {
+				debug.log("PARAMETROS: Key= "+pParametro.getKey()+" Valor="+pParametro.getValor());
+				postParamtros.add(new BasicNameValuePair(pParametro.getKey(), pParametro.getValor()));
+			}
+			
+		    HttpClient httpclient = new DefaultHttpClient();
+		    HttpPost httppost = new HttpPost(url);
+		    HttpResponse response = null;
+	    	httppost.setEntity(new UrlEncodedFormEntity(postParamtros)); 
+	    	response = httpclient.execute(httppost);
+	        
+	    	HttpEntity entity = response.getEntity();
+	        
+	    	if (entity != null) {
+	            InputStream instream = entity.getContent();
+	            requestCache = convertStreamToString(instream);
+	            instream.close();
+	        }
+	    	
+	    	if(requestCache.contains("[ERROR]"))
+	    	{
+	    		debug.log("ERRO SERVIDOR: "+requestCache);
+	    		throw new ServerException("Erro no servidor. Motivo:"+requestCache, null);
+	    	}
+		}
+		else
+		{
+			throw new NetworkException(Common.appContext.getString(R.string.def_error_msg_whitout_internet_connection));
 		}
 		
-	    HttpClient httpclient = new DefaultHttpClient();
-	    HttpPost httppost = new HttpPost(url);
-	    HttpResponse response = null;
-    	httppost.setEntity(new UrlEncodedFormEntity(postParamtros)); 
-    	response = httpclient.execute(httppost);
-        
-    	HttpEntity entity = response.getEntity();
-        
-    	if (entity != null) {
-            InputStream instream = entity.getContent();
-            requestCache = convertStreamToString(instream);
-            instream.close();
-        }
-    	
-    	if(requestCache.contains("[ERROR]"))
-    	{
-    		debug.log("ERRO SERVIDOR: "+requestCache);
-    		throw new ServerException("Erro no servidor. Motivo:"+requestCache, null);
-    	}
-    	
 	    return requestCache;
 		   
 	}
@@ -178,6 +191,10 @@ public class WebHelper {
 			this.InnerException = pEx;
 		}
 		
+		public NetworkException(String string) {
+			// TODO Auto-generated constructor stub
+		}
+
 		public Exception getInnerException()
 		{
 			return InnerException;
@@ -223,13 +240,8 @@ public class WebHelper {
 					
 					requestResult = web.doRequest(pUrl[i], parameters);
 					debug._class(this).method("doInBackground").var("requestResult", requestResult);
-				} catch (NetworkException e) {
-					requestResult = null;
-				} catch (ClientProtocolException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
+				} catch (Exception e) {
+					callBack.onError("URL: "+pUrl[i], e);
 					e.printStackTrace();
 				}
 			}

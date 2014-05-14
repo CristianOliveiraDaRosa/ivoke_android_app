@@ -11,3 +11,11 @@
 1399852527765	Rename resource 'welcome_strings.xml'
 1399946518958	Move compilation unit
 1399952762437	Rename method 'create'
+1400027039049	Rename type 'GoogleServicesHelper'
+1400027053005	Rename type 'AndroidHelper'
+1400030740606	Rename local variable 'context'
+1400033618485	Rename method 'checkForInternetConnection'
+1400035006950	Rename field 'PE_FACEBOOK_USER'
+1400037034684	Rename method 'haveInternetConnection'
+1400040060501	Rename method 'showError'
+1400040294123	Rename method 'tryToDoLoginOnIvoke'

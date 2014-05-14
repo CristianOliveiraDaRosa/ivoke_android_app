@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="facebook_app_id">223738647833599</string>
+    <string name="com_facebook_loginview_log_in_button">Acessar com Face</string>
+    <string name="com_facebook_loginview_log_out_button">Sair do Face</string>
+    <string name="com_facebook_loading">Acessando...</string>
+    
+    <!-- Place Picker Strings -->
+    <string name="com_facebook_nearby">Locais</string>
+    <string name="com_facebook_picker_done_button_text"></string>
+    
+    <string name="facebook_error_msg_request_error">Erro ao acessar informações do Facebook.</string>
+    
+    
+</resources>

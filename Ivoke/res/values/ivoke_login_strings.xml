@@ -12,4 +12,6 @@
     <!-- Mensagens -->
     <string name="login_msg_session_error">A sessão do %s não foi iniciada</string>
     <string name="login_msg_error_user_not_found">Não foi possível buscar o usuário. Tente novamente mais tarde.</string>
+    <string name="login_msg_error_user_not_found_ask_try_again">Não foi possível buscar o usuário. Deseja tentar novamente?</string>
+    <string name="login_error_msg_facebookuser_not_found">Não foi possível buscar o usuário do Facebook. Verifique seu login.</string>
 </resources>

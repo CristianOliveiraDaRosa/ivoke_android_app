@@ -85,6 +85,7 @@ public class UserModel extends WebServer {
 	
 	public DefaultWebCallback asyncRegisterDevice(UserIvoke pUser, String pRegistrationId)
 	{
+		debug.method("asyncRegisterDevice").par("pUser", pUser).par("pRegistrationId", pRegistrationId);
 		DefaultWebCallback callback = new DefaultWebCallback();
 		
 		if(!pRegistrationId.isEmpty())

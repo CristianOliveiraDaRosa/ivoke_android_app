@@ -9,4 +9,7 @@
     <string name="com_facebook_nearby">Locais</string>
     <string name="com_facebook_picker_done_button_text"></string>
     
+    <string name="facebook_error_msg_request_error">Não foi posspível acessar informações do Facebook.</string>
+    
+    
 </resources>

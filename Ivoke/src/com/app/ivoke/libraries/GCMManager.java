@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import com.app.ivoke.Common;
 import com.app.ivoke.R;
 import com.app.ivoke.helpers.DebugHelper;
-import com.app.ivoke.helpers.GoogleServicesHelper;
+import com.app.ivoke.helpers.DeviceHelper;
 import com.app.ivoke.helpers.SettingsHelper;
 import com.app.ivoke.objects.defaults.DefaultWebCallback;
 import com.app.ivoke.objects.interfaces.IAsyncCallBack;

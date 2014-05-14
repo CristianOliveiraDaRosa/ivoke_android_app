@@ -1,0 +1,7 @@
+package com.app.ivoke.objects.defaults;
+
+import android.app.d;
+
+public class DefaultErrorOkListener extends d {
+
+}
