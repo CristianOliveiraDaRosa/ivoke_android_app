@@ -104,6 +104,5 @@ public class DebugHelper {
 	
 	public void exception(Exception e) {
 		this.log("EXCEPTION: "+e.getMessage());	
-		e.printStackTrace();
 	}
 }

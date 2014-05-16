@@ -167,10 +167,11 @@ public class MuralFragment extends Fragment {
 	  
 	  private class MuralRefreshTask extends TimerTask
 	  {
+		 public boolean inErro; 
+		  
 		@Override
 		public void run() {
 			dbg.method("MuralRefreshTask.Run");
-			
 			try {
 				mainAct
 				.muralModel.asyncGetNearbyPosts( mainAct.locationProvider.getCurrentLatLng() 
@@ -186,22 +187,33 @@ public class MuralFragment extends Fragment {
 	  public class RefreshMuralCallback extends DefaultWebCallback
 	  {
 		    List<MuralPost> posts;   
-	    	 
+	    	
+		    boolean inError;
+		    
 		    @Override
 			public void onCompleteTask(Object pResult) {
 	    		dbg._class(this).method("onCompleteTask").par("pResult", pResult);
-	    		setPosts(posts);
+	    		if(!inError)
+	    		{	
+	    		  setPosts(posts);
+	    		} 
+	    		else
+	    		{
+	    			MessageHelper.errorAlert(getActivity())
+	    			             .setMessage(R.string.def_error_msg_ws_server_not_responding)
+	    			             .showDialog();
+	    		}
 			}
             
 		    @Override
 			public void onPreComplete(Object pResult) {
-				String json = pResult.toString();
-	    		try {
-	    			
-	    			posts = mainAct.muralModel.getListPostsFromJSon(json);
+				try {
+					String json = pResult.toString();
+		    		posts = mainAct.muralModel.getListPostsFromJSon(json);
 					
 		    	} catch (Exception e) {
 					dbg.exception(e);
+					inError = true;
 				}
 			}
 

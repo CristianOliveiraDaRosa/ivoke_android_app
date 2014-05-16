@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -100,8 +101,10 @@ public class FacebookLoginActivity extends FragmentActivity {
 	
 	private void gotoIvokeLoginActivity(Session pSession)
 	{
+		requestFaceUser = new RequestFacebookUserBackground(this);
 		requestFaceUser.setSession(pSession);
-    	requestFaceUser.execute();
+		if(requestFaceUser.getStatus() != AsyncTask.Status.RUNNING)
+    		requestFaceUser.execute();
     	//gotoIvokeLoginActivity(session);
    }
 	
@@ -126,7 +129,7 @@ public class FacebookLoginActivity extends FragmentActivity {
 
 		@Override
 		protected Object doInBackground(Object... params) {
-			
+			debug._class(this).method("doInBackground");
 			fbUser = facebookModel.requestFacebookUser();
 			
 			return true;

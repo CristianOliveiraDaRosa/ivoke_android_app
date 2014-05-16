@@ -43,7 +43,7 @@
     <!-- Default errors msgs -->
     <string name="def_error_msg_device_not_registred">Não foi possível verificar sua conta no Google Play. Tente novamente mais tarde.</string>
 	<string name="def_error_msg_google_play_not_available">Este dispositivo não possui suporte do Google Play. Verifique antes de continuar.</string>
-	<string name="def_error_msg_ws_server_not_responding">Pô Almir! Nosso servidor está indisponível.</string>
+	<string name="def_error_msg_ws_server_not_responding">Pô Almir! Nosso servidor está indisponível. Por favor, tente mais tarde.</string>
     <string name="def_error_msg_unexpected_exception">Situação inesperada, por favor "saia e entre no fusca novamente".</string>
    <string name="def_error_msg_whitout_internet_connection">Não há conexão com a internet.</string>
     

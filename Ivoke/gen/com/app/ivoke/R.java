@@ -1904,7 +1904,8 @@ containing a value of this type.
         /**  Mural urls 
          */
         public static final int ws_url_mural_posts_get_nearby=0x7f0b0098;
-        /**      <string name="ws_url">http://162.243.30.153</string> 
+        /**      <string name="ws_url">http://10.0.2.2:3000</string> 
+     <string name="ws_url">http://162.243.30.153</string> 
  User urls 
          */
         public static final int ws_url_user_add=0x7f0b0094;

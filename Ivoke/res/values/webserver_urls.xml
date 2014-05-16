@@ -3,7 +3,8 @@
     <!-- com.app.ivoke.2014 -->
     <string name="ws_hash">43c2defce01b7b80f0781e0e14c86564</string>
    
-    <string name="ws_url">http://10.0.2.2:3000</string>
+    <string name="ws_url">http://192.168.0.104:3000</string>
+<!--     <string name="ws_url">http://10.0.2.2:3000</string> -->
 <!--     <string name="ws_url">http://162.243.30.153</string> -->
    
     <!-- User urls -->
