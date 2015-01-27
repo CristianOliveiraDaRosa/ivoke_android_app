@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item name="login_ivoke_logo"     type="id" />
-    <item name="login_pregress_bar"   type="id" />
-    <item name="login_lbl_processing" type="id" />
-</resources>

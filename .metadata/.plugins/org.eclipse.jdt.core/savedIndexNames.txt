@@ -1,8 +1,0 @@
-INDEX VERSION 1.126+/home/cristianoliveira/_projetos/mobile/ivoke_workspace/.metadata/.plugins/org.eclipse.jdt.core
-4104966041.index
-814104017.index
-4030682951.index
-895353237.index
-3848462231.index
-1962219105.index
-1355288325.index

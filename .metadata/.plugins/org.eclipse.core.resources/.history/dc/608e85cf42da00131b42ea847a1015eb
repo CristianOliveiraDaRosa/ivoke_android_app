@@ -1,7 +1,0 @@
-package com.app.ivoke.objects.defaults;
-
-import android.os.AsyncTask;
-
-public class DefaultBackgroudWorker extends AsyncTask<Params, Progress, Result> {
-
-}

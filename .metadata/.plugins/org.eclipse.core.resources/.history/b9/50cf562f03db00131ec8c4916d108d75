@@ -1,6 +1,0 @@
-package com.app.ivoke.objects.defaults;
-
-
-public class DefaultErrorOkListener extends android.content.DialogInterface.OnClickListener {
-
-}
