@@ -12,45 +12,45 @@ import android.content.Intent;
 import android.os.Bundle;
 
 public class PlacesActivity extends ActionBarActivity {
-	
-	public static String PE_JSON_SELECTED_PLACE = "com.app.ivoke.PlacesActivity.SELECTED_PLACE";
-	
-	PlacePickerFragment fmFacebookPlaces;
-	GraphPlace localSelecionado;
-	Intent returnIntent;
-	
-	
-	OnSelectionChangedListener selectListener = new OnSelectionChangedListener() {
-		@Override
-		public void onSelectionChanged(PickerFragment<?> fragment) {
-			localSelecionado = fmFacebookPlaces.getSelection();
-			
-			if(localSelecionado == null)
-				return;
-			
-			returnIntent = new Intent();
-			returnIntent.putExtra(PE_JSON_SELECTED_PLACE, localSelecionado.getInnerJSONObject().toString());
-			
-			setResult( CheckActivity.RESULT_PLACE_ACT, returnIntent);
-			finish();
-		}
-	};
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.places_activity);
-		
-		FragmentManager fm = getSupportFragmentManager();
-		fmFacebookPlaces = 
-				(PlacePickerFragment) fm.findFragmentById(R.id.check_pickplaces_lista_locais);
-		
-		if (savedInstanceState == null) {
-			fmFacebookPlaces.setSettingsFromBundle(getIntent().getExtras());
+
+    public static String PE_JSON_SELECTED_PLACE = "com.app.ivoke.PlacesActivity.SELECTED_PLACE";
+
+    PlacePickerFragment fmFacebookPlaces;
+    GraphPlace localSelecionado;
+    Intent returnIntent;
+
+
+    OnSelectionChangedListener selectListener = new OnSelectionChangedListener() {
+        @Override
+        public void onSelectionChanged(PickerFragment<?> fragment) {
+            localSelecionado = fmFacebookPlaces.getSelection();
+
+            if(localSelecionado == null)
+                return;
+
+            returnIntent = new Intent();
+            returnIntent.putExtra(PE_JSON_SELECTED_PLACE, localSelecionado.getInnerJSONObject().toString());
+
+            setResult( CheckActivity.RESULT_PLACE_ACT, returnIntent);
+            finish();
         }
-		
-		fmFacebookPlaces.setOnSelectionChangedListener(selectListener);
-		
-	}
-	
+    };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.places_activity);
+
+        FragmentManager fm = getSupportFragmentManager();
+        fmFacebookPlaces =
+                (PlacePickerFragment) fm.findFragmentById(R.id.check_pickplaces_lista_locais);
+
+        if (savedInstanceState == null) {
+            fmFacebookPlaces.setSettingsFromBundle(getIntent().getExtras());
+        }
+
+        fmFacebookPlaces.setOnSelectionChangedListener(selectListener);
+
+    }
+
 }

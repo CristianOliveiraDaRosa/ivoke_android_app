@@ -34,42 +34,42 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class MainActivity extends ActionBarActivity {
     
-	public static final String PE_USER_IVOKE       = "MainActivity.UserIvoke";
-	public static final String PE_FACEBOOK_SESSION = "MainActivity.FacebookSession";
-	
-	DebugHelper dbg = new DebugHelper("MainActivity");
-	
-	/* Declare Models */
-	MuralModel muralModel = new MuralModel();
-	  
-	/* Declare Fragments */
-	MuralFragment muralFragment = new MuralFragment(); 
-	ProcessingFragment processingFragment = new ProcessingFragment();
-	ConversationFragment conversationFragment = new ConversationFragment();
-	
-	/*  Declare other vars */
-	UserIvoke                user;
-	LocationHelper.Listener  locationProvider;
-	Location                 localAtual;
+    public static final String PE_USER_IVOKE       = "MainActivity.UserIvoke";
+    public static final String PE_FACEBOOK_SESSION = "MainActivity.FacebookSession";
+
+    DebugHelper dbg = new DebugHelper("MainActivity");
+
+    /* Declare Models */
+    MuralModel muralModel = new MuralModel();
+
+    /* Declare Fragments */
+    MuralFragment muralFragment = new MuralFragment();
+    ProcessingFragment processingFragment = new ProcessingFragment();
+    ConversationFragment conversationFragment = new ConversationFragment();
+
+    /*  Declare other vars */
+    UserIvoke                user;
+    LocationHelper.Listener  locationProvider;
+    Location                 localAtual;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-    	dbg.method("onCreate");
+        dbg.method("onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-        	Session session = 
-        			(Session) extras.getSerializable(PE_FACEBOOK_SESSION);
-        	
-        	user   = (UserIvoke) extras.getSerializable(PE_USER_IVOKE);
-        	
-        	dbg.var("session", session)
-        	   .var("user", user);
+            Session session =
+                    (Session) extras.getSerializable(PE_FACEBOOK_SESSION);
+
+            user   = (UserIvoke) extras.getSerializable(PE_USER_IVOKE);
+
+            dbg.var("session", session)
+               .var("user", user);
         }
         
         if (savedInstanceState == null) {
-        	showMuralFragment();
+            showMuralFragment();
         }
         
         
@@ -90,117 +90,117 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
         
         switch (id) {
-		case R.id.main_act_menu_mural:
-			
-			showMuralFragment();
-		    
+        case R.id.main_act_menu_mural:
+
+            showMuralFragment();
+
             break;
-		case R.id.main_act_menu_contacts:
-			
-			showConversationFragment();
-			conversationFragment.refreshListView();
-			
-			break;
-		case R.id.main_act_menu_settings:
-			
-			Router.gotoSettings(this);
-			
-			break;
-		default:
-			break;
-		}
+        case R.id.main_act_menu_contacts:
+
+            showConversationFragment();
+            conversationFragment.refreshListView();
+
+            break;
+        case R.id.main_act_menu_settings:
+
+            Router.gotoSettings(this);
+
+            break;
+        default:
+            break;
+        }
         
         return super.onOptionsItemSelected(item);
     }
     
     private void showMuralFragment() {
-    	try {
-    	 	muralModel.asyncGetNearbyPosts( user.getLocalization() 
-    	 			                      , SettingsHelper.getMuralPostDistance(this)
-    	 			                      , new MuralCallback());
-    	} catch (Exception e) {
-			MessageHelper.errorAlert(this)
-						 .setMessage(R.string.def_error_msg_ws_server_not_responding)
-						 .showDialog();
-		}
+        try {
+             muralModel.asyncGetNearbyPosts( user.getLocalization()
+                                           , SettingsHelper.getMuralPostDistance(this)
+                                           , new MuralCallback());
+        } catch (Exception e) {
+            MessageHelper.errorAlert(this)
+                         .setMessage(R.string.def_error_msg_ws_server_not_responding)
+                         .showDialog();
+        }
    }
 
-	public void showProcessingFragment()
+    public void showProcessingFragment()
     {
-		showFragment(processingFragment);
+        showFragment(processingFragment);
     }
     
-	public void showConversationFragment()
-	{
-		try {
-			showFragment(conversationFragment);
-		} catch (Exception e) {
-			MessageHelper.errorAlert(this)
-			 .setMessage(R.string.def_error_msg_ws_server_not_responding)
-			 .showDialog();
-		}
-	}
-	
+    public void showConversationFragment()
+    {
+        try {
+            showFragment(conversationFragment);
+        } catch (Exception e) {
+            MessageHelper.errorAlert(this)
+             .setMessage(R.string.def_error_msg_ws_server_not_responding)
+             .showDialog();
+        }
+    }
+
     private void showFragment(Fragment pFragment)
     {
-    	getSupportFragmentManager()
-		.beginTransaction().replace(R.id.container, pFragment).commit();
+        getSupportFragmentManager()
+        .beginTransaction().replace(R.id.container, pFragment).commit();
     }
     
     public class MuralCallback extends DefaultWebCallback
-    {	
-    	List<MuralPost> posts;
-    	@Override
-		public void onCompleteTask(Object pResult) {
-    		dbg._class(this).method("onCompleteTask").par("pResult", pResult);
-    		
-    		try {
-    			
-    			Collections.sort(posts, new Comparator<MuralPost>() {
+    {
+        List<MuralPost> posts;
+        @Override
+        public void onCompleteTask(Object pResult) {
+            dbg._class(this).method("onCompleteTask").par("pResult", pResult);
 
-    		        public int compare(MuralPost o1, MuralPost o2) {
-    		            return o2.getId()>o1.getId()? o2.getId() : o1.getId();
-    		        }
-    		    });
-    			
-				muralFragment.setPosts(posts);
-				showFragment(muralFragment);
-				
-	    	} catch (Exception e) {
-				dbg.exception(e);
-			}
-			
-		}
+            try {
 
-		@Override
-		public void onPreExecute() {
-			showProcessingFragment();
-		}
+                Collections.sort(posts, new Comparator<MuralPost>() {
 
-		@Override
-		public void onProgress(int pPercent, Object pObject) {}
+                    public int compare(MuralPost o1, MuralPost o2) {
+                        return o2.getId()>o1.getId()? o2.getId() : o1.getId();
+                    }
+                });
 
-		@Override
-		public void onPreComplete(Object pResult) {
-			try {
-				String json = pResult.toString();
-				posts = new MuralModel().getListPostsFromJSon(json);
-			} catch (Exception e) {
-				dbg.exception(e);
-			}
-		}
+                muralFragment.setPosts(posts);
+                showFragment(muralFragment);
+
+            } catch (Exception e) {
+                dbg.exception(e);
+            }
+
+        }
+
+        @Override
+        public void onPreExecute() {
+            showProcessingFragment();
+        }
+
+        @Override
+        public void onProgress(int pPercent, Object pObject) {}
+
+        @Override
+        public void onPreComplete(Object pResult) {
+            try {
+                String json = pResult.toString();
+                posts = new MuralModel().getListPostsFromJSon(json);
+            } catch (Exception e) {
+                dbg.exception(e);
+            }
+        }
 
     }
 
-	public void postMuralPost(String pMessage, DefaultWebCallback pCallback) {
-		muralModel.postMuralPost(user, pMessage, pCallback);
-	}
-	
-	public void deleteMuralPost(MuralPost pMuralPost)
-	{
-		dbg.method("deleteMuralPost").par("pMuralPost", pMuralPost);
-		muralModel.deleteMuralPost(pMuralPost);
-	}
+    public void postMuralPost(String pMessage, DefaultWebCallback pCallback) {
+        muralModel.postMuralPost(user, pMessage, pCallback);
+    }
+
+    public void deleteMuralPost(MuralPost pMuralPost)
+    {
+        dbg.method("deleteMuralPost").par("pMuralPost", pMuralPost);
+        muralModel.deleteMuralPost(pMuralPost);
+    }
 
     
 }

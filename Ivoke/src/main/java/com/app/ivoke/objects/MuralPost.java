@@ -9,56 +9,56 @@ import com.app.ivoke.helpers.DateTimeHelper;
 import com.app.ivoke.helpers.DebugHelper;
 
 public class MuralPost{
-	
-	int muralPostId;
-	int userId;
+
+    int muralPostId;
+    int userId;
 
     String userName;
-	String message;
-	String createdAt;
-	float  distance;
-	
-	String facebookId;
+    String message;
+    String createdAt;
+    float  distance;
+
+    String facebookId;
     
     public MuralPost( int    pMuralPostId
-    		        , int    pUserId
-    		        , String pUserName
-    		        , String pMessage
-    		        , String pCreatedAt
-    		        , double pDistance
-    		        , String pFacebookId)
+                    , int    pUserId
+                    , String pUserName
+                    , String pMessage
+                    , String pCreatedAt
+                    , double pDistance
+                    , String pFacebookId)
     {
-    	muralPostId    = pMuralPostId;
+        muralPostId    = pMuralPostId;
         userName       = pUserName;
-    	message        = pMessage;
-    	createdAt      = pCreatedAt;
-    	distance       = (float) pDistance;
-    	facebookId     = pFacebookId;
+        message        = pMessage;
+        createdAt      = pCreatedAt;
+        distance       = (float) pDistance;
+        facebookId     = pFacebookId;
     }
     
     public int getId()
     {
-    	return muralPostId;
+        return muralPostId;
     }
     
     public String getNome()
     {
-    	return userName;
+        return userName;
     }
     
     public String getMessage()
     {
-    	return message;
+        return message;
     }
     
     public Date getDatePost()
-    {	 
+    {
         return DateTimeHelper.parseToDate(createdAt);
     }
     
     public String getFacebookId()
     {
-    	return facebookId;
+        return facebookId;
     }
     
 }

@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 
 public class IntEditTextPreference extends EditTextPreference {
 
-	public IntEditTextPreference(Context context) {
+    public IntEditTextPreference(Context context) {
         super(context);
     }
 

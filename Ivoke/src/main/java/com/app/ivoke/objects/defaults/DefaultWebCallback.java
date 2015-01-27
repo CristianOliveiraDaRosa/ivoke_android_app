@@ -4,41 +4,41 @@ import com.app.ivoke.objects.interfaces.IAsyncCallBack;
 
 public class DefaultWebCallback implements IAsyncCallBack {
 
-	private String urlError;
-	private Exception exception;
-	
-	@Override
-	public void onPreExecute() { }
+    private String urlError;
+    private Exception exception;
 
-	@Override
-	public void onPreComplete(Object pResult) {	}
+    @Override
+    public void onPreExecute() { }
 
-	@Override
-	public void onCompleteTask(Object pResult) { }
+    @Override
+    public void onPreComplete(Object pResult) {    }
 
-	@Override
-	public void onProgress(int pPercent, Object pObject) {}
+    @Override
+    public void onCompleteTask(Object pResult) { }
 
-	public String getUrlError() {
-		return urlError;
-	}
+    @Override
+    public void onProgress(int pPercent, Object pObject) {}
 
-	public void setUrlError(String errorMsg) {
-		this.urlError = errorMsg;
-	}
+    public String getUrlError() {
+        return urlError;
+    }
 
-	@Override
-	public void onError(String pMessage, Exception pEx) {
-		setUrlError(pMessage);
-		setException(pEx);
-	}
+    public void setUrlError(String errorMsg) {
+        this.urlError = errorMsg;
+    }
 
-	public Exception getException() {
-		return exception;
-	}
+    @Override
+    public void onError(String pMessage, Exception pEx) {
+        setUrlError(pMessage);
+        setException(pEx);
+    }
 
-	public void setException(Exception exception) {
-		this.exception = exception;
-	}
+    public Exception getException() {
+        return exception;
+    }
+
+    public void setException(Exception exception) {
+        this.exception = exception;
+    }
 
 }

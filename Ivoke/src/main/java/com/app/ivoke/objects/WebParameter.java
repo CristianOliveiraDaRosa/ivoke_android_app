@@ -2,28 +2,28 @@ package com.app.ivoke.objects;
 
 public class WebParameter
 {
-	private String key;
-	private String valor;
-	
-	public WebParameter(String pKey, Object pValor)
-	{
-		setKey(pKey);
-		setValor(pValor.toString());
-	}
+    private String key;
+    private String valor;
 
-	public String getKey() {
-		return key;
-	}
+    public WebParameter(String pKey, Object pValor)
+    {
+        setKey(pKey);
+        setValor(pValor.toString());
+    }
 
-	public void setKey(String key) {
-		this.key = key;
-	}
+    public String getKey() {
+        return key;
+    }
 
-	public String getValor() {
-		return valor;
-	}
+    public void setKey(String key) {
+        this.key = key;
+    }
 
-	public void setValor(String valor) {
-		this.valor = valor;
-	}
+    public String getValor() {
+        return valor;
+    }
+
+    public void setValor(String valor) {
+        this.valor = valor;
+    }
 }
