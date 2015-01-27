@@ -14,5 +14,8 @@ This was my first self-published app. Now I open they code for everyone that wan
 
 4. Facebook Integration
 
+#Licence
+This project is under the MIT licence.
+
 #Autor
 Cristian Oliveira
