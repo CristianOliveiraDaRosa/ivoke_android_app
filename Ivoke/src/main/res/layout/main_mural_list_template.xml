@@ -13,14 +13,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="3dip"
-        android:layout_alignParentLeft="true"
         android:layout_marginRight="5dip">
  
         <com.facebook.widget.ProfilePictureView
             android:id="@id/main_mural_image"
             android:layout_width="50dip"
             android:layout_height="50dip"
-            android:src="@drawable/user"/>
+            android:src="@drawable/user"
+            android:radius="13dp"
+            />
  
     </LinearLayout>
  
@@ -40,20 +41,10 @@
  
     <!-- Artist Name -->
 
-    <TextView
-        android:id="@id/main_mural_message"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/main_mural_boder_image"
-        android:layout_below="@id/main_mural_title"
-        android:layout_marginTop="1dip"
-        android:layout_toRightOf="@id/main_mural_boder_image"
-        android:text="@string/def_null_message"
-        android:textColor="#343434"
-        android:textSize="12sp" />
+    
  
     <!-- Rightend Duration -->
-
+	
     <TextView
         android:id="@id/main_mural_when"
         android:layout_width="wrap_content"
@@ -66,5 +57,50 @@
         android:textColor="#10bcc9"
         android:textSize="12sp"
         android:textStyle="bold" />
+    
+    <TextView
+        android:id="@id/main_mural_message"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main_mural_title"
+        android:layout_marginTop="1dip"
+        android:layout_toRightOf="@id/main_mural_boder_image"
+        android:text="@string/def_null_message"
+        android:textColor="#343434"
+        android:textSize="12sp" />
+    
+    <LinearLayout
+        android:id="@id/main_mural_lay_menu_options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main_mural_message"
+        android:gravity="right" >
+		
+        <ImageButton
+            style="@style/DefaultTheme.ButtonStyle"
+	        android:id="@id/main_mural_btn_menu_options_open_facebook"
+	        android:layout_width="60dp"
+	        android:layout_height="30dp"
+	        android:src="@drawable/ic_action_person"
+	        android:focusable="false" />
+
+        <ImageButton
+            style="@style/DefaultTheme.ButtonStyle"
+            android:id="@id/main_mural_btn_menu_options_chat"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:focusable="false"
+            android:src="@drawable/ic_action_chat" />
+
+        <Button
+            style="@style/DefaultTheme.ButtonStyle"
+            android:id="@+id/main_mural_btn_menu_options_translate"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:paddingTop="2dp"
+            android:text="@string/def_lbl_tranlate"
+            android:textSize="12sp" 
+            ></Button>
+                </LinearLayout>
  
 </RelativeLayout>

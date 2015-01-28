@@ -1,28 +1,40 @@
 package com.app.ivoke.controllers.login;
 
+import java.io.IOException;
+
+import org.jivesoftware.smack.XMPPConnection;
+import org.jivesoftware.smack.XMPPException;
 import org.json.JSONObject;
 
 import com.app.ivoke.Common;
 import com.app.ivoke.R;
 import com.app.ivoke.Router;
+import com.app.ivoke.ServiceManager;
 import com.app.ivoke.helpers.DeviceHelper;
 import com.app.ivoke.helpers.MessageHelper;
 import com.app.ivoke.helpers.DebugHelper;
 import com.app.ivoke.libraries.GCMManager;
-import com.app.ivoke.models.FacebookModel;
 import com.app.ivoke.models.UserModel;
 import com.app.ivoke.objects.UserIvoke;
 import com.app.ivoke.objects.defaults.DefaultBackgroudWorker;
 import com.app.ivoke.objects.defaults.DefaultOkListener;
+import com.app.ivoke.objects.services.XmppConnectionService;
+import com.app.ivoke.objects.services.XmppServiceConnector;
 
 import android.support.v4.app.Fragment;
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.ServiceConnection;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.facebook.Session;
 import com.facebook.model.GraphObject;
@@ -34,7 +46,6 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
     public static final String PE_FACEBOOK_USER_JSON = "LoginActivity.FacebookUser";
     static DebugHelper debug = new DebugHelper("LoginActivity");
 
-    private FacebookModel faceModel = new FacebookModel();
     private UserModel userModel = new UserModel();
 
     private Session   fbSession;
@@ -43,8 +54,10 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 
     private LoginBackground loginBackground;
 
-    MessageHelper.MessageAlert msgError;
+    public TextView lblProgress;
 
+    MessageHelper.MessageAlert msgError;
+    Common common;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         debug.method("onCreate").par("savedInstanceState", savedInstanceState);
@@ -57,8 +70,10 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
                     .add(R.id.container, new PlaceholderFragment()).commit();
         }
 
+        common = (Common) getApplication();
+
         getExtras();
-        doLoginOnIvoke();
+//        doLoginOnIvoke();
 
     }
 
@@ -72,10 +87,17 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.login_fragment, container, false);
+
             return rootView;
         }
     }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        lblProgress = (TextView) findViewById(R.id.login_lbl_processing);
+        doLoginOnIvoke();
+    }
 
     private void getExtras()
     {
@@ -122,7 +144,6 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 
     }
 
-
     private class LoginBackground extends DefaultBackgroudWorker
     {
         LoginActivity loginActivity;
@@ -149,13 +170,19 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
 
                     if(userIvoke == null)
                     {
-                        userIvoke = userModel.createOnServer(fbUser.getName(), fbUser.getId());
+                        String gender = fbUser.getProperty("gender").toString();
+                        debug.var("gender", gender);
+                        userIvoke =
+                                userModel.createUser( fbUser.getName()
+                                                    , gender
+                                                    , fbUser.getId());
                     }
 
                     String regid = new GCMManager().getRegistrationId(loginActivity);
 
                     debug.log("regid "+regid);
                     userModel.asyncRegisterDevice(userIvoke, regid);
+
 
                 } catch (Exception e) {
                     debug.exception(e);
@@ -188,7 +215,9 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
             }
             else if(userIvoke!=null)
             {
-                loginActivity.goToChecking();
+                openXmppService();
+//                new XmmpConnectWaitAsync(loginActivity).execute();
+//                loginActivity.goToChecking();
             }
             else
             {
@@ -208,6 +237,68 @@ public class LoginActivity extends android.support.v4.app.FragmentActivity {
                                     }
                                 }
                             }).showDialog();
+            }
+        }
+
+        private void openXmppService() {
+
+            String defaultHostEmail = getString(R.string.ws_xmpp_default_site);
+
+            Intent intentService = new Intent(loginActivity, XmppConnectionService.class);
+
+            intentService.putExtra(XmppConnectionService.PE_SERVER_HOST, loginActivity.getString(R.string.ws_xmpp_host));
+            intentService.putExtra(XmppConnectionService.PE_LOGIN      , fbUser.getId()+"@"+defaultHostEmail);
+            intentService.putExtra(XmppConnectionService.PE_PASSWORD   , fbUser.getId()     );
+            intentService.putExtra(XmppConnectionService.PE_EMAIL      , fbUser.getId()+"@"+defaultHostEmail);
+            intentService.putExtra(XmppConnectionService.PE_FULL_NAME  , fbUser.getName() );
+            intentService.putExtra(XmppConnectionService.PE_RESOURCE   , "ivoke_"+userIvoke.getId());
+
+            new StartServiceTask().execute(intentService);
+
+        }
+        private class StartServiceTask extends AsyncTask<Intent, Void, Boolean> {
+
+//            private ProgressDialog dialog;
+
+            protected void onPreExecute() {
+//                this.dialog = new ProgressDialog(loginActivity);
+//                this.dialog.setMessage(loginActivity.getString(R.string.connection_in_progress));
+//                this.dialog.show();
+                lblProgress.setText(R.string.connection_in_progress);
+
+            }
+            // automatically done on worker thread (separate from UI thread)
+            protected Boolean doInBackground(final Intent... intents) {
+                loginActivity.startService(intents[0]);
+                XmppServiceConnector conn = new XmppServiceConnector();
+                loginActivity.bindService(intents[0], conn, Context.BIND_AUTO_CREATE);
+
+                while (!conn.isConnected) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+
+                XmppConnectionService service = conn.getXmppService();
+                debug.log("service coneected");
+                if(service!=null)
+                   service.userLogin();
+
+                loginActivity.unbindService(conn);
+                return true;
+            }
+
+            @Override
+            protected void onPostExecute(final Boolean result) {
+//                if (this.dialog.isShowing())
+//                {
+//                    this.dialog.dismiss();
+//                }
+
+                loginActivity.goToChecking();
             }
         }
     }

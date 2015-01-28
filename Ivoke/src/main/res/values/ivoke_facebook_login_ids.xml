@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="facebook_login_btn_facebook" type="id"></item>
+    <item name="facebook_lbl_welcome" type="id"></item>
+    <item name="facebook_lbl_slogan"  type="id"></item>
 </resources>

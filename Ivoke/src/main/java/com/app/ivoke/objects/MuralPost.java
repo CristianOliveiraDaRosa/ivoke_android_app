@@ -16,24 +16,35 @@ public class MuralPost{
     String userName;
     String message;
     String createdAt;
-    float  distance;
+    private float  distance;
 
     String facebookId;
-    
+    int anonymous;
+
+    String messageTranlated;
+
     public MuralPost( int    pMuralPostId
                     , int    pUserId
                     , String pUserName
                     , String pMessage
                     , String pCreatedAt
                     , double pDistance
-                    , String pFacebookId)
+                    , String pFacebookId
+                    , String pAnonymous)
     {
+        userId         = pUserId;
         muralPostId    = pMuralPostId;
         userName       = pUserName;
         message        = pMessage;
         createdAt      = pCreatedAt;
-        distance       = (float) pDistance;
+        setDistance((float) pDistance);
         facebookId     = pFacebookId;
+
+        if(pAnonymous == "null")
+            anonymous      = 0;
+        else
+            anonymous      = Integer.parseInt(pAnonymous);
+
     }
     
     public int getId()
@@ -41,14 +52,22 @@ public class MuralPost{
         return muralPostId;
     }
     
-    public String getNome()
+    public int getUserId()
+    {
+        return userId;
+    }
+    
+    public String getName()
     {
         return userName;
     }
     
     public String getMessage()
     {
-        return message;
+        if(messageTranlated!=null)
+            return messageTranlated;
+        else
+            return message;
     }
     
     public Date getDatePost()
@@ -59,6 +78,34 @@ public class MuralPost{
     public String getFacebookId()
     {
         return facebookId;
+    }
+    
+    public boolean isAnonymous()
+    {
+        return anonymous == 1;
+    }
+    
+    public void setMessate(String pMessage)
+    {
+        this.message = pMessage;
+    }
+    
+    public void setTranslated(String pTranslated)
+    {
+        this.messageTranlated = pTranslated;
+    }
+    
+    public boolean isTranslated()
+    {
+        return messageTranlated != null;
+    }
+
+    public float getDistance() {
+        return distance;
+    }
+
+    public void setDistance(float distance) {
+        this.distance = distance;
     }
     
 }

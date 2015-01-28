@@ -2,6 +2,8 @@ package com.app.ivoke.helpers;
 
 import java.util.List;
 
+import org.acra.ACRA;
+
 import android.util.Log;
 
 public class DebugHelper {
@@ -16,11 +18,22 @@ public class DebugHelper {
         className = pClassName;
     }
 
+    public DebugHelper(Object pObject)
+    {
+        if(pObject!=null)
+        className = pObject.getClass().getName();
+    }
+
     public void log(String pLog)
     {
         if(isDebugOn)
            Log.d(className+"."+methodName, pLog);
     }
+
+    private void log_e(String pLog) {
+        if(isDebugOn)
+            Log.e(className+"."+methodName, pLog);
+     }
 
     public DebugHelper log(Object pLog)
     {
@@ -103,6 +116,16 @@ public class DebugHelper {
     }
 
     public void exception(Exception e) {
-        this.log("EXCEPTION: "+e.getMessage());
+
+        this.log_e("EXCEPTION: "+e.toString());
+        this.log_e("EXCEPTION MESSAGE: "+e.getMessage());
+
+        this.log_e("EXCEPTION STACK: ");
+        for (int i = 0; i < e.getStackTrace().length; i++) {
+            this.log_e("> "+e.getStackTrace()[i].toString());
+        }
+        ACRA.getErrorReporter().handleSilentException(e);
+
     }
+
 }

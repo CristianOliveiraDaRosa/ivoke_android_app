@@ -5,10 +5,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -17,15 +20,20 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.params.HttpProtocolParams;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.app.ivoke.Common;
 import com.app.ivoke.R;
+import com.app.ivoke.Router;
 import com.app.ivoke.objects.WebParameter;
 import com.app.ivoke.objects.defaults.DefaultWebCallback;
 import com.app.ivoke.objects.interfaces.IAsyncCallBack;
+import com.google.android.gms.internal.dg;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -38,7 +46,21 @@ public class WebHelper {
 
     DebugHelper debug = new DebugHelper("WebHelper");
 
-    public String doRequest(String url, ArrayList<WebParameter> pParametros) throws NetworkException, ClientProtocolException, IOException
+    private HttpClient getClient()
+    {
+        HttpParams params = new BasicHttpParams();
+        HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
+        HttpProtocolParams.setContentCharset(params, getEncoding());
+
+        return new DefaultHttpClient(params);
+    }
+
+    public String getEncoding()
+    {
+        return "UTF-8";
+    }
+
+    public String doRequest(String url, ArrayList<WebParameter> pParametros) throws NetworkException, ClientProtocolException, IOException, ServerException
     {
         if(DeviceHelper.hasInternetConnection())
         {
@@ -47,7 +69,7 @@ public class WebHelper {
                 urlConcat += "/"+parameter.getValor();
             }
 
-            HttpClient httpclient = new DefaultHttpClient();
+            HttpClient httpclient = getClient();
             HttpGet httpget = new HttpGet(url+urlConcat);
             HttpResponse response;
 
@@ -57,7 +79,18 @@ public class WebHelper {
             if (entity != null) {
                 InputStream instream = entity.getContent();
                 requestCache = convertStreamToString(instream);
-                instream.close();
+
+                try {
+                    instream.close();
+                } catch (Exception e) {
+                    debug.method("doRequest").exception(e);
+                }
+            }
+
+            if(requestCache.contains("{\"exception\":"))
+            {
+                debug.log("ERRO SERVIDOR: "+requestCache);
+                throw new ServerException(Router.previousContext.getString(R.string.def_error_msg_ws_server_not_responding), null);
             }
         }else
         {
@@ -72,17 +105,21 @@ public class WebHelper {
     {
         if(DeviceHelper.hasInternetConnection())
         {
-            debug.method("doPostRequest");
-            ArrayList<NameValuePair> postParamtros = new ArrayList<NameValuePair>(2);
-            for (WebParameter pParametro : pParametros) {
-                debug.log("PARAMETROS: Key= "+pParametro.getKey()+" Valor="+pParametro.getValor());
-                postParamtros.add(new BasicNameValuePair(pParametro.getKey(), pParametro.getValor()));
-            }
-
-            HttpClient httpclient = new DefaultHttpClient();
+            HttpClient httpclient = getClient();
             HttpPost httppost = new HttpPost(url);
             HttpResponse response = null;
-            httppost.setEntity(new UrlEncodedFormEntity(postParamtros));
+
+            debug.method("doPostRequest");
+            if(pParametros!=null)
+            {
+                ArrayList<NameValuePair> postParamtros = new ArrayList<NameValuePair>(2);
+                for (WebParameter pParametro : pParametros) {
+                    debug.log("PARAMETROS: Key= "+pParametro.getKey()+" Valor="+pParametro.getValor());
+                    postParamtros.add(new BasicNameValuePair(pParametro.getKey(), pParametro.getValor()));
+                }
+                httppost.setEntity(new UrlEncodedFormEntity(postParamtros, getEncoding()));
+            }
+
             response = httpclient.execute(httppost);
 
             HttpEntity entity = response.getEntity();
@@ -93,17 +130,17 @@ public class WebHelper {
                 instream.close();
             }
 
-            if(requestCache.contains("[ERROR]"))
+            if(requestCache.contains("{\"exception\":"))
             {
                 debug.log("ERRO SERVIDOR: "+requestCache);
-                throw new ServerException("Erro no servidor. Motivo:"+requestCache, null);
+                throw new ServerException(Router.previousContext.getString(R.string.def_error_msg_ws_server_not_responding), null);
             }
         }
         else
         {
             throw new NetworkException(Common.appContext.getString(R.string.def_error_msg_whitout_internet_connection));
         }
-
+        debug.var("requestCache",requestCache);
         return requestCache;
 
     }
@@ -114,7 +151,7 @@ public class WebHelper {
          new AsyncRequest(this, pParametros, pCallBack).execute(url);
     }
 
-    public void doAsyncPostRequest(String url, ArrayList<WebParameter> pParameters, DefaultWebCallback pCallBack)
+    public void doAsyncPostRequest(String url, ArrayList<WebParameter> pParameters, IAsyncCallBack pCallBack)
     {
          debug.method("doAsyncPostRequest").par("url", url);
          new AsyncPostRequest(this, pParameters, pCallBack).execute(url);
@@ -130,16 +167,6 @@ public class WebHelper {
         image = BitmapFactory.decodeStream(stream);
 
         return image;
-    }
-
-    public JSONObject getJsonObjectFromUrl(String pUrl, ArrayList<WebParameter> pParametros) throws JSONException, NetworkException, ClientProtocolException, IOException
-    {
-        return new JSONObject(doRequest(pUrl, pParametros));
-    }
-
-    public JSONArray getJsonArrayFromUrl(String pUrl, ArrayList<WebParameter> pParametros) throws JSONException, NetworkException, ClientProtocolException, IOException
-    {
-        return new JSONArray(doRequest(pUrl, pParametros));
     }
 
     public String getRequestCache()
@@ -175,7 +202,12 @@ public class WebHelper {
         return list;
     }
 
-    public WebParameter parameter(String pKey, String pValor)
+//    public WebParameter parameter(String pKey, String pValor)
+//    {
+//        return new WebParameter(pKey, pValor);
+//    }
+//
+    public WebParameter parameter(String pKey, Object pValor)
     {
         return new WebParameter(pKey, pValor);
     }
@@ -286,6 +318,7 @@ public class WebHelper {
 
         @Override
         protected void onPreExecute() {
+            if(callBack!=null)
             callBack.onPreExecute();
         };
 
@@ -300,9 +333,11 @@ public class WebHelper {
 
                 } catch (Exception e) {
                     requestResult = null;
+                    if(callBack!=null)
                     callBack.onError("URL: "+pUrl[i], e);
                 }
             }
+            if(callBack!=null)
             callBack.onPreComplete(requestResult);
             return requestResult;
         }
@@ -310,12 +345,14 @@ public class WebHelper {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+            if(callBack!=null)
             callBack.onCompleteTask(result);
         }
 
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
+            if(callBack!=null)
             callBack.onProgress(values[0], null);
         }
 

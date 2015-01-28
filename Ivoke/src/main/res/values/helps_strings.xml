@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="help_check_lbl_how_works_title">Como funciona</string>
+    <string name="help_check_lbl_how_works_desc">
+        Ao selecionar um lugar você somente poderá receber postagens de pessoas deste local. 
+        Caso você opte por não realizar checking, você receberá postagens de pessoas próximas conforme configuração (Distância).
+    </string>
+    
+    <string name="help_main_lbl_how_works_title">Como funciona</string>
+    <string name="help_main_lbl_how_works_desc">
+    Neste mural você pode ver somente mensagens feitas nas proximidades de acordo com a configuração (distância). \n
+     - Para atualizar clique no icone do mural \n
+     - Para abrir as opções clique na postagem e mantenha pressionado ou clique nos botões.
+    </string>
+    
+    <string name="help_mural_post_lbl_how_works_title">Como funciona</string>
+    <string name="help_mural_post_lbl_how_works_desc">
+    	Escreva uma postagem para pessoas próximas! E clique em "Publicar". \n
+    	-Quando selecionado opção anônimo, somente você poderá ver seus dados e fotos.\n    	
+    	*Esta postagem não será enviada ao seu Facebook.
+    </string>
+</resources>

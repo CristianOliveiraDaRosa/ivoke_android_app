@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Ivoke.iml" filepath="$PROJECT_DIR$/Ivoke.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ivoke/ivoke.iml" filepath="$PROJECT_DIR$/ivoke/ivoke.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ivoke/ivoke.iml" filepath="$PROJECT_DIR$/Ivoke/ivoke.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ivoke_android_app.iml" filepath="$PROJECT_DIR$/ivoke_android_app.iml" />
     </modules>
   </component>
 </project>

@@ -1,8 +1,10 @@
 package com.app.ivoke.helpers;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import android.annotation.SuppressLint;
 import android.util.Log;
@@ -14,8 +16,10 @@ public class DateTimeHelper {
     @SuppressLint("SimpleDateFormat")
     public static Date parseToDate(String pDataString)
     {
+        DateFormat formatter = new SimpleDateFormat(DEFAULT_WEBSERVER_DATETIME_FORMAT);
+        formatter.setTimeZone(TimeZone.getDefault());
         try {
-            return new SimpleDateFormat(DEFAULT_WEBSERVER_DATETIME_FORMAT).parse(pDataString);
+            return formatter.parse(pDataString);
         } catch (ParseException e) {
             e.printStackTrace();
             return null;
@@ -24,22 +28,20 @@ public class DateTimeHelper {
 
     public static long getDaysBetween(Date now, java.util.Date dt)
     {
-        long dif = now.getTime() - dt.getMinutes();
-        return Math.round(dif / 86400000);
+        long dif = now.getTime() - dt.getTime();
+        return Math.round(dif / (1000*60*60*24));
     }
 
     public static long getHoursBetween(Date pDateNew, Date pDateOlder)
     {
-        long dif = pDateNew.getTime() - pDateOlder.getMinutes();
-        return Math.round((dif % 86400000) / 3600000);
+        long dif = pDateNew.getTime() - pDateOlder.getTime();
+        return Math.round(dif/(1000*60*60));
     }
 
     public static long getMinutesBetween(Date pDateNew, Date pDateOlder)
     {
-        Log.d("DateTimeHelper.getMinutesBetween", "pDateNew "+pDateNew.toString()+" pDateOlder:"+pDateOlder.toString());
-        long dif = pDateNew.getTime() - pDateOlder.getMinutes();
-        Log.d("DateTimeHelper.getMinutesBetween","dif:"+dif);
-        return Math.round(((dif/1000)/60));
+        long dif = pDateNew.getTime() - pDateOlder.getTime();
+        return Math.round(dif/(1000*60));
     }
 
     public static long getDaysFromMinutes(long pMinutes)
@@ -50,5 +52,10 @@ public class DateTimeHelper {
     public static long getHoursFromMinutes(long pMinutes)
     {
         return (pMinutes/60);
+    }
+
+    public static long getMilisecondsFromMinutes(int pMinutes)
+    {
+        return 1000 * 60 * pMinutes;
     }
 } 

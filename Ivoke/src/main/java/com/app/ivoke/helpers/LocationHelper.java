@@ -15,9 +15,8 @@ import android.util.Log;
 public class LocationHelper {
 
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 20;
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; 
+    private static final long MIN_TIME_BW_UPDATES = DateTimeHelper.getMilisecondsFromMinutes(1); 
     
-
     public static LocationHelper.Listener getLocationListener(Context pContext)
     {
         Location location = null;
@@ -58,7 +57,52 @@ public class LocationHelper {
         if(location!=null)
            listener.onLocationChanged(location);
         
+        listener.setLocationManager(locationManager);
+        
         return listener;
+    }
+
+    public static void getRequestLocation(Context pContext, LocationHelper.Listener pListener)
+    {
+        Location location = null;
+
+        LocationManager locationManager = (LocationManager) pContext.getSystemService(Context.LOCATION_SERVICE);
+
+         // getting GPS status
+        boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+        // getting network status
+        boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+        if (isNetworkEnabled) {
+            locationManager.requestLocationUpdates(
+                    LocationManager.NETWORK_PROVIDER,
+                    MIN_TIME_BW_UPDATES,
+                    MIN_DISTANCE_CHANGE_FOR_UPDATES, pListener);
+            Log.d("Network", "Network");
+            if (locationManager != null) {
+                location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            }
+        }
+        
+        if (isGPSEnabled) {
+            if (location == null) {
+                locationManager.requestLocationUpdates(
+                        LocationManager.GPS_PROVIDER,
+                        MIN_TIME_BW_UPDATES,
+                        MIN_DISTANCE_CHANGE_FOR_UPDATES, pListener);
+                Log.d("GPS Enabled", "GPS Enabled");
+                if (locationManager != null) {
+                    location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                }
+            }
+        }
+        
+        if(location!=null)
+            pListener.onLocationChanged(location);
+        
+        pListener.setLocationManager(locationManager);
+    
     }
 
     public static Intent getIntentGpsSettings()
@@ -76,6 +120,8 @@ public class LocationHelper {
         Location oldLocation;
         boolean  isChanged;
         boolean  isEnabled;
+
+        public LocationManager manager;
 
         @Override
         public void onLocationChanged(Location location) {
@@ -131,6 +177,16 @@ public class LocationHelper {
         public Location getOldLocation()
         {
             return oldLocation;
+        }
+
+        public void setLocationManager(LocationManager pLocationManager)
+        {
+            manager = pLocationManager;
+        }
+
+        public LocationManager getManager()
+        {
+            return manager;
         }
 
     }

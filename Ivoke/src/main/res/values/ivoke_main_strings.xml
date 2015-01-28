@@ -1,23 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="main_title">Principal</string>
+    <string name="main_title">Postagens próximas.</string>
     
     <!-- Menu titles -->
     <string name="main_menu_title_mural"   >Mural</string>
     <string name="main_menu_title_contacts">Contatos</string>
-    <string name="main_menu_title_config"  >:</string>
+    <string name="main_menu_title_setting" >Configurações</string>
+	<string name="main_menu_title_logout"  >Sair</string>
 	
     <!-- Main Mural Context Menu -->
     <string name="main_menu_ctxmenu_delete"  >Excluir publicação.</string>
+    <string name="main_mural_ctxmenu_not_user_translate"  >Traduzir</string>
     
     <!-- Mural labels -->
-    <string name="main_mural_txt_create_post_hint">Poste algo.</string>
+    <string name="main_mural_txt_create_post_hint">Comente algo local.</string>
     <string name="main_mural_txt_create_post_text">Poste algo.</string>
     <string name="main_mural_btn_create_post">Postar</string>
+    <string name="main_mural_btn_public">Publicar</string>
     <string name="main_mural_btn_create_posting">Enviando</string>
+    <string name="main_mural_chx_lbl_create_anonymous">Anônimo (Somente você pode ver suas informações)</string>
+    <string name="main_mural_finding_mural_on_place">Buscando postagens em %s</string>
+    <string name="main_mural_finding_mural_by_distance">Buscando postagens de até %s metros</string>
+    <string name="main_mural_post_distance">a %s metros</string>
+    
+    <!-- Contact -->
+    <string name="main_contact_icon_description">Representa status do usuário.</string>
+    <string name="main_contact_ctxmenu_start_chat">Iniciar conversa</string>
+    <string name="main_contact_ctxmenu_delete_user">Deletar contato</string>
+    <string name="main_contact_error_msg_delete_user">Não foi possível deletar contato.</string>
     
     <!-- Messages -->
     <string name="main_mural_btn_create_is_busy">Aguarde postagem anterior.</string>
+    <string name="main_mural_ask_on_location_change">Verificamos que sua localização mudou. Deseja atualizar mural?</string>
+    <string name="main_mural_msg_error_add_buddy">Não foi possível iniciar conversa com este amigo.</string>
     
     <!-- labels -->
     <string name="main_waiting_lbl"  >Buscando...</string>

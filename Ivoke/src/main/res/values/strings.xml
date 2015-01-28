@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Ivoke</string>
-    <string name="logo_description">Ivoke</string>
+    <string name="app_name">Ivokee</string>
+    <string name="logo_description">Ivokee</string>
     <string name="action_settings">Settings</string>
-    
+    <string name="def_welcome">Bem Vindo ao Ivokee.</string>
+    <string name="def_slogan">Conheça pessoas próximas</string>
+
     <!-- Google -->
-	<string name="google_project_ivoke_id">374791042010</string>
-	
+    <string name="google_project_ivoke_id">374791042010</string>
+
     <!-- Default Null Values -->
-    <string name="def_null_usuario_nome">*Nome Usuário*</string>
+    <string name="def_null_usuario_nome">Anonimo</string>
     <string name="def_null_message">*Message*</string>
     <string name="def_null_valor">*Conteudo*</string>
+    <string name="def_lbl_usuario_anonymous">[Privado]</string>
 
     <!-- Default Label Values -->
     <string name="def_process_waiting">Acessando serviços...</string>
@@ -25,6 +28,13 @@
     <string name="def_description_minute">%d minuto</string>
     <string name="def_description_minutes">%d minutos</string>
     <string name="def_description_now">Agora pouco.</string>
+	
+	<!-- Defaul Metrics Values -->
+	<string name="def_description_next">bem próximo.</string>
+	<string name="def_description_meter">metro</string>
+	<string name="def_description_km">km</string>
+	<string name="def_description_miles">milhas</string>
+	
 
     <!-- Default Label Buttons -->
     <string name="def_btn_ok">OK</string>
@@ -39,12 +49,37 @@
     <string name="msg_alert_error_title">Exceção não tratada</string>
     <string name="def_msg_ask_open_gps_setting">Deseja abrir configurações de GPS?</string>
     <string name="def_msg_ask_try_agai">Gostaria de tentar novamente?</string>
-	
+    <string name="def_msg_choice_translate_title">Opções de tradução:</string>
+
+    <string-array name="def_choices_translate_languages">
+        <item>De Português para Inglês</item>
+        <item>De Inglês para Português</item>
+    </string-array>
+
+    <string name="def_lbl_tranlate">Traduzir</string>
+    <string name="def_lbl_tranlating">Traduzindo...</string>
+    <string name="def_lbl_tranlated">Traduzido</string>
+
     <!-- Default errors msgs -->
     <string name="def_error_msg_device_not_registred">Não foi possível verificar sua conta no Google Play. Tente novamente mais tarde.</string>
-	<string name="def_error_msg_google_play_not_available">Este dispositivo não possui suporte do Google Play. Verifique antes de continuar.</string>
-	<string name="def_error_msg_ws_server_not_responding">Pô Almir! Nosso servidor está indisponível. Por favor, tente mais tarde.</string>
+    <string name="def_error_msg_google_play_not_available">Este dispositivo não possui suporte do Google Play. Verifique antes de continuar.</string>
+    <string name="def_error_msg_ws_server_not_responding">Pôô Almir! Lamentamos, mas nosso servidor está indisponível. Por favor, tente mais tarde.</string>
     <string name="def_error_msg_unexpected_exception">Situação inesperada, por favor "saia e entre no fusca novamente".</string>
-   <string name="def_error_msg_whitout_internet_connection">Não há conexão com a internet.</string>
+    <string name="def_error_msg_whitout_internet_connection">Não há conexão com a internet.</string>
+    <string name="def_error_msg_location_not_found">Não foi possível buscar localização. Verifique se há conexão com a internet ou GPS está ligado.</string>
+    <string name="crash_toast_text">Ooooops ! I crashed, but a report has been sent to my developer to help fix the issue !</string>
+    <string name="crash_dialog_title">CrashTest has crashed</string>
+    <string name="crash_dialog_text">An unexpected error occurred forcing the
+	    application to stop. Please help us fix this by sending us error data,
+	    all you have to do is click OK.</string>
+    <string name="crash_dialog_comment_prompt">You might add your comments about the problem below:</string>
+    <string name="crash_dialog_ok_toast">Thank you !</string>
+    <string name="title_activity_feed_back">FeedBackActivity</string>
+  
+    <string name="feedback_title">Sua opinião</string>
+    <string name="feedback_give_your_opinion">Fale o que você achou do app:</string>
+    <string name="feedback_give_your_suggest">Alguma sugestão de melhoria/Crítica:</string>
+    <string name="feedback_thank_you">Muito obrigado! Sua opinião é importante para melhorarmos este aplicativo.</string>
+    <string name="feedback_btn_send">Enviar</string>
     
 </resources>

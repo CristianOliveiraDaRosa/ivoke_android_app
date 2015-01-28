@@ -16,7 +16,7 @@ public class ConfiguracaoModel {
 
     public ConfiguracaoModel()
     {
-        prefs = PreferenceManager.getDefaultSharedPreferences(Router.currentContext);
+        prefs = PreferenceManager.getDefaultSharedPreferences(Router.previousContext);
     }
 
     public ConfiguracaoModel(Context pContext)

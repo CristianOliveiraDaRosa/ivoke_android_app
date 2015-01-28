@@ -2,6 +2,7 @@ package com.app.ivoke.models;
 
 import java.util.ArrayList;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
@@ -69,17 +70,16 @@ public class UserModel extends WebServer {
 
         String userJson = web.doPostRequest(site(R.string.ws_url_user_get), parametros);
 
-        debug.log("FIM");
+        debug.var("userJson",userJson);
 
-        if(userJson != "null")
+        if(userJson.replace("\n", "").equals("null"))
         {
-         JSONObject json = new JSONObject(userJson);
-         user = new UserIvoke();
-         user.setIvokeID(json.getInt("id"));
-         user.setName(json.getString("name"));
-         user.setFacebookID(json.getString("facebook_id"));
+            return null;
         }
-
+        else
+        {
+             user = castJson(userJson);
+        }
         return user;
     }
 
@@ -88,18 +88,18 @@ public class UserModel extends WebServer {
         debug.method("asyncRegisterDevice").par("pUser", pUser).par("pRegistrationId", pRegistrationId);
         DefaultWebCallback callback = new DefaultWebCallback();
 
-        if(!pRegistrationId.isEmpty())
+        if(pRegistrationId!=null)
         {
             ArrayList<WebParameter> parameters = new ArrayList<WebParameter>();
 
-            parameters.add(new WebParameter("user_id"      , pUser.getIvokeID()));
+            parameters.add(new WebParameter("user_id"      , pUser.getId()));
             parameters.add(new WebParameter("device_reg_id", pRegistrationId));
 
             web.doAsyncPostRequest(site(R.string.ws_url_user_register_device), parameters, callback);
         }
         else
         {
-            callback.onError(Router.currentContext.getString(R.string.def_error_msg_device_not_registred), null);
+            callback.onError(Router.previousContext.getString(R.string.def_error_msg_device_not_registred), null);
         }
 
         return callback;
@@ -109,31 +109,32 @@ public class UserModel extends WebServer {
     {
         DefaultWebCallback callback = new DefaultWebCallback();
 
-        if(!pRegistrationId.isEmpty())
+        if(pRegistrationId!=null)
         {
             ArrayList<WebParameter> parameters = new ArrayList<WebParameter>();
 
-            parameters.add(new WebParameter("user_id"      , pUser.getIvokeID()));
+            parameters.add(new WebParameter("user_id"      , pUser.getId()));
             parameters.add(new WebParameter("device_reg_id", pRegistrationId));
 
             web.doAsyncPostRequest(site(R.string.ws_url_user_register_device), parameters, callback);
         }
         else
         {
-            callback.onError(Router.currentContext.getString(R.string.def_error_msg_device_not_registred), null);
+            callback.onError(Router.previousContext.getString(R.string.def_error_msg_device_not_registred), null);
         }
 
         return callback;
     }
 
-    public UserIvoke createOnServer(String pName, String pFacebookId) throws Exception
+    public UserIvoke createUser(String pName, String pGender, String pFacebookId) throws Exception
     {
-        debug.method("create").par("pName", pName).par("pFacebookId", pFacebookId);
+        debug.method("create").par("pName", pName).par("pGender", pGender).par("pFacebookId", pFacebookId);
         UserIvoke user = new UserIvoke();
         try
             {
                 ArrayList<WebParameter>  parametros = new ArrayList<WebParameter>();
                 parametros.add(web.parameter("name"       , pName));
+                parametros.add(web.parameter("gender"     , pGender));
                 parametros.add(web.parameter("facebook_id", pFacebookId));
 
                 String jsonString = web.doPostRequest(site(R.string.ws_url_user_add), parametros);
@@ -145,6 +146,7 @@ public class UserModel extends WebServer {
                 user.setIvokeID(json.getInt("id"));
                 user.setName(pName);
                 user.setFacebookID(pFacebookId);
+                user.setGender(pGender);
 
                 return user;
             }
@@ -175,4 +177,16 @@ public class UserModel extends WebServer {
         }
     }
 
+    public UserIvoke castJson(String pJson) throws JSONException
+    {
+        JSONObject json = new JSONObject(pJson);
+        UserIvoke user = new UserIvoke();
+
+         user.setIvokeID(json.getInt("id"));
+         user.setName(json.getString("name"));
+         user.setGender(json.getString("gender"));
+         user.setFacebookID(json.getString("facebook_id"));
+
+         return user;
+    }
 }

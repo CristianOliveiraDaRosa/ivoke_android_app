@@ -2,12 +2,41 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" >
+    android:orientation="vertical" >
+     
+    <ImageView
+        android:id="@id/login_ivoke_logo"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="100dp"
+        android:contentDescription="@string/logo_description"
+        android:src="@drawable/ic_ivoke_whit_circle" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/def_slogan"
+        android:textSize="16sp" 
+        android:textColor="@color/def_ivoke_palette_5" />
+    
     <com.facebook.widget.LoginButton
         android:id="@id/facebook_login_btn_facebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/facebook_login_lbl_advice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="152dp" />
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:text="@string/facebook_lbl_info_mural_facebook"
+        android:gravity="center_horizontal" />
 
 </LinearLayout>

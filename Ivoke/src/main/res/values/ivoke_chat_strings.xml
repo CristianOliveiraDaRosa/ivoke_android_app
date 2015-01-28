@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="send">Enviar</string>
+    <string name="type_to_compose_text_enter_to_send">Insira uma mensagem.</string>
+    <string name="connection">Login</string>
+    <string name="user">Nome</string>
+    <string name="domain">Domain</string>
+    <string name="resource">Resource</string>
+    <string name="password">Password</string>
+    <string name="chat">Conversa</string>
+    <string name="contact">Contatos</string>
+    <string name="destination">Conversando com:</string>
+    <string name="connection_in_progress">Autenticando</string>
+
+    <string name="chat_presence_online">ON</string>
+    <string name="chat_presence_offline">OFF</string>
+    
+    <string name="chat_info_msg_offline">Este usuário está offline e pode não receber suas mensagens.</string>
+    
+</resources>

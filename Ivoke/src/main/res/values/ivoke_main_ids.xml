@@ -1,27 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="main_act_menu_return" 		 type="id"></item>
+    <item name="main_act_menu_checking"		 type="id"></item>
     <item name="main_act_menu_mural" 		 type="id"></item>
     <item name="main_act_menu_contacts" 	 type="id"></item>
     <item name="main_act_menu_settings"      type="id"></item>
+    <item name="main_act_menu_settings_dropdown_setting" type="id"></item>
+    <item name="main_act_menu_settings_dropdown_logout"  type="id"></item>
     
     <!-- Mural Fragment -->
-    <item name="main_mural_posts_list" type="id"></item>
-    <item name="main_mural_title"      type="id"></item>
-    <item name="main_mural_boder_image" type="id"></item>
-    <item name="main_mural_image"      type="id"></item>
-    <item name="main_mural_message"    type="id"></item>
-    <item name="main_mural_when"       type="id"></item>
+    <item name="main_mural_posts_list"    type="id"></item>
+    <item name="main_mural_title"         type="id"></item>
+    <item name="main_mural_boder_image"   type="id"></item>
+    <item name="main_mural_image"         type="id"></item>
+    <item name="main_mural_message"       type="id"></item>
+    <item name="main_mural_when"          type="id"></item>
+    <item name="main_mural_distance"          type="id"></item>
+    <item name="main_mural_is_anonymous"  type="id"></item>
     <item name="main_mural_create_post_border" type="id"></item>
     <item name="main_mural_create_post_text"   type="id"></item>
     <item name="main_mural_create_post_button" type="id"></item>
-    <item name="main_mural_ctxmenu_delete"     type="id"></item>
+    <item name="main_mural_lay_menu_options"       type="id"></item>
+    <item name="main_mural_btn_menu_options_chat"  type="id"></item>
+    <item name="main_mural_btn_menu_options_open_facebook"  type="id"></item>
+      <!-- Context Menu -->
+        <item name="main_mural_ctxmenu_delete"                 type="id"></item>
+    	<item name="main_mural_ctxmenu_not_user_translate"     type="id"></item>
     
-    <!-- Conversation Fragment -->
-    <item name="main_conversation_user_name"    type="id"></item>
-    <item name="main_conversation_user_image"   type="id"></item>
-    <item name="main_conversation_last_message" type="id"></item>
-    <item name="main_conversation_when"         type="id"></item>
+    <!-- Contact Fragment -->
+    <item name="main_contact_user_name"    type="id"></item>
+    <item name="main_contact_user_image"   type="id"></item>
+    <item name="main_contact_last_message"  type="id"></item>
+    <item name="main_contact_icon_presence" type="id"></item>
+    <item name="main_contact_when"          type="id"></item>
+	<item name="main_contact_ctxmenu_start_chat"   type="id"></item>
+	<item name="main_contact_ctxmenu_delete_user"  type="id"></item>
 	
     <!-- Processing Fragment -->
     <item name="main_processing_progress_bar"  type="id"></item>

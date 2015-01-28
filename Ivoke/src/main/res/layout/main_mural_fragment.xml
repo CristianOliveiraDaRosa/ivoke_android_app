@@ -4,41 +4,29 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:id="@id/main_mural_create_post_border"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal" >
-
-       <EditText
-            android:id="@id/main_mural_create_post_text"
+        <com.app.ivoke.objects.extended_android.PullDownListView
+            android:id="@id/main_mural_posts_list"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/main_mural_create_post_button"
-            android:ems="10"
-            android:inputType="text"
-            android:hint="@string/main_mural_txt_create_post_hint" >
+            android:layout_height="0dp"
+            android:layout_weight="0.01"
+            android:descendantFocusability="beforeDescendants"
+             >
 
-            <requestFocus />
-        </EditText>
+		</com.app.ivoke.objects.extended_android.PullDownListView>
 		
-         <Button
-            android:id="@id/main_mural_create_post_button"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@id/main_mural_create_post_border"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:gravity="right"
-            android:text="@string/main_mural_btn_create_post" />
-       
-    </RelativeLayout>
+            android:orientation="horizontal" >
 
-        <ListView 
-		    android:id="@id/main_mural_posts_list"
-		    android:layout_width="fill_parent"
-		    android:layout_height="fill_parent" >
-		</ListView>
+        <Button
+            style="@style/DefaultTheme.ButtonStyleSecondColor"
+            android:id="@id/main_mural_create_post_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_action_new_event"
+            android:text="@string/main_mural_btn_create_post" />
+    </LinearLayout>
 </LinearLayout>
 

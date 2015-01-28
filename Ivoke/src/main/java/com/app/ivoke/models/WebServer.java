@@ -22,6 +22,6 @@ public class WebServer {
 
        public String site(int resId)
        {
-           return Router.currentContext.getResources().getString(R.string.ws_url)+ Router.currentContext.getResources().getString(resId);
+           return Router.previousContext.getResources().getString(R.string.ws_url)+ Router.previousContext.getResources().getString(resId);
        }
 }

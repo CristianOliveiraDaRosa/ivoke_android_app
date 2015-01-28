@@ -13,7 +13,7 @@ public abstract class Database extends SQLiteOpenHelper {
     public static int    DATABASE_VERSION = 1;
 
     public Database() {
-        super(Router.currentContext, DATABASE_NAME, null, DATABASE_VERSION);
+        super(Router.previousContext, DATABASE_NAME, null, DATABASE_VERSION);
         // TODO Auto-generated constructor stub
     }
 }

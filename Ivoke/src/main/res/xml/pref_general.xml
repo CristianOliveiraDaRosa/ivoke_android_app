@@ -3,14 +3,15 @@
    
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
-    <com.app.ivoke.objects.extended_android.IntEditTextPreference
-        android:defaultValue="10"
+    <ListPreference
+        android:defaultValue="500"
+        android:entries="@array/pref_mural_post_distance_titles"
+        android:entryValues="@array/pref_mural_post_distance_values"
         android:key="@string/pkey_mural_post_distance"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
         android:title="@string/pref_gen_title_mural_post_distance"
-        android:summary="@string/pref_gen_sumar_mural_post_distance"
-        android:numeric="integer"
-        android:maxLength="2"
-     />
+        android:summary="@string/pref_gen_sumar_mural_post_distance" />
     
     <CheckBoxPreference
         android:defaultValue="true"
@@ -19,6 +20,12 @@
         android:summary="@string/pref_gen_sumar_ask_for_cheking"
         />
     
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/pkey_show_anonymous_posts"
+        android:title="@string/pref_gen_title_show_anonymous_posts" 
+        android:summary="@string/pref_gen_sumar_show_anonymous_posts"
+        />
     
     
     <!--

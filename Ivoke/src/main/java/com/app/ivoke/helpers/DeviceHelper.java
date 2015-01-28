@@ -1,18 +1,26 @@
 package com.app.ivoke.helpers;
 
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.provider.Settings;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 
 import com.app.ivoke.Common;
+import com.app.ivoke.controllers.main.MainActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
 public class DeviceHelper {
 
     public static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    public static final String PE_FROM_NOTIFICATION = "Ivoke.Notification";
 
     /*
      *  Return boolean
@@ -51,4 +59,16 @@ public class DeviceHelper {
        
        return isGPSEnabled||isNetworkEnabled;
     }
+
+    public static void showGpsConfiguration(Activity pActivity) {
+        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        pActivity.startActivity(intent);
+    }
+
+    public static void showNetworkConfiguration(Activity pActivity) {
+        Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+        pActivity.startActivity(intent);
+    }
+
+
 }

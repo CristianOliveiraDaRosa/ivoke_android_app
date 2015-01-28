@@ -5,11 +5,18 @@
 	    
     <string name="check_lbl_onde_voce_esta">Onde você está?</string>
 	<string name="check_btn_selecione">Selecione</string>
-	<string name="check_btn_go_to_next">Pular Checking</string>
+	<string name="check_btn_go_to_next">Ir ao Mural</string>
+	
+	<string name="check_lbl_go_to_mural">Ou você pode ir direto ao mural</string>
+	
+	
+	<string name="places_lbl_instructions">Informe o nome do local</string>
+	
 	
 	<!-- Mensagens -->
 	<string name="check_msg_erro_local_selecionado">Não foi possível selecionar o local.</string>
 	<string name="check_msg_error_get_fb_user">Usuário do Facebook não identificado.</string>
 	<string name="check_msg_info_on_get_user_local">Não foi possível encontrar sua localização. Deseja abrir configurações de GPS?</string>
     <string name="check_msg_info_find_location">Buscando local do usuário...</string>
+    <string name="check_msg_ask_checkout">Deseja realizar o checkout de %s?</string>
 </resources>

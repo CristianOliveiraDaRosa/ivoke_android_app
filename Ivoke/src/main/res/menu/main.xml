@@ -3,23 +3,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.app.ivoke.MainActivity" >
     <item
-        android:id="@id/main_act_menu_return"
-        android:icon="@drawable/abc_ic_ab_back_holo_light"
+        android:id="@id/main_act_menu_checking"
+        android:icon="@drawable/ic_action_place"
         app:showAsAction="always"/>
     <item
         android:id="@id/main_act_menu_mural"
         android:orderInCategory="100"
         app:showAsAction="always"
-        android:title="@string/main_menu_title_mural" />
+        android:title="@string/main_menu_title_mural"
+        android:icon="@drawable/ic_action_group" />
     <item
         android:id="@id/main_act_menu_contacts"
         android:orderInCategory="100"
         app:showAsAction="always"
-        android:title="@string/main_menu_title_contacts" />    
+        android:title="@string/main_menu_title_contacts" 
+        android:icon="@drawable/ic_action_chat"/>    
     <item
         android:id="@id/main_act_menu_settings"
         android:orderInCategory="100"
         android:icon="@drawable/ic_actbar_settings"
-        app:showAsAction="always"/>
+        app:showAsAction="always">
+        <menu>
+            <item android:id="@id/main_act_menu_settings_dropdown_setting"
+                  android:title="@string/main_menu_title_setting"/>
+            <item
+		        android:id="@+id/main_act_menu_help"
+		        android:title="@string/help_main_lbl_how_works_title"
+		        android:icon="@drawable/ic_action_help"
+		        app:showAsAction="always"/>
+            <item
+		        android:id="@+id/main_act_menu_feedback"
+		        android:title="@string/feedback_title"
+		        app:showAsAction="always"/>
+        
+            <item android:id="@id/main_act_menu_settings_dropdown_logout"
+                  android:title="@string/main_menu_title_logout"/>
+        </menu>
+    </item>
    
 </menu>

@@ -6,15 +6,20 @@ public class DefaultWebCallback implements IAsyncCallBack {
 
     private String urlError;
     private Exception exception;
+    private boolean isRunning;
 
     @Override
-    public void onPreExecute() { }
+    public void onPreExecute() {
+        isRunning = true;
+    }
 
     @Override
     public void onPreComplete(Object pResult) {    }
 
     @Override
-    public void onCompleteTask(Object pResult) { }
+    public void onCompleteTask(Object pResult) {
+        isRunning = false;
+    }
 
     @Override
     public void onProgress(int pPercent, Object pObject) {}
@@ -39,6 +44,14 @@ public class DefaultWebCallback implements IAsyncCallBack {
 
     public void setException(Exception exception) {
         this.exception = exception;
+    }
+
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public void setRunning(boolean isRunning) {
+        this.isRunning = isRunning;
     }
 
 }

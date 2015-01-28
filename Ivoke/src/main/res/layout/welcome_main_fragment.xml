@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@id/welcome_main_lbl_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/welcome_main_lbl_welcome"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/def_ivoke_blue" />
+	
+     <ImageView
+        android:id="@id/login_ivoke_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/logo_description"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/ic_ivoke_whit_circle" />
+
+     <TextView
+         android:id="@id/welcome_main_lbl_description"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_horizontal"
+         android:text="@string/welcome_main_lbl_description"
+         android:layout_margin="20dp"
+         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+     <Button
+         style="@style/DefaultTheme.ButtonStyle"
+         android:id="@id/welcome_main_btn_next"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="right"
+         android:layout_margin="20dp"
+         android:drawableRight="@drawable/ic_action_next_item"
+         android:text="@string/welcome_btn_next" />
+    
+</LinearLayout>

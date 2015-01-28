@@ -13,6 +13,17 @@ public abstract class DefaultBackgroudWorker extends AsyncTask<Object, Object, O
         context = pActivity;
     }
 
+    @Override
+    protected void onPostExecute(Object result) {
+        super.onPostExecute(result);
+        this.onComplete(result);
+    }
+
+    public void onComplete(Object result)
+    {
+
+    }
+
     public Activity getActivityCaller()
     {
         return context;
@@ -31,6 +42,11 @@ public abstract class DefaultBackgroudWorker extends AsyncTask<Object, Object, O
     public boolean inError()
     {
         return exception!=null;
+    }
+
+    public boolean isRunning()
+    {
+        return this.getStatus() == AsyncTask.Status.RUNNING;
     }
 
 }

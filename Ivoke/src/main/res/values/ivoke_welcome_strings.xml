@@ -2,5 +2,21 @@
 <resources>
     <string name="title_activity_welcome">Bem Vindo</string>
     
-    <string name="welcome_lbl_processing">Abrindo Ivoke...</string>
+    <string name="welcome_lbl_processing">Abrindo o Ivokee...</string>
+    
+    <string name="welcome_main_lbl_welcome">Seja bem vindo ao Ivokee</string>
+    <string name="welcome_main_lbl_description">Iniciaremos agora um passo a passo para você deixar o Ivokee do seu jeito.</string>
+    
+    <string name="welcome_localization_lbl_title">GPS e Localização</string>
+    <string name="welcome_localization_lbl_description">O Ivokee mostra somente postagens de pessoas próximas a você, por isso precisamos que o gps e/ou internet esteja ligada.</string>
+    <string name="welcome_localization_btn_gps">GPS</string>
+    <string name="welcome_localization_btn_network">Internet</string>
+    
+    <string name="welcome_settings_lbl_title">Configurações do Applicativo</string>
+    <string name="welcome_settings_lbl_description">Acesse as configurações do aplicativo para ajusta-lo a sua maneira.</string>
+    <string name="welcome_settings_btn_settings">Configurações.</string>
+    
+    <string name="welcome_btn_end">Fim Tutorial.</string>
+    <string name="welcome_btn_next">Próximo passo</string>
+    
 </resources>

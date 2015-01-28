@@ -5,12 +5,12 @@
     android:orientation="vertical" >
 
     <ProgressBar
-        android:id="@id/main_processing_progress_bar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@id/login_pregress_bar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="100dp"
+        android:indeterminateDrawable="@drawable/default_progress_bar" />
 
     <TextView
         android:id="@id/main_processing_progress_lbl"

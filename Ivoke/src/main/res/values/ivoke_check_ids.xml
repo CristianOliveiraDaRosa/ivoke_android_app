@@ -6,6 +6,8 @@
     <item name="check_btn_seleciona_local" type="id"/>
     <item name="check_btn_go_to_next"      type="id"/>
     
+    <item name="places_lbl_instructions"   type="id"/>
+	
     <!-- PlacesActivity -->
     <item name="check_pickplaces_lista_locais" type="id" />
     

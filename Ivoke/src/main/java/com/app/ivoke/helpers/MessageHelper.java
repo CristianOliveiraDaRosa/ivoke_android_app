@@ -1,18 +1,14 @@
 package com.app.ivoke.helpers;
 
 import com.app.ivoke.R;
-import com.app.ivoke.objects.interfaces.IAsyncCallBack;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.res.Resources;
-import android.os.AsyncTask;
 import android.widget.Toast;
 
 public class MessageHelper {
@@ -90,6 +86,22 @@ public class MessageHelper {
 
     }
 
+    public static void askYesNoAlert(Context pContext, String pMessage, DialogInterface.OnClickListener pListener)
+    {
+        MessageAlert alert = infoAlert(pContext);
+        alert.setMessage(pMessage);
+        alert.getAlertDialog()
+             .setButton( pContext.getString(R.string.def_btn_yes)
+                       , pListener);
+
+        alert.getAlertDialog()
+             .setButton2( pContext.getString(R.string.def_btn_no)
+                        , pListener);
+
+        alert.showDialog();
+
+    }
+
     public static void askYesNoCancelAlert(Context pContext, int resID, DialogInterface.OnClickListener pListener)
     {
         MessageAlert alert = infoAlert(pContext);
@@ -107,6 +119,14 @@ public class MessageHelper {
                     , pListener);
 
         alert.showDialog();
+    }
+
+    public static AlertDialog.Builder getDialogWhitChoices(Activity pActivity, CharSequence[] pChoices, DialogInterface.OnClickListener pClickListener)
+    {
+        AlertDialog.Builder alert = new AlertDialog.Builder(pActivity);
+        alert.setSingleChoiceItems(pChoices, -1, pClickListener);
+        //alert.setPositiveButton("OK", pClickListener);
+        return alert;
     }
 
     public static ProgressDialog ProgressAlert(Context pContext, int resId)
@@ -252,6 +272,16 @@ public class MessageHelper {
         {
             return context;
         }
+
+        public MessageAlert setDefaultButtonOk() {
+            this.alertDialog.setButton("Ok", new OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            return this;
+        }
     }
 
     public static void unexpectedException(Activity pActivity, Exception e) {
@@ -266,5 +296,11 @@ public class MessageHelper {
             }
            }).showDialog();
           e.printStackTrace();
+    }
+
+    public static void showHelp(Activity pActivity, int pResId) {
+         infoAlert(pActivity)
+         .setMessage(pResId)
+         .setDefaultButtonOk().showDialog();
     }
 }

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -10,11 +10,40 @@
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         -->
+      
     </style>
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="actionBarStyle">@style/DefaultTheme.ActionBar</item>
     </style>
-
+	
+    <style name="DefaultTheme.ActionBar" parent="@style/Widget.AppCompat.Light.ActionBar">
+          <item name="titleTextStyle">@style/DefaultTheme.ActionBar.TitleTextStyle</item>
+  		  <item name="android:background">#FFFFFF</item>
+    </style>
+    
+    <style name="DefaultTheme.ActionBar.TitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+       <item name="android:textColor">@color/def_font_color</item>
+    </style>
+    
+	<style name="DefaultTheme.ButtonStyle" parent="AppTheme">
+            <item name="android:layout_width">wrap_content</item>
+            <item name="android:layout_height">wrap_content</item>
+            <item name="android:layout_gravity">center_horizontal</item>
+            <item name="android:textColor">@color/def_font_color</item>
+            <item name="android:background">@drawable/buttons_white_and_blue</item>
+    </style>
+    
+	<style name="DefaultTheme.ButtonStyleSecondColor" parent="DefaultTheme.ButtonStyle">
+            <item name="android:layout_width">wrap_content</item>
+            <item name="android:layout_height">wrap_content</item>
+            <item name="android:layout_gravity">center_horizontal</item>
+            <item name="android:textColor">@color/def_font_color</item>
+            <item name="android:background">@drawable/buttons_quad_style</item>
+            <item name="android:drawablePadding">2dp</item>
+            <item name="android:gravity">center_horizontal</item>
+    </style>
+        
 </resources>

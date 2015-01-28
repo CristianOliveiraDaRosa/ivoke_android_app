@@ -1,5 +1,7 @@
-# Ivoke android app
+# Ivokee for Android
 Is just another android app.
+
+It is not online right now. I will up it again soon.
 
 The ideia behind this app was "We need a newsfeed like Facebook but only by peoples near you."
 
@@ -8,14 +10,23 @@ This was my first self-published app. Now I open they code for everyone that wan
 
 1. XMMP Service for Chat
 
-2. Geolocalization
+2. asmack (Xmmp Connection)
 
-3. Async Webservice access
+3. Geolocalization
 
-4. Facebook Integration
+4. Async Webservice access
 
-#Licence
+5. Facebook Integration
+
+This app works with a simple webservice made by rails that been found [here](https://github.com/CristianOliveiraDaRosa/ivoke_ws)
+
+##Unit Tests
+
+... Need to be implemented yet. (I know... my shame)
+
+##Licence
 This project is under the MIT licence.
 
-#Autor
+
+###Autor
 Cristian Oliveira

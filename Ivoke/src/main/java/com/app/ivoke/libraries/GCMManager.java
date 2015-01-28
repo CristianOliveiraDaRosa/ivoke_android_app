@@ -29,6 +29,8 @@ public class GCMManager {
     String gcm_registration_id;
     Context context;
 
+    Common common;
+
     DefaultWebCallback callback;
     RegistrationAsync asyncRegister = new RegistrationAsync();
 
@@ -40,7 +42,7 @@ public class GCMManager {
         dbg.method("getRegistrationId");
         final SharedPreferences prefs = getGCMPreferences(context);
         String registrationId = prefs.getString(PREF_REGISTRATION_ID, "");
-        if (registrationId.isEmpty()) {
+        if (registrationId!=null) {
             dbg.log("Not registration");
             return "";
         }
@@ -145,7 +147,7 @@ public class GCMManager {
          */
         private void sendRegistrationIdToBackend() {
 
-            Common.setDeviceRegistrationId(gcm_registration_id);
+            //Common.setDeviceRegistrationId(gcm_registration_id);
 
         }
 

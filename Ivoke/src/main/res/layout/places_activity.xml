@@ -5,6 +5,15 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
         >
+
+    <TextView
+        android:id="@id/places_lbl_instructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/places_lbl_instructions"
+        android:layout_margin="5dp" />
+
     <fragment
             android:id="@id/check_pickplaces_lista_locais"
             android:name="com.facebook.widget.PlacePickerFragment"

@@ -53,4 +53,11 @@ public class PlacesActivity extends ActionBarActivity {
 
     }
 
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        if(fmFacebookPlaces!=null)
+            fmFacebookPlaces.loadData(true);
+    }
 }

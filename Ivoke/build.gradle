@@ -18,9 +18,16 @@ android {
     }
 }
 
+repositories{
+    mavenCentral()
+}
+
 dependencies {
     compile 'com.facebook.android:facebook-android-sdk:3.21.1'
     compile 'com.android.support:support-v4:18.0.0'
     compile 'com.google.android.gms:play-services:+'
     compile 'com.android.support:appcompat-v7:18.0.0'
+    compile 'ch.acra:acra:4.5.0'
+    compile 'org.igniterealtime.smack:smack:3.2.1'
+    compile 'org.igniterealtime.smack:smackx:3.2.1'
 }

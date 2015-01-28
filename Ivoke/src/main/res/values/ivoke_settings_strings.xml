@@ -1,18 +1,39 @@
 <resources>
 	
     <string name="title_activity_settings">Preferências</string>
-
+	
+    <!-- Application Controls -->
+    <string name="pkey_app_has_been_configured">com.app.ivoke.app_been_configured</string>
+    <string name="pkey_facebook_has_logged">com.app.ivoke.facebook_has_logged</string>
+    
     <!-- Settings General -->
+    
     <string name="pref_header_general">Geral</string>
     
     <string name="pkey_mural_post_distance">com.app.ivoke.mural_post_distance</string>
     <string name="pref_gen_title_mural_post_distance">Distância</string>
     <string name="pref_gen_sumar_mural_post_distance">Distância de procura dos posts baseada em sua localização.</string>
+    <string-array name="pref_mural_post_distance_titles">
+        <item>200 metros</item>
+        <item>500 metros</item>
+        <item>1000 metros</item>
+        <item>1500 metros</item>
+    </string-array>
+    <string-array name="pref_mural_post_distance_values">
+        <item>200</item>
+        <item>500</item>
+        <item>1000</item>
+        <item>1500</item>
+    </string-array>
+    
     
     <string name="pkey_ask_for_checking"   >com.app.ivoke.ask_for_checking</string>
     <string name="pref_gen_title_ask_for_cheking">Checking</string>
     <string name="pref_gen_sumar_ask_for_cheking">Solicitar checking ao abrir.</string>
     
+    <string name="pkey_show_anonymous_posts"   >com.app.ivoke.show_anonymous_posts</string>
+    <string name="pref_gen_title_show_anonymous_posts">Mostrar posts anônimos?</string>
+    <string name="pref_gen_sumar_show_anonymous_posts">Indica se mural carregará posts anônimos.</string>
     
     <!-- Settings for Data & Sync -->
     <string name="pref_header_data_sync">Frequência de Atualização</string>

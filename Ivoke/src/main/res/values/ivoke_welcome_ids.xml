@@ -2,4 +2,19 @@
 <resources>
     <item name="welcome_logo_ivoke" type="id"></item>
     <item name="welcome_lbl_welcome" type="id"></item>
+	
+    <item name="welcome_main_lbl_welcome" type="id"></item>
+    <item name="welcome_main_lbl_description" type="id"></item>
+    <item name="welcome_main_btn_next" type="id"></item>
+    
+    <item name="welcome_localization_lbl_title"       type="id"></item>
+    <item name="welcome_localization_lbl_description" type="id"></item>
+    <item name="welcome_localization_btn_network"     type="id"></item>
+    <item name="welcome_localization_btn_gps"         type="id"></item>
+    <item name="welcome_localization_btn_next"        type="id"></item>
+    
+    <item name="welcome_settings_lbl_title"       type="id"></item>
+    <item name="welcome_settings_lbl_description" type="id"></item>
+    <item name="welcome_settings_btn_next"        type="id"></item>
+    
 </resources>

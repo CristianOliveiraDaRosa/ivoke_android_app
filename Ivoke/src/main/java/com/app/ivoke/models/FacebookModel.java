@@ -143,4 +143,19 @@ public class FacebookModel {
         }
     }
 
+    public boolean hasSessionOpened()
+    {
+        return activeSession != null? activeSession.isOpened() : false;
+    }
+
+    public void logout() {
+        if(activeSession != null? activeSession.isOpened() : false)
+        {
+            activeSession.closeAndClearTokenInformation();
+            activeSession.close();
+            Session.getActiveSession();
+            Session.setActiveSession(null);
+        }
+    }
+
 }

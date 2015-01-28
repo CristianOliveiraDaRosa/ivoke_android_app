@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:facebook="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="64dip"
+    android:gravity="right"
+    android:padding="6dip" >
+	
+<!--     <ImageView -->
+<!--          android:id="@id/main_contact_icon_presence" -->
+<!--          android:layout_width="20dip" -->
+<!--          android:layout_height="20dip" -->
+<!--          android:layout_alignParentLeft="true" -->
+<!--          android:layout_centerVertical="true" -->
+<!--          android:src="@drawable/away" -->
+<!--          android:contentDescription="@string/main_contact_icon_description" /> -->
+
+    <TextView
+        android:id="@id/main_contact_icon_presence"
+        android:layout_width="30dip"
+        android:layout_height="20dip"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/main_contact_icon_description"
+        android:text="@string/chat_presence_online"
+        android:textColor="@color/chat_presence_online"
+        android:textSize="14sp"
+        android:textStyle="bold" 
+        android:gravity="right"/>
+
+    <TextView
+        android:id="@id/main_contact_last_message"
+        android:layout_width="fill_parent"
+        android:layout_height="26dip"
+        android:layout_alignLeft="@+id/main_contact_user_name"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/main_contact_user_name"
+        android:gravity="top"
+        android:paddingLeft="5dp"
+        android:text="" />
+
+    <TextView
+        android:id="@id/main_contact_user_name"
+        android:layout_width="fill_parent"
+        android:layout_height="26dip"
+        android:layout_toRightOf="@id/main_contact_user_image"
+        android:gravity="bottom"
+        android:paddingLeft="5dp"
+        android:text="@string/def_null_usuario_nome"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+     <com.facebook.widget.ProfilePictureView
+         android:id="@id/main_contact_user_image"
+         android:layout_width="50dip"
+         android:layout_height="50dip"
+         android:layout_alignParentBottom="true"
+         android:layout_toRightOf="@+id/main_contact_icon_presence"
+         android:padding="5dp"
+         android:src="@drawable/user"
+         android:radius="13.0dip" >
+
+     </com.facebook.widget.ProfilePictureView>
+
+     
+        
+</RelativeLayout>

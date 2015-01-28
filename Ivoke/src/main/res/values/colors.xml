@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="def_font_color">#000000</color>
+    
+    <color name="def_button_border">#06C0CE</color>
+    <color name="def_button_background">#D3F0F2</color>
+    
+    <color name="def_ivoke_blue">#33b6ea</color>
+    <color name="def_ivoke_white">#FFFFFF</color>
+    
+    <color name="def_ivoke_palette_1">#69D2E7</color>
+    <color name="def_ivoke_palette_2">#A7DBD8</color>
+    <color name="def_ivoke_palette_3">#E0E4CC</color>
+    <color name="def_ivoke_palette_4">#F38630</color>
+    <color name="def_ivoke_palette_5">#FA6900</color>
+    
+    <color name="chat_presence_online">#06C0CE</color>
+    <color name="chat_presence_offline">#CAE3E8</color>
+</resources>
